@@ -33,6 +33,13 @@ To start the development server, run:
 ```sh
 npm start
 ```
+
+or
+
+```sh
+yarn start
+```
+
 This will start the Parcel development server and open the project in your default web browser.
 
 ## Build the Project
@@ -41,6 +48,12 @@ To create a production build, run:
 
 ```sh
 npm run build
+```
+
+or
+
+```sh
+yarn build
 ```
 
 The build artifacts will be stored in the `build` directory
