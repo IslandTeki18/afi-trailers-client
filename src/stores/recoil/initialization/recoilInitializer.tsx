@@ -40,8 +40,8 @@ export const RecoilInitializer = (props: RecoilInitializerProps) => {
 
     // Set initial pricing information
     const initializePricing = () => {
-      const baseRate = 100; // Example: setting a default base rate
-      const durationDiscount = 0; // Example: default no discount
+      const baseRate = 100;
+      const durationDiscount = 0;
       setPricing({
         baseRate,
         durationDiscount,
