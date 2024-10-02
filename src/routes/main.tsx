@@ -2,8 +2,16 @@ import * as React from "react";
 import { useEffect, useMemo } from "react";
 import { Outlet } from "react-router-dom";
 import { Footer, Navbar } from "~src/components";
-import { HomeView } from "~src/features";
-// Import views here
+import {
+  HomeView,
+  TrailerListView,
+  TrailerBookingView,
+  TrailerDetailsView,
+  ConfirmationView,
+  AboutUsView,
+  ContactUsView,
+  PricingView,
+} from "~src/features";
 
 function NonAuthenticatedRoutes() {
   const [navigation, setNavigation] = React.useState([
@@ -11,7 +19,7 @@ function NonAuthenticatedRoutes() {
     { name: "Trailers", href: "/trailers", current: false },
     { name: "Pricing", href: "/pricing", current: false },
     { name: "About", href: "/about", current: false },
-    { name: "Login", href: "/sign-in", current: false },
+    { name: "Contact", href: "/contact", current: false },
   ]);
   const updatedNavItems = useMemo(() => {
     return navigation.map((item) => ({
@@ -46,6 +54,39 @@ export const mainRoutes = [
       {
         element: <HomeView />,
         index: true,
+      },
+      {
+        path: "trailers",
+        children: [
+          {
+            element: <TrailerListView />,
+            index: true,
+          },
+          {
+            path: ":trailerId",
+            element: <TrailerDetailsView />,
+          },
+          {
+            path: ":trailerId/booking",
+            element: <TrailerBookingView />,
+          },
+          {
+            path: ":trailerId/confirmation/:confirmationId",
+            element: <ConfirmationView />,
+          },
+        ],
+      },
+      {
+        path: "about",
+        element: <AboutUsView />,
+      },
+      {
+        path: "contact",
+        element: <ContactUsView />,
+      },
+      {
+        path: "pricing",
+        element: <PricingView />,
       },
     ],
   },
