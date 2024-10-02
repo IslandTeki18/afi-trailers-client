@@ -8,6 +8,9 @@ import { HomeView } from "~src/features";
 function NonAuthenticatedRoutes() {
   const [navigation, setNavigation] = React.useState([
     { name: "Home", href: "/", current: true },
+    { name: "Trailers", href: "/trailers", current: false },
+    { name: "Pricing", href: "/pricing", current: false },
+    { name: "About", href: "/about", current: false },
     { name: "Login", href: "/sign-in", current: false },
   ]);
   const updatedNavItems = useMemo(() => {
@@ -41,7 +44,7 @@ export const mainRoutes = [
     element: <NonAuthenticatedRoutes />,
     children: [
       {
-        element:<HomeView />,
+        element: <HomeView />,
         index: true,
       },
     ],

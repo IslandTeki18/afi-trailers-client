@@ -4,6 +4,8 @@ import {
   FeaturedTrailersSection,
   HowItWorksSection,
   AboutOurTeamSection,
+  TrailerPricingSection,
+  FrequentlyAskQuestionsSection,
 } from "../components";
 
 export const HomeView = () => {
@@ -12,7 +14,9 @@ export const HomeView = () => {
       <HeroImageSection />
       <FeaturedTrailersSection />
       <HowItWorksSection />
+      <TrailerPricingSection />
       <AboutOurTeamSection />
+      <FrequentlyAskQuestionsSection />
     </div>
   );
 };

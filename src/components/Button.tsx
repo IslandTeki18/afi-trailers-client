@@ -1,6 +1,6 @@
 import * as React from "react";
 
-type ButtonVariant = "primary" | "secondary" | "danger" | "success" | "warning";
+type ButtonVariant = "primary" | "secondary" | "accent" | "success" | "warning";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -17,10 +17,10 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantClasses = {
     primary:
-      "bg-blue-500 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700",
+      "bg-gray-800 text-white hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700",
     secondary:
-      "bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600",
-    danger:
+      "bg-yellow-200 text-yellow-800 hover:bg-yellow-300 dark:bg-yellow-700 dark:text-yellow-200 dark:hover:bg-yellow-600",
+    accent:
       "bg-red-500 text-white hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700",
     success:
       "bg-green-500 text-white hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700",
