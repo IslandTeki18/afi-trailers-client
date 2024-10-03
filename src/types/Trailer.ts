@@ -2,22 +2,28 @@ export type Trailer = {
   _id: string;
   name: string;
   capacity: string;
-  dimensions: string; 
+  dimensions: string;
   type: string;
-  isAvailable: boolean;
   halfDayRentalPrice?: number;
   fullDayRentalPrice?: number;
-  rentalPricePerWeek?: number; 
-  rentalPricePerMonth?: number; 
-  maintenanceStatus: "Operational" | "Maintenance" | "Out of Service"; 
-  lastMaintenanceDate: Date; 
-  nextAvailableDate: Date | null;
+  weekendSurcharge?: number;
+  maintenanceStatus: "Operational" | "Maintenance" | "Out of Service";
+  lastMaintenanceDate: Date;
+  bookedDates: TrailerBookedDates[];
   location: string;
   photos?: string[];
-  features: string[]; 
+  features: string[];
   usageHistory: TrailerUseageHistory[];
   insuranceRequired: boolean;
   towingRequirements: string[];
+};
+
+type TrailerBookedDates = {
+  startDate: Date;
+  endDate: Date;
+  customerId: number;
+  bookingId: string;
+  timeStamp: Date;
 };
 
 type TrailerUseageHistory = {

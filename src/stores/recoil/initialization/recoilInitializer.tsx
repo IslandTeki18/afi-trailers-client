@@ -39,19 +39,18 @@ export const RecoilInitializer = (props: RecoilInitializerProps) => {
     };
 
     // Set initial pricing information
-    const initializePricing = () => {
-      const baseRate = 100;
-      const durationDiscount = 0;
-      setPricing({
-        baseRate,
-        durationDiscount,
-        total: baseRate - durationDiscount,
-      });
-    };
+    // const initializePricing = () => {
+    //   const baseRate = 100;
+    //   const durationDiscount = 0;
+    //   setPricing({
+    //     baseRate,
+    //     durationDiscount,
+    //     total: baseRate - durationDiscount,
+    //   });
+    // };
 
     fetchTrailers();
     fetchCustomer();
-    initializePricing();
   }, [setTrailers, setCustomer, setPricing]);
 
   return <RecoilRoot>{props.children}</RecoilRoot>;
