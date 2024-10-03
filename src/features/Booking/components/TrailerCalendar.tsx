@@ -161,7 +161,34 @@ export const TrailerCalendar: React.FC<TrailerCalendarProps> = ({
         <Card
           className="mt-6"
           header={<h3 className="text-xl font-semibold">Booking Summary</h3>}
-          footer={<Button className="w-full">Confirm Booking</Button>}
+          footer={
+            <Button
+              className="w-full"
+              onClick={() => {
+                console.log("Booking confirmed", {
+                  selectedDates,
+                  rentalType,
+                  clientInformation,
+                  totalPrice: calculateTotalPrice(),
+                });
+                setClientInformation({
+                  name: "",
+                  phone: "",
+                  email: "",
+                  address: {
+                    street: "",
+                    city: "",
+                    state: "",
+                    zip: "",
+                  },
+                });
+                setSelectedDates([]);
+                setRentalType("full");
+              }}
+            >
+              Confirm Booking
+            </Button>
+          }
         >
           <div className="space-y-4">
             <div>
@@ -188,11 +215,12 @@ export const TrailerCalendar: React.FC<TrailerCalendarProps> = ({
             ) : (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  * <span className="font-semibold">Full Day</span> rental only for multiple days
+                  * <span className="font-semibold">Full Day</span> rental only
+                  for multiple days
                 </label>
               </div>
             )}
-            <form className="space-y-2">
+            <div className="space-y-2">
               <Input
                 label="Name"
                 value={clientInformation.name}
@@ -236,15 +264,16 @@ export const TrailerCalendar: React.FC<TrailerCalendarProps> = ({
                   })
                 }
               />
-              <Input
+              <Dropdown
                 label="City"
-                value={clientInformation.address.city}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                placeholder="Select a city"
+                options={utahCountyCityOptions}
+                onChange={(value) =>
                   setClientInformation({
                     ...clientInformation,
                     address: {
                       ...clientInformation.address,
-                      city: e.target.value,
+                      city: value,
                     },
                   })
                 }
@@ -262,20 +291,6 @@ export const TrailerCalendar: React.FC<TrailerCalendarProps> = ({
                   })
                 }
               />
-              <Dropdown
-                label="City"
-                placeholder="Select a city"
-                options={utahCountyCityOptions}
-                onChange={(value) =>
-                  setClientInformation({
-                    ...clientInformation,
-                    address: {
-                      ...clientInformation.address,
-                      city: value,
-                    },
-                  })
-                }
-              />
               <Input
                 label="Zip"
                 value={clientInformation.address.zip}
@@ -289,7 +304,7 @@ export const TrailerCalendar: React.FC<TrailerCalendarProps> = ({
                   })
                 }
               />
-            </form>
+            </div>
 
             <div>
               <h4 className="text-lg font-medium mb-2">Pricing:</h4>

@@ -64,7 +64,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       {label && (
         <label
           htmlFor={id}
-          className="mb-1 font-medium text-gray-700 dark:text-gray-200"
+          className="mb-2 font-medium text-gray-700 dark:text-gray-200"
         >
           {label}
         </label>
@@ -96,7 +96,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       {isOpen && (
         <div className="origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
           <div
-            className="py-1"
+            className="py-1 max-h-52 h-auto overflow-auto"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="options-menu"
