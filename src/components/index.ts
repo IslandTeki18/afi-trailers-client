@@ -4,3 +4,7 @@ export * from "./Avatar";
 export * from "./Navbar";
 export * from "./Footer";
 export * from "./Header";
+export * from "./Badge";
+export * from "./Card";
+export * from "./Dropdown";
+export * from "./Input";
