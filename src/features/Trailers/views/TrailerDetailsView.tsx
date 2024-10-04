@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import { Carousel, Header } from "~src/components";
+import { Button, Carousel, Header } from "~src/components";
 import { Trailer } from "~src/types";
 import mockTrailer from "../../Booking/utils/mockTrailer";
 import { Badge, Card } from "~src/components";
@@ -128,6 +128,11 @@ export const TrailerDetailsView: React.FC = () => {
           </ul>
         </Card>
       )}
+      <div className="flex flex-col md:flex-row gap-4 mt-8">
+        <Button className="w-1/3" variant="primary">
+          Book Now
+        </Button>
+      </div>
     </div>
   );
 };
