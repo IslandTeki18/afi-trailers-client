@@ -3,6 +3,8 @@ import { Trailer } from "~src/types"; // Assume you have a types file
 const mockDumpTrailer: Trailer = {
   _id: "dump123",
   name: "Heavy Duty Dump Trailer",
+  description:
+    "This heavy-duty dump trailer is perfect for hauling large loads of debris, gravel, or other materials.",
   capacity: "14,000 lbs",
   dimensions: "14' x 7' x 4'",
   type: "Dump Trailer",
@@ -49,10 +51,7 @@ const mockDumpTrailer: Trailer = {
     },
   ],
   location: "Main Storage Yard",
-  photos: [
-    "https://example.com/dump-trailer-1.jpg",
-    "https://example.com/dump-trailer-2.jpg",
-  ],
+  photos: ["https://placehold.co/600x400", "https://placehold.co/600x400"],
   features: [
     "Hydraulic lift",
     "Double rear doors",

@@ -3,6 +3,7 @@ export type Trailer = {
   name: string;
   capacity: string;
   dimensions: string;
+  description?: string;
   type: string;
   halfDayRentalPrice?: number;
   fullDayRentalPrice?: number;
