@@ -20,9 +20,18 @@ export const TrailerDetailsView: React.FC = () => {
         title={trailer.name}
         description={trailer.description || ""}
       />
-
-      <div className="grid md:grid-cols-2 gap-8 mt-2">
-        <Card header={<h2 className="text-xl font-semibold">Specificaitons</h2>}>
+      {trailer.photos && trailer.photos.length > 0 && (
+        <Card
+          className="mt-8"
+          header={<h2 className="text-xl font-semibold">Photos</h2>}
+        >
+          <Carousel images={trailer.photos} interval={3000} variant="primary" />
+        </Card>
+      )}
+      <div className="grid md:grid-cols-2 gap-8 mt-8">
+        <Card
+          header={<h2 className="text-xl font-semibold">Specificaitons</h2>}
+        >
           <p>
             <strong>Capacity:</strong> {trailer.capacity}
           </p>
@@ -72,7 +81,11 @@ export const TrailerDetailsView: React.FC = () => {
           </p>
         </Card>
 
-        <Card header={<h2 className="text-xl font-semibold">Towing Requirements</h2>}>
+        <Card
+          header={
+            <h2 className="text-xl font-semibold">Towing Requirements</h2>
+          }
+        >
           <ul className="list-disc list-inside space-y-1">
             {trailer.towingRequirements.map((req, index) => (
               <li key={index}>{req}</li>
@@ -81,14 +94,11 @@ export const TrailerDetailsView: React.FC = () => {
         </Card>
       </div>
 
-      {trailer.photos && trailer.photos.length > 0 && (
-        <Card className="mt-8" header={<h2 className="text-xl font-semibold">Photos</h2>}>
-          <Carousel images={trailer.photos} interval={3000} variant="primary" />
-        </Card>
-      )}
-
       {trailer.features && trailer.features.length > 0 && (
-        <Card className="mt-8" header={<h2 className="text-xl font-semibold">Features</h2>}>
+        <Card
+          className="mt-8"
+          header={<h2 className="text-xl font-semibold">Features</h2>}
+        >
           <ul className="grid grid-cols-2 md:grid-cols-3 gap-2">
             {trailer.features.map((feature, index) => (
               <li key={index} className="flex items-center space-x-2">
