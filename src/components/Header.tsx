@@ -9,7 +9,7 @@ type HeaderProps = {
 export const Header = (props: HeaderProps) => {
   return (
     <div className="bg-white py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 lg:px-4">
         <div className="mx-auto max-w-2xl lg:mx-0">
           <p className="text-base font-semibold leading-7 text-yellow-600">
             {props.subTitle}

@@ -4,7 +4,7 @@ const mockDumpTrailer: Trailer = {
   _id: "dump123",
   name: "Heavy Duty Dump Trailer",
   description:
-    "This heavy-duty dump trailer is perfect for hauling large loads of debris, gravel, or other materials.",
+    "This heavy-duty dump trailer is perfect for hauling large loads of debris, gravel, or other materials. It features a hydraulic lift, double rear doors, and a tarp cover.",
   capacity: "14,000 lbs",
   dimensions: "14' x 7' x 4'",
   type: "Dump Trailer",

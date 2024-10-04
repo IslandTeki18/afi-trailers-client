@@ -32,53 +32,59 @@ export const TrailerDetailsView: React.FC = () => {
         <Card
           header={<h2 className="text-xl font-semibold">Specificaitons</h2>}
         >
-          <p>
-            <strong>Capacity:</strong> {trailer.capacity}
-          </p>
-          <p>
-            <strong>Dimensions:</strong> {trailer.dimensions}
-          </p>
-          <p>
-            <strong>Type:</strong> {trailer.type}
-          </p>
-          <p>
-            <strong>Location:</strong> {trailer.location}
-          </p>
-          <p>
-            <strong>Insurance Required:</strong>{" "}
-            {trailer.insuranceRequired ? "Yes" : "No"}
-          </p>
+          <div className="flex flex-col gap-4">
+            <p className="flex justify-between items-center">
+              <strong>Capacity:</strong> {trailer.capacity}
+            </p>
+            <p className="flex justify-between items-center">
+              <strong>Dimensions:</strong> {trailer.dimensions}
+            </p>
+            <p className="flex justify-between items-center">
+              <strong>Type:</strong> {trailer.type}
+            </p>
+            <p className="flex justify-between items-center">
+              <strong>Location:</strong> {trailer.location}
+            </p>
+            <p className="flex justify-between items-center">
+              <strong>Insurance Required:</strong>{" "}
+              {trailer.insuranceRequired ? "Yes" : "No"}
+            </p>
+          </div>
         </Card>
 
         <Card header={<h2 className="text-xl font-semibold">Pricing</h2>}>
-          <p>
-            <strong>Half Day Rental:</strong> ${trailer.halfDayRentalPrice}
-          </p>
-          <p>
-            <strong>Full Day Rental:</strong> ${trailer.fullDayRentalPrice}
-          </p>
-          <p>
-            <strong>Weekend Surcharge:</strong> ${trailer.weekendSurcharge}
-          </p>
+          <div className="flex flex-col gap-4">
+            <p className="flex justify-between items-center">
+              <strong>Half Day Rental:</strong> ${trailer.halfDayRentalPrice}
+            </p>
+            <p className="flex justify-between items-center">
+              <strong>Full Day Rental:</strong> ${trailer.fullDayRentalPrice}
+            </p>
+            <p className="flex justify-between items-center">
+              <strong>Weekend Surcharge:</strong> ${trailer.weekendSurcharge}
+            </p>
+          </div>
         </Card>
 
         <Card header={<h2 className="text-xl font-semibold">Maintenance</h2>}>
-          <p>
-            <strong>Status:</strong>{" "}
-            <Badge
-              variant={
-                trailer.maintenanceStatus === "Operational"
-                  ? "success"
-                  : "warning"
-              }
-            >
-              {trailer.maintenanceStatus}
-            </Badge>
-          </p>
-          <p>
-            <strong>Last Maintenance:</strong>{" "}
-            {trailer.lastMaintenanceDate.toLocaleDateString()}
-          </p>
+          <div className="flex flex-col gap-4">
+            <p className="flex justify-between items-center">
+              <strong>Status:</strong>{" "}
+              <Badge
+                variant={
+                  trailer.maintenanceStatus === "Operational"
+                    ? "success"
+                    : "warning"
+                }
+              >
+                {trailer.maintenanceStatus}
+              </Badge>
+            </p>
+            <p className="flex justify-between items-center">
+              <strong>Last Maintenance:</strong>{" "}
+              {trailer.lastMaintenanceDate.toLocaleDateString()}
+            </p>
+          </div>
         </Card>
 
         <Card
