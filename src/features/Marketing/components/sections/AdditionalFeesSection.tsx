@@ -20,10 +20,15 @@ export const AdditionalFeesSection: React.FC = () => {
         "Per day charge for returning the trailer after the agreed-upon date",
     },
     {
-      name: "Optional Insurance",
-      amount: 25,
-      description: "Daily rate for comprehensive insurance coverage",
+      name: "Insurance Coverage",
+      amount: 10,
+      description: "Per day charge for insurance coverage on the trailer",
     },
+    {
+        name: "Cleaning Fee",
+        amount: 50,
+        description: "Non-refundable fee for cleaning the trailer",
+    }
   ];
 
   return (
