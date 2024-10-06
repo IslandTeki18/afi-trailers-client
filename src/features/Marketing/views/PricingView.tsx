@@ -1,6 +1,9 @@
 import * as React from "react";
 import { Header } from "~src/components";
-import { TrailerPricingSection } from "../components";
+import {
+  TrailerPricingSection,
+  TrailerPricingTableSection,
+} from "../components";
 
 export const PricingView = () => {
   return (
@@ -11,6 +14,7 @@ export const PricingView = () => {
         description="Find a pricing plan that best fits your project needs."
       />
       <TrailerPricingSection />
+      <TrailerPricingTableSection />
     </div>
   );
 };

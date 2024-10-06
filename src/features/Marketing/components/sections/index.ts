@@ -8,3 +8,4 @@ export * from "./AboutOurMissionSection";
 export * from "./TestimonialSection";
 export * from "./WhyRentWithUsSection";
 export * from "./ContactUsFormSection";
+export * from "./TrailerPricingTableSection";
