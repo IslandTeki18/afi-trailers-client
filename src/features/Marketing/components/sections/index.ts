@@ -5,4 +5,5 @@ export * from "./AboutOurTeamSection";
 export * from "./TrailerPricingSection";
 export * from "./FrequentlyAskQuestionsSection";
 export * from "./AboutOurMissionSection";
-export * from "./TestimonialSection"
+export * from "./TestimonialSection";
+export * from "./WhyRentWithUsSection";

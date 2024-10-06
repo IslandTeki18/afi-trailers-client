@@ -4,6 +4,7 @@ import {
   AboutOurMissionSection,
   AboutOurTeamSection,
   TestimonialSection,
+  WhyRentWithUsSection,
 } from "../components";
 
 const testimonials = [
@@ -37,6 +38,7 @@ export const AboutUsView = () => {
       />
       <AboutOurMissionSection />
       <AboutOurTeamSection />
+      <WhyRentWithUsSection />
       <TestimonialSection testimonials={testimonials} />
     </div>
   );
