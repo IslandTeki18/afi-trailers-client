@@ -4,3 +4,5 @@ export * from "./HowItWorksSection";
 export * from "./AboutOurTeamSection";
 export * from "./TrailerPricingSection";
 export * from "./FrequentlyAskQuestionsSection";
+export * from "./AboutOurMissionSection";
+export * from "./TestimonialSection"

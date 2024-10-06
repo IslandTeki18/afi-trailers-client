@@ -117,7 +117,7 @@ export const TrailerDetailsView: React.FC = () => {
         </Card>
       )}
       <div className="flex flex-col md:flex-row gap-4 mt-8">
-        <Button className="w-1/3" variant="primary">
+        <Button size="large" className="w-1/3" variant="primary">
           Book Now
         </Button>
       </div>
