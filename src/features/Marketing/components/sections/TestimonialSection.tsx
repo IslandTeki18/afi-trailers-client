@@ -7,8 +7,8 @@ type TestimonialSectionProps = {
 
 export const TestimonialSection = (props: TestimonialSectionProps) => {
   return (
-    <section className="py-12 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-12 sm:py-24 lg:py-40 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <div className="max-w-2xl sm:text-left mb-10">
           <div>
             <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-yellow-900 uppercase rounded-full bg-yellow-400">
