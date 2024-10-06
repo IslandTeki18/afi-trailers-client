@@ -5,13 +5,12 @@ module.exports = {
     "./src/features/**/components/**/*.tsx",
     "./src/features/**/views/**/*.tsx",
   ],
-  darkMode: 'class',
+  darkMode: "class",
   theme: {
     extend: {},
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };
-

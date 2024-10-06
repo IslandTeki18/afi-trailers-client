@@ -9,3 +9,4 @@ export * from "./Card";
 export * from "./Dropdown";
 export * from "./Input";
 export * from "./Carousel";
+export * from "./Textarea";

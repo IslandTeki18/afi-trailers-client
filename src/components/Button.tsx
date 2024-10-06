@@ -24,15 +24,15 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantClasses = {
     primary:
-      "bg-gray-800 text-white hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700",
+      "bg-gray-800 text-white hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700 disabled:bg-gray-400 disabled:cursor-not-allowed",
     secondary:
-      "bg-yellow-200 text-yellow-800 hover:bg-yellow-300 dark:bg-yellow-700 dark:text-yellow-200 dark:hover:bg-yellow-600",
+      "bg-yellow-200 text-yellow-800 hover:bg-yellow-300 dark:bg-yellow-700 dark:text-yellow-200 dark:hover:bg-yellow-600 disabled:bg-yellow-400 disabled:cursor-not-allowed",
     accent:
-      "bg-red-500 text-white hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700",
+      "bg-red-500 text-white hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 disabled:bg-red-400 disabled:cursor-not-allowed",
     success:
-      "bg-green-500 text-white hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700",
+      "bg-green-500 text-white hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 disabled:bg-green-400 disabled:cursor-not-allowed",
     warning:
-      "bg-yellow-500 text-white hover:bg-yellow-600 dark:bg-yellow-600 dark:hover:bg-yellow-700",
+      "bg-yellow-500 text-white hover:bg-yellow-600 dark:bg-yellow-600 dark:hover:bg-yellow-700 disabled:bg-yellow-400 disabled:cursor-not-allowed",
   };
 
   const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${className}`;

@@ -1,6 +1,6 @@
-import * as React from 'react'
+import * as React from "react";
 import { Header } from "~src/components";
-
+import { ContactUsFormSection } from "../components";
 
 export const ContactUsView = () => {
   return (
@@ -10,6 +10,7 @@ export const ContactUsView = () => {
         title="Contact Us"
         description="We are here to help you with any questions you may have."
       />
+      <ContactUsFormSection />
     </div>
   );
-}
+};
