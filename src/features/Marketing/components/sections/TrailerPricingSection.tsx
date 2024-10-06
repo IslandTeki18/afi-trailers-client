@@ -69,7 +69,7 @@ const tiers: PricingTier[] = [
 export const TrailerPricingSection = (props: TrailerPricingSectionProps) => {
   const [frequency, setFrequency] = useState(frequencies[0]);
   return (
-    <div className="bg-white py-24 sm:py-32">
+    <div className="py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <div>

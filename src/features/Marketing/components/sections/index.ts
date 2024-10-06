@@ -9,3 +9,5 @@ export * from "./TestimonialSection";
 export * from "./WhyRentWithUsSection";
 export * from "./ContactUsFormSection";
 export * from "./TrailerPricingTableSection";
+export * from "./DiscountsPromotionSection";
+export * from "./AdditionalFeesSection";
