@@ -50,12 +50,12 @@ const trailerPrices: TrailerPrice[] = [
 export const TrailerPricingTableSection = () => {
   return (
     <div className="py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 ">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="sm:flex sm:items-center">
           <div className="flex-auto text-left">
-            <p className="mt-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            <h2 className="mt-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
               Trailer Pricing
-            </p>
+            </h2>
             <p className="mt-6 max-w-3xl text-left text-lg leading-8 text-gray-600">
               Either you can do it yourself or we can do it for you. We offer
               both. Choose the option that works best for you and the project

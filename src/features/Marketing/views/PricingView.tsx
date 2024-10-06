@@ -4,6 +4,7 @@ import {
   TrailerPricingSection,
   TrailerPricingTableSection,
 } from "../components";
+import { AdditionalFeesSection } from "../components/sections/AdditionalFeesSection";
 
 export const PricingView = () => {
   return (
@@ -15,6 +16,7 @@ export const PricingView = () => {
       />
       <TrailerPricingSection />
       <TrailerPricingTableSection />
+      <AdditionalFeesSection />
     </div>
   );
 };
