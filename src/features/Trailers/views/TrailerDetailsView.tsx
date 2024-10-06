@@ -4,6 +4,7 @@ import { Button, Carousel, Header } from "~src/components";
 import { Trailer } from "~src/types";
 import mockTrailer from "../../Booking/utils/mockTrailer";
 import { Badge, Card } from "~src/components";
+import { CheckIcon } from "@heroicons/react/20/solid";
 
 export const TrailerDetailsView: React.FC = () => {
   const { trailerId } = useParams<{ trailerId: string }>();
@@ -108,20 +109,7 @@ export const TrailerDetailsView: React.FC = () => {
           <ul className="grid grid-cols-2 md:grid-cols-3 gap-2">
             {trailer.features.map((feature, index) => (
               <li key={index} className="flex items-center space-x-2">
-                <svg
-                  className="w-5 h-5 text-green-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M5 13l4 4L19 7"
-                  ></path>
-                </svg>
+                <CheckIcon className="h-5 w-5 text-green-500" />
                 <span>{feature}</span>
               </li>
             ))}

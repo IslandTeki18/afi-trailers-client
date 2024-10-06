@@ -67,7 +67,7 @@ export const mainRoutes = [
             element: <TrailerDetailsView />,
           },
           {
-            path: ":trailerId/booking",
+            path: ":trailerId/book",
             element: <TrailerBookingView />,
           },
           {
