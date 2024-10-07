@@ -41,11 +41,11 @@ export const DiscountsPromotionsSection: React.FC = () => {
         <div className="mx-auto max-w-4xl text-center">
           <div>
             <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-yellow-900 uppercase rounded-full bg-yellow-400">
-              Our Pricing
+                Discounts & Promotions
             </p>
           </div>
           <p className="mt-2 mb-24 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Affordable trailer rental options
+            Check out our latest deals!
           </p>
         </div>
         <div className="space-y-6">
