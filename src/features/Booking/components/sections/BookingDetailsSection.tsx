@@ -9,6 +9,7 @@ import {
   ShieldCheckIcon,
 } from "@heroicons/react/20/solid";
 import { Trailer } from "~src/types";
+import { SectionWrapper } from "~src/components";
 
 interface BookingDetailsSectionProps {
   trailer: Trailer;
@@ -25,7 +26,7 @@ interface BookingDetailsSectionProps {
 
 export const BookingDetailsSection = (props: BookingDetailsSectionProps) => {
   return (
-    <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+    <SectionWrapper>
       <div className="bg-gray-200 h-48 w-full">
         <img
           src={props.trailer.photos?.[0]}
@@ -106,7 +107,7 @@ export const BookingDetailsSection = (props: BookingDetailsSectionProps) => {
           </div>
         )}
       </div>
-    </div>
+    </SectionWrapper>
   );
 };
 

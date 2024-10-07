@@ -6,6 +6,7 @@ import {
   ClockIcon,
 } from "@heroicons/react/20/solid";
 import { FeatureCard, FeatureCardProps } from "../FeatureCard";
+import { SectionWrapper } from "~src/components";
 
 export const WhyRentWithUsSection: React.FC = () => {
   const features: FeatureCardProps[] = [
@@ -36,25 +37,23 @@ export const WhyRentWithUsSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-12 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl sm:text-center mb-8">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Why choose us
-          </h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Our team is dedicated to providing the best trailer rental
-            experience in Utah County. We offer a wide selection of trailers at
-            competitive prices, with reliable equipment and 24/7 support to
-            ensure your job gets done right.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => (
-            <FeatureCard key={index} {...feature} />
-          ))}
-        </div>
+    <SectionWrapper>
+      <div className="mx-auto max-w-2xl sm:text-center mb-8">
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+          Why choose us
+        </h2>
+        <p className="mt-6 text-lg leading-8 text-gray-600">
+          Our team is dedicated to providing the best trailer rental experience
+          in Utah County. We offer a wide selection of trailers at competitive
+          prices, with reliable equipment and 24/7 support to ensure your job
+          gets done right.
+        </p>
       </div>
-    </section>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {features.map((feature, index) => (
+          <FeatureCard key={index} {...feature} />
+        ))}
+      </div>
+    </SectionWrapper>
   );
 };

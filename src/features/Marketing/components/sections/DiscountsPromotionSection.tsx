@@ -1,5 +1,6 @@
 import * as React from "react";
 import { TagIcon } from "@heroicons/react/20/solid";
+import { SectionWrapper } from "~src/components";
 
 interface Discount {
   name: string;
@@ -36,50 +37,48 @@ export const DiscountsPromotionsSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl text-center">
-          <div>
-            <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-yellow-900 uppercase rounded-full bg-yellow-400">
-                Discounts & Promotions
-            </p>
-          </div>
-          <p className="mt-2 mb-24 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Check out our latest deals!
+    <SectionWrapper>
+      <div className="mx-auto max-w-4xl text-center">
+        <div>
+          <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-yellow-900 uppercase rounded-full bg-yellow-400">
+            Discounts & Promotions
           </p>
         </div>
-        <div className="space-y-6">
-          {discounts.map((discount) => (
-            <div
-              key={discount.name}
-              className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200"
-            >
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-semibold text-gray-900">
-                    {discount.name}
-                  </h3>
-                  {discount.isSeasonalDeal && (
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                      <TagIcon className="w-4 h-4 mr-1" />
-                      Seasonal
-                    </span>
-                  )}
-                </div>
-                <p className="text-gray-600 mb-4">{discount.description}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-yellow-600">
-                    {discount.discountAmount}
+        <p className="mt-2 mb-24 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+          Check out our latest deals!
+        </p>
+      </div>
+      <div className="space-y-6">
+        {discounts.map((discount) => (
+          <div
+            key={discount.name}
+            className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200"
+          >
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-semibold text-gray-900">
+                  {discount.name}
+                </h3>
+                {discount.isSeasonalDeal && (
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                    <TagIcon className="w-4 h-4 mr-1" />
+                    Seasonal
                   </span>
-                  <span className="text-sm text-gray-500">
-                    Valid until: {discount.validUntil}
-                  </span>
-                </div>
+                )}
+              </div>
+              <p className="text-gray-600 mb-4">{discount.description}</p>
+              <div className="flex justify-between items-center">
+                <span className="text-2xl font-bold text-yellow-600">
+                  {discount.discountAmount}
+                </span>
+                <span className="text-sm text-gray-500">
+                  Valid until: {discount.validUntil}
+                </span>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </section>
+    </SectionWrapper>
   );
 };

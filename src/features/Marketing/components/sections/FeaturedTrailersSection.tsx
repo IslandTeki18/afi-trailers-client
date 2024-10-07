@@ -1,5 +1,6 @@
 import * as React from "react";
 import { TrailerCard } from "../TrailerCard";
+import { SectionWrapper } from "~src/components";
 
 type FeaturedTrailersSectionProps = {};
 
@@ -7,7 +8,7 @@ export const FeaturedTrailersSection = (
   props: FeaturedTrailersSectionProps
 ) => {
   return (
-    <div className="px-4 py-24 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-40">
+    <SectionWrapper>
       <div className="flex flex-col w-full mb-6 lg:justify-between lg:flex-row md:mb-8">
         <div className="flex items-center mb-5 md:mb-6 group lg:max-w-xl">
           <h2 className="font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl">
@@ -38,6 +39,6 @@ export const FeaturedTrailersSection = (
           description="This trailer is perfect for hauling dirt, gravel, and other materials. It has a 14,000 lb. payload capacity."
         />
       </div>
-    </div>
+    </SectionWrapper>
   );
 };
