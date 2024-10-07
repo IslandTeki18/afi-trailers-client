@@ -10,3 +10,4 @@ export * from "./Dropdown";
 export * from "./Input";
 export * from "./Carousel";
 export * from "./Textarea";
+export * from "./SectionWrapper";
