@@ -1,130 +1,122 @@
 import * as React from "react";
-import {
-  TruckIcon,
-  CalendarDaysIcon,
-  CurrencyDollarIcon,
-  UserIcon,
-  MapPinIcon,
-  StarIcon,
-  ShieldCheckIcon,
-} from "@heroicons/react/20/solid";
 import { Trailer } from "~src/types";
-import { SectionWrapper } from "~src/components";
+import { CalendarIcon, TruckIcon } from "@heroicons/react/24/outline";
+import { Button, SectionWrapper } from "~src/components";
 
 interface BookingDetailsSectionProps {
+  confirmationId: string;
+  customerName: string;
   trailer: Trailer;
-  bookingDates: {
-    start: Date;
-    end: Date;
-  };
+  rentalPeriod: { start: Date; end: Date };
   totalPrice: number;
-  user: {
-    name: string;
-    email: string;
+  shippingAddress: {
+    street: string;
+    suite: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
   };
 }
 
-export const BookingDetailsSection = (props: BookingDetailsSectionProps) => {
+export const BookingDetailsSection: React.FC<BookingDetailsSectionProps> = ({
+  confirmationId,
+  customerName,
+  trailer,
+  rentalPeriod,
+  totalPrice,
+  shippingAddress,
+}) => {
   return (
     <SectionWrapper>
-      <div className="bg-gray-200 h-48 w-full">
-        <img
-          src={props.trailer.photos?.[0]}
-          alt="Trailer"
-          className="w-full h-full object-cover"
-        />
+      <div className="flex flex-col sm:flex-row justify-between gap-4 md:items-center mb-6">
+        <div>
+          <p className="text-base text-gray-600">
+            Confirmation Number: #{confirmationId}
+          </p>
+        </div>
+        <div>
+          <p className="text-base text-gray-600">
+            Rental Start Date: {rentalPeriod.start.toLocaleDateString()}
+          </p>
+        </div>
       </div>
 
-      <div className="p-6">
-        <SummaryItem icon={<TruckIcon />} title="Trailer">
-          <h3 className="font-semibold">{props.trailer.name}</h3>
-          <p className="text-gray-600">{props.trailer.type}</p>
-          <p className="text-gray-600">{props.trailer.capacity} capacity</p>
-          <p className="text-gray-600">{props.trailer.dimensions}</p>
-        </SummaryItem>
+      <h1 className="text-2xl lg:text-3xl font-bold mb-4">
+        Thank you for booking with Afi Trailers {customerName}
+      </h1>
+      <p className="text-gray-600 mb-6">
+        We got your order! We'll reach out when it's on the way. See your rental
+        info below. If you have any questions, feel free to contact us.
+      </p>
 
-        <SummaryItem icon={<CalendarDaysIcon />} title="Rental Dates">
-          <p>From: {props.bookingDates.start.toISOString()}</p>
-          <p>To: {props.bookingDates.end.toISOString()}</p>
-        </SummaryItem>
-
-        <SummaryItem icon={<CurrencyDollarIcon />} title="Pricing">
-          <p className="font-semibold">Total: ${props.totalPrice.toFixed(2)}</p>
-          <p className="text-sm text-gray-600">
-            Full day rate: ${props.trailer.fullDayRentalPrice}
-          </p>
-          <p className="text-sm text-gray-600">
-            Half day rate: ${props.trailer.halfDayRentalPrice}
-          </p>
-          <p className="text-sm text-gray-600">
-            Weekend surcharge: ${props.trailer.weekendSurcharge}
-          </p>
-        </SummaryItem>
-
-        <SummaryItem icon={<UserIcon />} title="User Information">
-          <p>{props.user.name}</p>
-          <p>{props.user.email}</p>
-        </SummaryItem>
-
-        <SummaryItem icon={<MapPinIcon />} title="Pick-up Location">
-          <p>{props.trailer.location}</p>
-        </SummaryItem>
-
-        <SummaryItem icon={<StarIcon />} title="Features">
-          <ul className="list-disc list-inside text-sm">
-            {props.trailer.features.map((feature, index) => (
-              <li key={index}>{feature}</li>
-            ))}
-          </ul>
-        </SummaryItem>
-
-        {props.trailer.insuranceRequired && (
-          <div className="mt-4 p-3 bg-yellow-100 rounded-md flex items-start">
-            <ShieldCheckIcon className="w-5 h-5 mr-2 text-yellow-700 flex-shrink-0 mt-0.5" />
-            <div>
-              <p className="font-semibold text-yellow-800">
-                Insurance Required
-              </p>
-              <p className="text-sm text-yellow-700">
-                Please ensure you have appropriate insurance coverage for this
-                rental.
-              </p>
-            </div>
+      <div className="flex flex-col md:flex-row mb-6">
+        <div className=" w-full mb-4 md:mb-0 md:w-1/3">
+          <img
+            src={trailer.photos?.[0] || "/placeholder-trailer.jpg"}
+            alt={trailer.name}
+            className="w-full h-auto rounded-lg"
+          />
+        </div>
+        <div className="w-full md:w-2/3 md:pl-6">
+          <h2 className="text-xl font-semibold mb-2">{trailer.name}</h2>
+          <p className="text-gray-600 mb-2">Type: {trailer.type}</p>
+          <p className="text-gray-600 mb-2">Capacity: {trailer.capacity}</p>
+          <p className="text-gray-600 mb-2">Dimensions: {trailer.dimensions}</p>
+          <div className="flex items-center mt-4">
+            <CalendarIcon className="h-5 w-5 text-gray-500 mr-2" />
+            <p className="text-gray-600">
+              {rentalPeriod.start.toLocaleDateString()} -{" "}
+              {rentalPeriod.end.toLocaleDateString()}
+            </p>
           </div>
-        )}
+        </div>
+      </div>
 
-        {props.trailer.towingRequirements.length > 0 && (
-          <div className="mt-4">
-            <h4 className="font-semibold flex items-center">
-              <TruckIcon className="w-5 h-5 mr-2 text-gray-600" />
-              Towing Requirements:
-            </h4>
-            <ul className="list-disc list-inside text-sm mt-2">
-              {props.trailer.towingRequirements.map((req, index) => (
-                <li key={index}>{req}</li>
-              ))}
-            </ul>
-          </div>
-        )}
+      <div className="border-t border-gray-200 py-4">
+        <div className="flex justify-between items-center">
+          <span className="text-gray-600">Rental Price</span>
+          <span className="font-semibold">
+            ${trailer.fullDayRentalPrice?.toFixed(2)}
+          </span>
+        </div>
+        <div className="flex justify-between items-center mt-2">
+          <span className="text-gray-600">Weekend Surcharge</span>
+          <span className="font-semibold">
+            ${trailer.weekendSurcharge?.toFixed(2)}
+          </span>
+        </div>
+        <div className="flex justify-between items-center mt-2">
+          <span className="text-gray-600">Total</span>
+          <span className="font-bold text-xl">${totalPrice.toFixed(2)}</span>
+        </div>
+      </div>
+
+      <div className="mt-6 grid grid-cols-2 gap-6">
+        <div>
+          <h3 className="text-xl font-semibold mb-2">Rental Details</h3>
+          <p className="text-gray-600">
+            <TruckIcon className="h-5 w-5 inline-block mr-2 text-gray-500" />
+            {trailer.location}
+          </p>
+        </div>
+        <div>
+          <h3 className="text-xl font-semibold mb-2">Shipping Address</h3>
+          <p className="text-gray-600">{shippingAddress.street}</p>
+          <p className="text-gray-600">{shippingAddress.suite}</p>
+          <p className="text-gray-600">
+            {shippingAddress.city}, {shippingAddress.state}{" "}
+            {shippingAddress.zipCode}
+          </p>
+          <p className="text-gray-600">{shippingAddress.country}</p>
+        </div>
+      </div>
+
+      <div className="mt-8 flex space-x-4">
+        <Button variant="primary" size="large">
+          Print Receipt
+        </Button>
       </div>
     </SectionWrapper>
   );
 };
-
-interface SummaryItemProps {
-  icon: React.ReactElement;
-  title: string;
-  children: React.ReactNode;
-}
-
-const SummaryItem = ({ icon, title, children }: SummaryItemProps) => (
-  <div className="flex items-start mt-4">
-    <div className="flex-shrink-0 w-8 h-8 mr-3 text-gray-500">
-      {React.cloneElement(icon, { size: 24 })}
-    </div>
-    <div>
-      <h4 className="font-semibold">{title}</h4>
-      {children}
-    </div>
-  </div>
-);
