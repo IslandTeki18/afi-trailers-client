@@ -43,8 +43,7 @@ export const TrailerUsageView = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <Card
-          className="text-white"
-          variant="dark-primary"
+          variant="success"
           header={
             <h2 className="text-2xl font-semibold flex items-center">
               <CheckCircleIcon className="h-8 w-8 text-green-500 mr-2" />
@@ -54,7 +53,7 @@ export const TrailerUsageView = () => {
         >
           <ul className="list-disc pl-6 space-y-2">
             {allowedItems.map((item, index) => (
-              <li key={index} className="text-gray-300">
+              <li key={index} className="text-gray-800">
                 {item}
               </li>
             ))}
