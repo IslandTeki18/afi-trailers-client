@@ -3,11 +3,13 @@ import * as React from "react";
 type SectionWrapperProps = {
   paddingY?: "small" | "medium" | "large";
   children: React.ReactNode;
+  className?: string;
 };
 
 export const SectionWrapper: React.FC<SectionWrapperProps> = ({
   paddingY = "medium",
   children,
+  className,
 }) => {
   function sectionPadding(paddingY: string) {
     switch (paddingY) {
@@ -22,7 +24,9 @@ export const SectionWrapper: React.FC<SectionWrapperProps> = ({
     }
   }
   return (
-    <section className={`${sectionPadding(paddingY)}`}>
+    <section
+      className={`${sectionPadding(paddingY)} ${className ? className : ""}`}
+    >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">{children}</div>
     </section>
   );

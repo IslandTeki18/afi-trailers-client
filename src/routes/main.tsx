@@ -7,6 +7,7 @@ import {
   TrailerListView,
   TrailerBookingView,
   TrailerDetailsView,
+  TrailerUsageView,
   ConfirmationView,
   AboutUsView,
   ContactUsView,
@@ -73,6 +74,10 @@ export const mainRoutes = [
           {
             path: ":trailerId/confirmation/:confirmationId",
             element: <ConfirmationView />,
+          },
+          {
+            path: "usage-guidelines",
+            element: <TrailerUsageView />,
           },
         ],
       },

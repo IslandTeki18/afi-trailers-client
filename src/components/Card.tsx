@@ -1,6 +1,6 @@
 import * as React from "react";
 
-type CardVariant = "primary" | "secondary" | "accent" | "neutral";
+type CardVariant = "primary" | "secondary" | "accent" | "neutral" | "dark-primary";
 
 type CardProps = {
   header?: React.ReactNode;
@@ -15,6 +15,7 @@ const variantClasses: Record<CardVariant, string> = {
   secondary: "bg-yellow-200 dark:bg-yellow-300 divide-yellow-400",
   accent: "bg-red-200 dark:bg-red-300 divide-red-400",
   neutral: "bg-slate-200 dark:bg-slate-300 divide-slate-400",
+  "dark-primary": "bg-gray-900 dark:bg-gray-800 divide-gray-800",
 };
 
 export const Card: React.FC<CardProps> = ({
