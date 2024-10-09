@@ -10,6 +10,7 @@ import {
   TrailerUsageView,
   ConfirmationView,
   AboutUsView,
+  RentalContractView,
   ContactUsView,
   PricingView,
 } from "~src/features";
@@ -78,6 +79,10 @@ export const mainRoutes = [
           {
             path: "usage-guidelines",
             element: <TrailerUsageView />,
+          },
+          {
+            path: "rental-contract",
+            element: <RentalContractView />,
           },
         ],
       },
