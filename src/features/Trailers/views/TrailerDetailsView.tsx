@@ -1,17 +1,19 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import { Button, Carousel, Header } from "~src/components";
+import { Button, Carousel, Header, Badge, Card } from "~src/components";
 import { Trailer } from "~src/types";
 import mockTrailer from "../../Booking/utils/mockTrailer";
-import { Badge, Card } from "~src/components";
 import { CheckIcon } from "@heroicons/react/20/solid";
+import { TrailerNotFound } from "../components";
 
 export const TrailerDetailsView: React.FC = () => {
   const { trailerId } = useParams<{ trailerId: string }>();
-  const trailer: Trailer = mockTrailer; // In a real app, fetch the trailer based on trailerId
+  
+  // @ts-ignore
+  const trailer: Trailer = mockTrailer;
 
   if (!trailer) {
-    return <div className="text-center p-8">Trailer not found</div>;
+    return <TrailerNotFound />;
   }
 
   return (
@@ -26,7 +28,7 @@ export const TrailerDetailsView: React.FC = () => {
           className="mt-8"
           header={<h2 className="text-xl font-semibold">Photos</h2>}
         >
-          <Carousel images={trailer.photos} interval={3000} variant="primary" />
+          <Carousel images={trailer.photos} interval={7000} variant="primary" />
         </Card>
       )}
       <div className="grid md:grid-cols-2 gap-8 mt-8">
@@ -42,9 +44,6 @@ export const TrailerDetailsView: React.FC = () => {
             </p>
             <p className="flex justify-between items-center">
               <strong>Type:</strong> {trailer.type}
-            </p>
-            <p className="flex justify-between items-center">
-              <strong>Location:</strong> {trailer.location}
             </p>
             <p className="flex justify-between items-center">
               <strong>Insurance Required:</strong>{" "}
@@ -117,7 +116,7 @@ export const TrailerDetailsView: React.FC = () => {
         </Card>
       )}
       <div className="flex flex-col md:flex-row gap-4 mt-8">
-        <Button size="large" className="w-1/3" variant="primary">
+        <Button size="large" className="w-full md:w-1/3" variant="primary">
           Book Now
         </Button>
       </div>
