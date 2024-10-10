@@ -32,7 +32,7 @@ export const AboutOurTeamSection = (props: AboutOurTeamSectionProps) => {
       </div>
       <ul
         role="list"
-        className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-6 gap-y-20 sm:grid-cols-2 lg:max-w-4xl lg:gap-x-8 xl:max-w-none"
+        className="mx-auto mt-20 grid grid-cols-1 gap-x-6 gap-y-20 sm:grid-cols-2 lg:gap-x-8 xl:max-w-none"
       >
         {people.map((person) => (
           <li key={person.name} className="flex flex-col gap-6 xl:flex-row">
