@@ -1,16 +1,15 @@
 import * as React from "react";
 import { Card, SectionWrapper } from "~src/components";
-import { contractSections } from "../utils/contactSections";
-
+import { contractFullServiceSections } from "../utils/contactSections";
 
 export const RentalContractView: React.FC = () => {
   return (
     <SectionWrapper className="text-white" paddingY="small">
       <h1 className="text-3xl text-gray-900 font-bold mb-8 text-center">
-        Rental Contract
+        Full Service Rental Contract Breakdown
       </h1>
 
-      {contractSections.map((section, index) => (
+      {contractFullServiceSections.map((section, index) => (
         <Card key={index} className="mb-6" variant="dark-primary">
           <h2 className="text-xl font-semibold mb-4">{section.title}</h2>
           <div className="grid md:grid-cols-2 gap-4">

@@ -1,32 +1,31 @@
 import { ContractSection } from "../types/contract";
 
-export const contractSections: ContractSection[] = [
+export const contractFullServiceSections: ContractSection[] = [
   {
     title: "1. Rental Terms",
     formalText: [
       "The rental period begins on [START DATE] at [START TIME] and ends on [END DATE] at [END TIME].",
+      "The Owner will deliver the trailer to the Renter’s specified location at [DROP-OFF LOCATION].",
       "The Renter agrees to pay the following rental fees:",
       "Half Day Rental (5 hours): $60",
       "Full Day Rental (24 hours): $100",
-      "A security deposit of $25 is required for all rentals and will be refunded upon the satisfactory return of the trailer.",
+      "A delivery and pick-up fee of $20 applies for the drop-off service.",
     ],
     simpleExplanation:
-      "The rental begins on [START DATE] at [START TIME] and ends on [END DATE] at [END TIME]. The renter agrees to pay $60 for a half-day rental (5 hours) or $100 for a full-day rental (24 hours). A $25 security deposit is required for all rentals and will be refunded when the trailer is returned in good condition.",
+      "The rental begins on [START DATE] at [START TIME] and ends on [END DATE] at [END TIME]. The renter agrees to pay $60 for a half-day rental (5 hours) or $100 for a full-day rental (24 hours). A $20 delivery and pick-up fee applies for the drop-off service.",
   },
   {
     title: "2. Renter Responsibilities",
     formalText: [
-      "The Renter is responsible for picking up the trailer at the agreed-upon time and location.",
+      "The Owner will deliver the trailer at the agreed-upon time and location.",
       "The Renter agrees to use the trailer only for its intended purpose and will not overload it beyond its weight capacity of 3 tonnes or 6,000lbs.",
-      "The Renter will inspect the trailer before use and will notify the Owner immediately of any pre-existing damage or issues.",
-      "The Renter will return the trailer in the same condition as it was received, free of debris. A cleaning fee of $50 will be charged if the trailer is returned with debris or requires cleaning.",
+      "The Renter will inspect the trailer upon delivery and will notify the Owner immediately of any pre-existing damage or issues.",
+      "The Renter will ensure the trailer remains at the specified drop-off location and will not relocate the trailer without the Owner’s written consent.",
       "The Renter will be fully responsible for any and all damages to the trailer that occur during the rental period, including but not limited to damage to the tarp, tires, control box, axles, and doors.",
       "If the Renter violates any of the rental conditions listed below, they agree to pay a $500 fee in addition to the regular rental charges and any costs associated with repairing damages to the trailer.",
-      "The Renter must not move the Trailer from the agreed-upon location. Unauthorized movement will result in a $100 fee and potential termination of the rental without a refund.",
-      "The Renter agrees to provide the Owner with a copy of the dump receipt, which includes the weight of the loaded Trailer, upon returning the Trailer. This receipt will serve as proof that the Trailer was not overloaded during the rental period.",
     ],
     simpleExplanation:
-      "The renter is responsible for picking up the trailer at the agreed time and location and must use it only for its intended purpose, not exceeding the weight limit of 3 tonnes (6,000 lbs). The renter will inspect the trailer before use and notify the owner of any existing damage. The trailer must be returned in the same condition, free of debris, or a $50 cleaning fee will be charged. The renter is fully responsible for any damage during the rental, including to the tarp, tires, control box, axles, or doors. Violating rental conditions will result in a $500 fee, plus repair costs. The trailer cannot be moved from the agreed location, and unauthorized movement will result in a $100 fee and possible rental termination without a refund. The renter must provide a dump receipt showing the trailer’s loaded weight when returning it to confirm it was not overloaded.",
+      "The renter has to pick up the trailer at the agreed time and place and only use it for what it’s meant for, without putting more than 3 tonnes (6,000 lbs) in it. Before using it, the renter will check the trailer and tell the owner if there’s any damage. The renter is responsible for any damage, like to the tarp, tires, control box, axles, or doors. If the renter breaks the rules, they’ll have to pay $500 plus the cost of repairs. The trailer must stay in the agreed location; if it’s moved without permission, there’s a $100 fee, and the rental could end with no refund.",
   },
   {
     title: "3. Rental Conditions",
@@ -38,34 +37,33 @@ export const contractSections: ContractSection[] = [
       "Any axle damage",
       "Damage to the doors",
       "Overloading the trailer beyond its weight capacity, as evidenced by the dump receipt",
-      "Returning the trailer late without prior approval",
+      "Moving the trailer without prior written consent from the Owner",
     ],
     simpleExplanation:
-      "The renter will be charged a $500 fee if any of these conditions are violated: damage to the tarp, flat tires, damage to the control box, axle damage, damage to the doors, overloading the trailer beyond its weight limit as shown by the dump receipt, or returning the trailer late without prior approval.",
+      "If the renter breaks any of these rules, they’ll have to pay $500: if they damage the tarp, get a flat tire, break the control box, damage the axles or doors, put too much weight in the trailer, or move the trailer without permission.",
   },
   {
-    title: "4. Late Return and Cancellation Policy",
+    title: "4. Cancellation Policy",
     formalText: [
-      "A grace period of 30 minutes applies to all rentals. Late returns beyond the grace period will incur a fee of $20 per hour, rounded up to the nearest hour.",
       "Cancellations made at least 24 hours before the start of the rental period will receive a full refund of the rental fee and security deposit.",
       "Cancellations made within 24 hours of the start of the rental period will forfeit the rental fee but receive a refund of the security deposit.",
     ],
     simpleExplanation:
-      "A 30-minute grace period applies to all rentals. If the trailer is returned late beyond the grace period, a $20 fee will be charged for each hour, rounded up to the nearest hour. Cancellations made at least 24 hours before the rental starts will receive a full refund of the rental fee and security deposit. Cancellations within 24 hours will forfeit the rental fee but receive a refund of the security deposit.",
+      "If you cancel your rental at least a day before it starts, you’ll get all your money back. But if you cancel less than a day before, you won’t get the rental money back, but you will still get your deposit back.",
   },
   {
     title: "5. Payment Terms",
     formalText: [
-      "Payment for the rental fee and security deposit must be made in full at the time of booking.",
+      "Payment for the rental fee, and delivery fee must be made in full at the time of booking.",
       "Accepted payment methods include cash, credit card, and debit card.",
     ],
     simpleExplanation:
-      "Payment for the rental fee and security deposit must be made in full at the time of booking. Accepted payment methods are cash, credit card, and debit card.",
+      "Payment for the rental fee must be made in full at the time of booking. Accepted payment methods are cash, credit card, and debit card.",
   },
   {
     title: "6. Inspection and Disputes",
     formalText: [
-      "The Owner and Renter will inspect the trailer together before and after the rental period to assess its condition.",
+      "The Owner and Renter will inspect the trailer together at the time of delivery and after pickup to assess its condition.",
       "Any disputes regarding damages or fees will be resolved through negotiation or mediation, with the goal of reaching a fair and mutually agreeable resolution.",
     ],
     simpleExplanation:
