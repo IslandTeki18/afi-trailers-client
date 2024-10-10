@@ -27,7 +27,7 @@ export const SectionWrapper: React.FC<SectionWrapperProps> = ({
     <section
       className={`${sectionPadding(paddingY)} ${className ? className : ""}`}
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">{children}</div>
+      <div className="mx-auto max-w-7xl px-2 md:px-6 lg:px-8">{children}</div>
     </section>
   );
 };

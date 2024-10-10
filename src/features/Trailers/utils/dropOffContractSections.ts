@@ -10,9 +10,10 @@ export const contractFullServiceSections: ContractSection[] = [
       "Half Day Rental (5 hours): $60",
       "Full Day Rental (24 hours): $100",
       "A delivery and pick-up fee of $20 applies for the drop-off service.",
+      "If the rental period exceeds 24 hours, the rental fee will be automatically calculated based on 24-hour increments at the full day rate of $100 per day.",
     ],
     simpleExplanation:
-      "The rental begins on [START DATE] at [START TIME] and ends on [END DATE] at [END TIME]. The renter agrees to pay $60 for a half-day rental (5 hours) or $100 for a full-day rental (24 hours). A $20 delivery and pick-up fee applies for the drop-off service.",
+      "The rental starts on [START DATE] at [START TIME] and ends on [END DATE] at [END TIME], with the Owner delivering to [DROP-OFF LOCATION]. Rental fees are $60 for a half day (5 hours) and $100 for a full day (24 hours). Delivery fee of $20 will be charged. Rentals longer than 24 hours are charged $100 per additional day.",
   },
   {
     title: "2. Renter Responsibilities",
@@ -45,20 +46,20 @@ export const contractFullServiceSections: ContractSection[] = [
   {
     title: "4. Cancellation Policy",
     formalText: [
-      "Cancellations made at least 24 hours before the start of the rental period will receive a full refund of the rental fee and security deposit.",
-      "Cancellations made within 24 hours of the start of the rental period will forfeit the rental fee but receive a refund of the security deposit.",
+      "For single-day rentals, cancellations made at least 24 hours before the start of the rental period will not be charged the cancellation fee. Cancellations made within 24 hours of the start of the rental period will be charged at least 50% of the rental fee.",
+      "For multi-day rentals, cancellations made at least 48 hours before the start of the rental period will receive a full refund of the security deposit. Cancellations made within 48 hours of the start of the rental period will forfeit the rental fee for the first rental day. Cancellations after the rental period has begun will forfeit the rental fee for the remaining days.",
     ],
     simpleExplanation:
-      "If you cancel your rental at least a day before it starts, you’ll get all your money back. But if you cancel less than a day before, you won’t get the rental money back, but you will still get your deposit back.",
+      "For single-day rentals, cancellations made 24 hours in advance avoid fees, while those within 24 hours are charged at least 50% of the rental fee. For multi-day rentals, cancellations made 48 hours in advance will receive a full refund of the security deposit, but cancellations within 48 hours will forfeit the first rental day's fee, and those after the rental period begins will forfeit the remaining rental fees.",
   },
   {
     title: "5. Payment Terms",
     formalText: [
       "Payment for the rental fee, and delivery fee must be made in full at the time of booking.",
-      "Accepted payment methods include cash, credit card, and debit card.",
+      "Accepted payment methods include cash, credit card, Venmo, and debit card.",
     ],
     simpleExplanation:
-      "Payment for the rental fee must be made in full at the time of booking. Accepted payment methods are cash, credit card, and debit card.",
+      "Payment for the rental fee must be made in full at the time of booking. Accepted payment methods are cash, credit card, venmo, and debit card.",
   },
   {
     title: "6. Inspection and Disputes",
@@ -70,14 +71,13 @@ export const contractFullServiceSections: ContractSection[] = [
       "The owner and renter will inspect the trailer together before and after the rental to assess its condition. Any disputes about damages or fees will be resolved through negotiation or mediation to reach a fair and mutually agreeable solution.",
   },
   {
-    title: "7. Insurance and Maintenance",
+    title: "7. Maintenance",
     formalText: [
-      "The Renter must provide proof of valid insurance coverage for the duration of the rental period.",
       "The Owner is responsible for maintaining the trailer in safe and operational condition. However, the Renter is responsible for any damages or repairs necessary due to misuse or negligence during the rental period.",
       "Roadside assistance is not provided by the Owner. The Renter is responsible for arranging and paying for any necessary roadside assistance during the rental period.",
     ],
     simpleExplanation:
-      "The renter must provide proof of valid insurance for the rental period. The owner is responsible for maintaining the trailer in safe working condition, but the renter is responsible for any damages or repairs caused by misuse or negligence. Roadside assistance is not provided by the owner; the renter must arrange and pay for any needed roadside assistance during the rental period.",
+      "The owner is responsible for maintaining the trailer in safe working condition, but the renter is responsible for any damages or repairs caused by misuse or negligence. Roadside assistance is not provided by the owner; the renter must arrange and pay for any needed roadside assistance during the rental period.",
   },
   {
     title: "8. Prohibited Materials",

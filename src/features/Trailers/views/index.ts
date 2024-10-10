@@ -1,4 +1,5 @@
 export * from "./TrailerDetailsView";
 export * from "./TrailerListView";
 export * from "./TrailerUsageView";
-export * from "./RentalContractView";
+export * from "./DropOffRentalContractView";
+export * from "./DriveOffRentalContractView";
