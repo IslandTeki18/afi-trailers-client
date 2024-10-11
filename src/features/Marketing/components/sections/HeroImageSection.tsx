@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Button, SectionWrapper } from "~src/components";
+import { useNavigate } from "react-router-dom";
 
-type HeroImageSectionProps = {};
-
-export const HeroImageSection = (props: HeroImageSectionProps) => {
+export const HeroImageSection = () => {
+  const navigate = useNavigate();
   return (
     <SectionWrapper paddingY="small">
       <div className="relative flex flex-col">
@@ -18,23 +18,21 @@ export const HeroImageSection = (props: HeroImageSectionProps) => {
               <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
                 AFI Trailers offers the best trailer rentals in south{" "}
                 <br className="hidden md:block" />
-                <span className="inline-block text-yellow-400">Utah County</span>
+                <span className="inline-block text-yellow-400">
+                  Utah County
+                </span>
               </h2>
               <p className="text-base text-gray-700 md:text-lg">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-                quae. explicabo.
+                Get the job done with our durable dump trailers, perfect for
+                hauling, cleanup, and construction projects. Whether you're
+                moving debris, dirt, or heavy materials, our trailers are built
+                to handle it all with ease.
               </p>
             </div>
             <div className="flex flex-col items-center md:flex-row gap-4">
-              <Button>Get a rental date</Button>
-              <a
-                href="/"
-                aria-label=""
-                className="inline-flex items-center font-semibold text-gray-800 transition-colors duration-200 hover:text-gray-500"
-              >
-                Learn more
-              </a>
+              <Button onClick={() => navigate("/trailers")}>
+                Find a Trailer
+              </Button>
             </div>
           </div>
         </div>

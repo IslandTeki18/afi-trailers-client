@@ -18,26 +18,28 @@ export const AboutOurMissionSection = (props: AboutOurMissionSectionProps) => {
       <div className="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
         <div className="lg:w-full lg:max-w-2xl lg:flex-auto">
           <p className="text-xl leading-8 text-gray-600">
-            Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At
-            arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae
-            feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget.
-            Eleifend egestas fringilla sapien.
+            Our mission is to make your projects easier by providing reliable
+            dump trailer rentals at affordable prices. We aim to offer
+            top-quality equipment and friendly service so you can get the job
+            done without hassle. Whether you're tackling a home cleanup,
+            landscaping, or a construction project, we're dedicated to
+            supporting your needs every step of the way.
           </p>
           <div className="mt-10 max-w-xl text-base leading-7 text-gray-700">
             <p>
-              Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus
-              enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor
-              praesent donec est. Odio penatibus risus viverra tellus varius sit
-              neque erat velit. Faucibus commodo massa rhoncus, volutpat.
-              Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae
-              sed turpis id.
+              We currently offer one reliable 14-yard dump trailer, perfect for
+              a wide range of projects from home renovations to construction
+              cleanups. While we’re starting small, we’re committed to
+              delivering the same top-tier service and quality that you can rely
+              on. This trailer is well-maintained and ready to handle your
+              toughest jobs.
             </p>
             <p className="mt-10">
-              Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis
-              odio id et. Id blandit molestie auctor fermentum dignissim. Lacus
-              diam tincidunt ac cursus in vel. Mauris varius vulputate et
-              ultrices hac adipiscing egestas. Iaculis convallis ac tempor et
-              ut. Ac lorem vel integer orci.
+              Looking ahead, we’re excited to expand our fleet. Over the next
+              four months, we plan to add three more trailers to give you even
+              more options for your projects. As we grow, our mission remains
+              the same: to provide dependable, hassle-free rentals at
+              competitive prices.
             </p>
           </div>
         </div>

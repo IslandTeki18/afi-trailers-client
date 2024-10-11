@@ -78,13 +78,13 @@ export const TrailerPricingSection = (props: TrailerPricingSectionProps) => {
           </p>
         </div>
         <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-          Affordable trailer rental options
+          Straightforward Pricing – No Hidden Fees
         </p>
       </div>
       <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
-        Either you can do it yourself or we can do it for you. We offer both.
-        Choose the option that works best for you and the project you are
-        working on.
+        Our dump trailer rental rates are simple and transparent. Choose a
+        rental period that works for you and your project, whether it’s for a
+        day, a week, or a month.
       </p>
       <div className="mt-16 flex justify-center">
         <fieldset aria-label="Payment frequency">

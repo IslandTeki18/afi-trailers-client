@@ -17,9 +17,8 @@ export const FeaturedTrailersSection = (
           </h2>
         </div>
         <p className="w-full text-gray-700 lg:text-sm lg:max-w-md">
-          "Sed ut perspiciatis unde omnis iste natus error sit iste voluptatem
-          accusantium doloremque rem aperiam, ipsa eaque quae. Sed ut
-          perspiciatis unde omnis iste."
+          Each trailer is available for daily, weekly, or monthly rentals—choose
+          the one that fits your needs and get to work!
         </p>
       </div>
       <div className="grid gap-8 row-gap-5 mb-8 lg:grid-cols-3 lg:row-gap-8">

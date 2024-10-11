@@ -6,27 +6,7 @@ import {
   TestimonialSection,
   WhyRentWithUsSection,
 } from "../components";
-
-const testimonials = [
-  {
-    name: "Alex Johnson",
-    comment:
-      "This podcast is fantastic! The storytelling is captivating and the production quality is excellent.",
-    rating: 5,
-  },
-  {
-    name: "Sam Smith",
-    comment:
-      "I'm hooked on this podcast. It's perfect for anyone interested in fascinating stories.",
-    rating: 4,
-  },
-  {
-    name: "Taylor Brown",
-    comment:
-      "I love this podcast! The host's voice is engaging, and the stories are compelling. Highly recommended!",
-    rating: 5,
-  },
-];
+import { aboutTestimonials } from "../utils/aboutTestimonials";
 
 export const AboutUsView = () => {
   return (
@@ -39,7 +19,7 @@ export const AboutUsView = () => {
       <AboutOurMissionSection />
       <AboutOurTeamSection />
       <WhyRentWithUsSection />
-      <TestimonialSection testimonials={testimonials} />
+      <TestimonialSection testimonials={aboutTestimonials} />
     </div>
   );
 };

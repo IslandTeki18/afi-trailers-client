@@ -12,27 +12,27 @@ export const WhyRentWithUsSection: React.FC = () => {
   const features: FeatureCardProps[] = [
     {
       icon: <TruckIcon className="w-6 h-6 text-yellow-600" />,
-      title: "Wide Selection",
+      title: "Quality Equipment",
       description:
-        "Choose from our diverse fleet of dump trailers, flatbeds, and more to suit your specific needs.",
+        "Our trailers are built to handle heavy-duty tasks and are regularly maintained to ensure top performance on every job.",
     },
     {
       icon: <CurrencyDollarIcon className="w-6 h-6 text-yellow-600" />,
-      title: "Competitive Pricing",
+      title: "Flexible Rentals",
       description:
-        "Enjoy affordable rates without compromising on quality or service.",
+        "Rent by the day, week, or month—our flexible options let you choose the rental period that fits your project’s timeline.",
     },
     {
       icon: <StarIcon className="w-6 h-6 text-yellow-600" />,
-      title: "Reliable Equipment",
+      title: "Simple Booking",
       description:
-        "Our well-maintained trailers ensure your job gets done without unexpected breakdowns.",
+        "We’ve streamlined the booking process so you can easily reserve your trailer online or with a quick phone call.",
     },
     {
       icon: <ClockIcon className="w-6 h-6 text-yellow-600" />,
-      title: "24/7 Support",
+      title: "Exceptional Service",
       description:
-        "Our dedicated team is always available to assist you, ensuring a smooth rental experience.",
+        "From start to finish, we’re here to support your project with friendly, responsive customer service you can count on.",
     },
   ];
 
