@@ -6,6 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { DateSelectArg } from "@fullcalendar/core";
 import { Trailer } from "~src/types";
 import { Badge, Button, Card, Dropdown, Input } from "~src/components";
+import { dayRentalOptions, utahCountyCityOptions } from "../utils/defaultLists";
 
 type TrailerCalendarProps = {
   trailer: Trailer;
@@ -17,6 +18,7 @@ export const TrailerCalendar: React.FC<TrailerCalendarProps> = ({
   const screenWidth = window.innerWidth;
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
   const [rentalType, setRentalType] = useState<"full" | "half">("full");
+  const [serviceType, setServiceType] = useState<"self" | "full">("self");
   const [clientInformation, setClientInformation] = useState({
     name: "",
     phone: "",
@@ -28,32 +30,6 @@ export const TrailerCalendar: React.FC<TrailerCalendarProps> = ({
       zip: "",
     },
   });
-  const utahCountyCityOptions = [
-    { value: "Alpine", label: "Alpine" },
-    { value: "American Fork", label: "American Fork" },
-    { value: "Cedar Hills", label: "Cedar Hills" },
-    { value: "Eagle Mountain", label: "Eagle Mountain" },
-    { value: "Elk Ridge", label: "Elk Ridge" },
-    { value: "Highland", label: "Highland" },
-    { value: "Lehi", label: "Lehi" },
-    { value: "Lindon", label: "Lindon" },
-    { value: "Mapleton", label: "Mapleton" },
-    { value: "Orem", label: "Orem" },
-    { value: "Payson", label: "Payson" },
-    { value: "Pleasant Grove", label: "Pleasant Grove" },
-    { value: "Provo", label: "Provo" },
-    { value: "Salem", label: "Salem" },
-    { value: "Santaquin", label: "Santaquin" },
-    { value: "Saratoga Springs", label: "Saratoga Springs" },
-    { value: "Spanish Fork", label: "Spanish Fork" },
-    { value: "Springville", label: "Springville" },
-    { value: "Woodland Hills", label: "Woodland Hills" },
-  ];
-
-  const dayRentalOptions = [
-    { value: "half", label: "Half Day (5 Hours)" },
-    { value: "full", label: "Full Day (24 Hours)" },
-  ];
 
   const bookedEvents = useMemo(() => {
     return trailer.bookedDates.map((booking) => {
@@ -168,6 +144,7 @@ export const TrailerCalendar: React.FC<TrailerCalendarProps> = ({
                 console.log("Booking confirmed", {
                   selectedDates,
                   rentalType,
+                  serviceType,
                   clientInformation,
                   totalPrice: calculateTotalPrice(),
                 });
@@ -184,6 +161,7 @@ export const TrailerCalendar: React.FC<TrailerCalendarProps> = ({
                 });
                 setSelectedDates([]);
                 setRentalType("full");
+                setServiceType("self");
               }}
             >
               Confirm Booking
@@ -220,6 +198,18 @@ export const TrailerCalendar: React.FC<TrailerCalendarProps> = ({
                 </label>
               </div>
             )}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Service Type:
+              </label>
+              <Dropdown
+                onChange={(value) => setServiceType(value as "self" | "full")}
+                options={[
+                  { label: "Self Service", value: "self" },
+                  { label: "Full Service", value: "full" },
+                ]}
+              />
+            </div>
             <div className="space-y-2">
               <Input
                 label="Name"
@@ -313,6 +303,12 @@ export const TrailerCalendar: React.FC<TrailerCalendarProps> = ({
                 <p className="text-sm text-gray-600 mt-1">
                   *Weekend surcharge of ${trailer.weekendSurcharge} per day
                   applies to Saturdays and Sundays
+                </p>
+              )}
+              {serviceType === "full" && (
+                <p className="text-sm text-gray-600 mt-1">
+                  *Full service surcharge of ${trailer.deliveryFee} per day
+                  applied
                 </p>
               )}
             </div>

@@ -7,6 +7,7 @@ export type Trailer = {
   type: string;
   halfDayRentalPrice?: number;
   fullDayRentalPrice?: number;
+  deliveryFee?: number;
   weekendSurcharge?: number;
   maintenanceStatus: "Operational" | "Maintenance" | "Out of Service";
   lastMaintenanceDate: Date;
