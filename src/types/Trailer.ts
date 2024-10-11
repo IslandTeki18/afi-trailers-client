@@ -6,8 +6,8 @@ export type Trailer = {
   description?: string;
   type: string;
   halfDayRentalPrice?: number;
-  fullDayRentalPrice: number; // Changed to required
-  deliveryFee: number; // Added as required for full-service option
+  fullDayRentalPrice: number;
+  deliveryFee: number;
   weekendSurcharge?: number;
   maintenanceStatus: "Operational" | "Maintenance" | "Out of Service";
   lastMaintenanceDate: Date;
@@ -15,10 +15,10 @@ export type Trailer = {
   location: string;
   photos?: string[];
   features: string[];
-  usageHistory: TrailerUsageHistory[]; // Fixed typo in name
+  usageHistory: TrailerUsageHistory[];
   insuranceRequired: boolean;
   towingRequirements: string[];
-  serviceTypes: ("full" | "self")[]; // Added to specify available service types
+  serviceTypes: ("full" | "self")[];
 };
 
 type TrailerBookedDates = {
