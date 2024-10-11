@@ -2,38 +2,75 @@ export type Trailer = {
   _id: string;
   name: string;
   capacity: string;
-  dimensions: string;
+  dimensions: {
+    length: number;
+    width: number;
+    height: number;
+  };
   description?: string;
   type: string;
-  halfDayRentalPrice?: number;
-  fullDayRentalPrice: number;
+  rentalPrices: {
+    halfDay?: number;
+    fullDay: number;
+  };
   deliveryFee: number;
   weekendSurcharge?: number;
   maintenanceStatus: "Operational" | "Maintenance" | "Out of Service";
   lastMaintenanceDate: Date;
+  nextScheduledMaintenance?: Date;
   bookedDates: TrailerBookedDates[];
-  location: string;
+  location: {
+    address: string;
+    coordinates?: {
+      latitude: number;
+      longitude: number;
+    };
+  };
   photos?: string[];
   features: string[];
   usageHistory: TrailerUsageHistory[];
   insuranceRequired: boolean;
   towingRequirements: string[];
   serviceTypes: ("full" | "self")[];
+  weight: {
+    empty: number;
+    maxLoad: number;
+  };
+  availability: {
+    isAvailable: boolean;
+    nextAvailableDate?: Date;
+  };
+  ratings: {
+    averageRating: number;
+    totalReviews: number;
+  };
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 type TrailerBookedDates = {
   startDate: Date;
   endDate: Date;
-  customerId: string; // Changed to string to match potential UUID format
+  customerId: string;
   bookingId: string;
   timeStamp: Date;
-  serviceType: "full" | "self"; // Added to track the type of service booked
+  serviceType: "full" | "self";
+  status: "confirmed" | "pending" | "cancelled";
 };
 
 type TrailerUsageHistory = {
   _id: string;
-  customerId: string; // Changed to string to match potential UUID format
+  customerId: string;
   rentalPeriod: { start: Date; end: Date };
   totalPaid: number;
-  serviceType: "full" | "self"; // Added to track the type of service used
+  serviceType: "full" | "self";
+  feedback?: {
+    rating: number;
+    comment?: string;
+  };
+  incidentReport?: {
+    description: string;
+    dateReported: Date;
+    resolved: boolean;
+  };
 };
