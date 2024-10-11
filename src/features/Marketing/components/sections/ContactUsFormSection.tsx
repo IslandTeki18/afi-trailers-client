@@ -33,7 +33,7 @@ export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
                     />
                   </dt>
                   <dd>
-                    1234 North Main Street
+                    7096 S 2124 W
                     <br />
                     Spanish Fork, UT 84660
                   </dd>
@@ -51,7 +51,7 @@ export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
                       href="tel:+1 (555) 234-5678"
                       className="hover:text-gray-900"
                     >
-                      +1 (555) 234-5678
+                      +1 (801) 609-4144
                     </a>
                   </dd>
                 </div>
@@ -68,7 +68,7 @@ export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
                       href="mailto:hello@example.com"
                       className="hover:text-gray-900"
                     >
-                      hello@example.com
+                      afi.rentaltrailers@gmail.com
                     </a>
                   </dd>
                 </div>
