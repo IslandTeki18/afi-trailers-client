@@ -5,7 +5,8 @@
   "proxy": "",
   "scripts": {
     "start": "parcel public/index.html",
-    "build": "parcel build public/index.html --dist-dir build"
+    "clean": "rm -rf .parcel-cache dist",
+    "build": "parcel build public/index.html"
   },
   "keywords": [],
   "author": "",
