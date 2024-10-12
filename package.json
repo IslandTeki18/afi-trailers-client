@@ -1,8 +1,6 @@
 {
   "name": "afi-trailers-client",
   "version": "1.0.0",
-  "main": "index.js",
-  "proxy": "",
   "scripts": {
     "start": "parcel public/index.html",
     "clean": "rm -rf .parcel-cache dist",
