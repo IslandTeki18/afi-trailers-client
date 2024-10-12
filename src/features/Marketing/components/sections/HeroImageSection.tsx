@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Button, SectionWrapper } from "~src/components";
 import { useNavigate } from "react-router-dom";
+// @ts-ignore
+import dumpTrailerImage from "../../assets/7x14Dump_Trailer_Front.jpg";
 
 export const HeroImageSection = () => {
   const navigate = useNavigate();
@@ -36,11 +38,11 @@ export const HeroImageSection = () => {
             </div>
           </div>
         </div>
-        <div className="inset-y-0 right-0 w-full mx-auto  lg:w-1/2 lg:max-w-full lg:absolute xl:px-0">
+        <div className="inset-y-0 right-0 w-full mx-auto lg:w-1/2 lg:max-w-full lg:absolute xl:px-0">
           <img
             className="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none sm:h-96 lg:h-full"
-            src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-            alt=""
+            src={dumpTrailerImage}
+            alt="dump trailer"
           />
         </div>
       </div>
