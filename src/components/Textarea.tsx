@@ -2,7 +2,7 @@ import * as React from "react";
 
 interface TextareaProps {
   value: string;
-  onChange: (value: string) => void;
+  onChange: (value: React.ChangeEvent<HTMLTextAreaElement>) => void;
   label: string;
   placeholder?: string;
   rows?: number;
@@ -64,7 +64,7 @@ export const Textarea: React.FC<TextareaProps> = ({
         name={name}
         rows={rows}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange}
         placeholder={placeholder}
         className={`${baseClasses} ${variantClasses[variant]} ${
           isDisabled ? "cursor-not-allowed opacity-50" : ""

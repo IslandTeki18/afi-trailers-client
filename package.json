@@ -2,6 +2,7 @@
   "name": "afi-trailers-client",
   "version": "1.0.0",
   "main": "index.js",
+  "proxy": "",
   "scripts": {
     "start": "parcel public/index.html",
     "build": "parcel build public/index.html --dist-dir build"
@@ -11,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@fullcalendar/core": "^6.1.15",
     "@fullcalendar/daygrid": "^6.1.15",
     "@fullcalendar/interaction": "^6.1.15",

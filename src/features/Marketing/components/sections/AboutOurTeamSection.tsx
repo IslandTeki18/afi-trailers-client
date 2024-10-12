@@ -11,7 +11,7 @@ const people = [
     role: "Owner and Operator",
     imageUrl:
       portfolioImage,
-    bio: "Landon started helping friends and family with his dump trailer and decided to share it everyone to get rid of their junk! He is passionate about providing the best customer service and trailer rental experience in Utah County.",
+    bio: "Landon started helping friends and family with his dump trailer and decided to share it everyone to get rid of their junk! He brings the pacific islander work ethic and passion for customer service to the trailer rental business.",
   },
 ];
 

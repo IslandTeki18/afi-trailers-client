@@ -1,42 +1,43 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   BuildingOffice2Icon,
   EnvelopeIcon,
   PhoneIcon,
 } from "@heroicons/react/24/outline";
 import { Button, Input, SectionWrapper, Textarea } from "~src/components";
+import emailjs from "@emailjs/browser";
 
 type ContactUsFormSectionProps = {};
 
 export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
+  const form = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     message: "",
   });
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (response.ok) {
-        alert("Email sent successfully!");
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        alert("Failed to send email. Please try again.");
-      }
+      if (!form.current) return;
+      await emailjs.sendForm(
+        "service_b6xrxba",
+        "template_44itu0w",
+        form.current,
+        "ODsr07SdqIg3ETyWk"
+      );
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred. Please try again.");
     }
   };
+
+  function isDisabled() {
+    return !formData.name || !formData.email || !formData.message;
+  }
 
   return (
     <SectionWrapper paddingY="small">
@@ -100,17 +101,27 @@ export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
               </dl>
             </div>
           </div>
-          <form className="pb-24 pt-20 sm:pb-32">
+          <form
+            ref={form}
+            className="pb-24 pt-20 sm:pb-32"
+            onSubmit={handleSubmit}
+          >
             <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
               <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                <Input
-                  label="Full name"
-                  id="name"
-                  name="name"
-                  type="text"
-                  autoComplete="given-name"
-                  required
-                />
+                <div className="sm:col-span-2">
+                  <Input
+                    label="Full name"
+                    id="name"
+                    name="name"
+                    type="text"
+                    autoComplete="given-name"
+                    required
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                  />
+                </div>
                 <div className="sm:col-span-2">
                   <Input
                     label="Email address"
@@ -119,6 +130,10 @@ export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
                     type="email"
                     autoComplete="email"
                     required
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                   />
                 </div>
                 <div className="sm:col-span-2">
@@ -128,6 +143,10 @@ export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
                     name="phone"
                     type="tel"
                     autoComplete="tel"
+                    value={formData.phone}
+                    onChange={(e) =>
+                      setFormData({ ...formData, phone: e.target.value })
+                    }
                   />
                 </div>
                 <div className="sm:col-span-2">
@@ -135,15 +154,18 @@ export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
                     label="Message"
                     id="message"
                     name="message"
+                    placeholder="Tell us how we can help you!"
                     rows={4}
-                    value=""
-                    onChange={() => {}}
+                    value={formData.message}
+                    onChange={(e) => {
+                      setFormData({ ...formData, message: e.target.value });
+                    }}
                     variant="primary"
                   />
                 </div>
               </div>
               <div className="mt-8 flex justify-end">
-                <Button type="submit" disabled>
+                <Button type="submit" disabled={isDisabled()}>
                   Send message
                 </Button>
               </div>
