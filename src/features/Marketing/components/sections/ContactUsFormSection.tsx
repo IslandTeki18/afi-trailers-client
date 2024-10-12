@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import {
   BuildingOffice2Icon,
   EnvelopeIcon,
@@ -9,6 +10,34 @@ import { Button, Input, SectionWrapper, Textarea } from "~src/components";
 type ContactUsFormSectionProps = {};
 
 export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        alert("Email sent successfully!");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        alert("Failed to send email. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again.");
+    }
+  };
+
   return (
     <SectionWrapper paddingY="small">
       <div className="relative isolate bg-white">
@@ -32,11 +61,7 @@ export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
                       className="h-7 w-6 text-gray-400"
                     />
                   </dt>
-                  <dd>
-                    7096 S 2124 W
-                    <br />
-                    Spanish Fork, UT 84660
-                  </dd>
+                  <dd>Spanish Fork, UT 84660</dd>
                 </div>
                 <div className="flex gap-x-4">
                   <dt className="flex-none">
@@ -79,19 +104,11 @@ export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
             <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
               <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                 <Input
-                  label="First name"
-                  id="first-name"
-                  name="first-name"
+                  label="Full name"
+                  id="name"
+                  name="name"
                   type="text"
                   autoComplete="given-name"
-                  required
-                />
-                <Input
-                  label="Last name"
-                  id="last-name"
-                  name="last-name"
-                  type="text"
-                  autoComplete="family-name"
                   required
                 />
                 <div className="sm:col-span-2">

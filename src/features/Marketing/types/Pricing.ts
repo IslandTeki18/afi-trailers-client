@@ -12,5 +12,5 @@ export type PricingTier = {
   featured: boolean;
   href: string;
   cta: string;
-  features: { fullService: string[]; selfService: string[] }; 
+  features: { fullService: string[]; selfService: string[] };
 };

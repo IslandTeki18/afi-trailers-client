@@ -29,12 +29,6 @@ export const TrailerCard = (props: TrailerCardProps) => {
         >
           View Trailer
         </Button>
-        <Button
-          variant="primary"
-          onClick={() => navigate(`/trailers/${props.trailerId}/booking`)}
-        >
-          Book Trailer
-        </Button>
       </div>
     </div>
   );

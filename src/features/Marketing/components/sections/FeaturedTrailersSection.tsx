@@ -1,12 +1,10 @@
 import * as React from "react";
 import { TrailerCard } from "../TrailerCard";
 import { SectionWrapper } from "~src/components";
+// @ts-ignore
+import dumpTrailer from "../../assets/7x14Dump_Trailer.jpg";
 
-type FeaturedTrailersSectionProps = {};
-
-export const FeaturedTrailersSection = (
-  props: FeaturedTrailersSectionProps
-) => {
+export const FeaturedTrailersSection = () => {
   return (
     <SectionWrapper>
       <div className="flex flex-col w-full mb-6 lg:justify-between lg:flex-row md:mb-8">
@@ -23,19 +21,10 @@ export const FeaturedTrailersSection = (
       </div>
       <div className="grid gap-8 row-gap-5 mb-8 lg:grid-cols-3 lg:row-gap-8">
         <TrailerCard
-          imageSrc="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-          title="7 x 14 Dump Trailer"
-          description="This trailer is perfect for hauling dirt, gravel, and other materials. It has a 14,000 lb. payload capacity."
-        />
-        <TrailerCard
-          imageSrc="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-          title="6 x 12 Utility Trailer"
-          description="This trailer is perfect for hauling dirt, gravel, and other materials. It has a 14,000 lb. payload capacity."
-        />
-        <TrailerCard
-          imageSrc="https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-          title="8 x 20 Equipment Trailer"
-          description="This trailer is perfect for hauling dirt, gravel, and other materials. It has a 14,000 lb. payload capacity."
+          imageSrc={dumpTrailer}
+          title="7 x 14 Dump Trailer with 4ft walls"
+          description="This trailer is perfect for hauling junk, dirt, gravel, and other materials. It has a 14,000 lb. payload capacity."
+          trailerId="st7x14x4dump001"
         />
       </div>
     </SectionWrapper>

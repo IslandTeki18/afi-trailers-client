@@ -29,6 +29,7 @@ const tiers: PricingTier[] = [
         "We Clean the Trailer",
       ],
       selfService: [
+        "5 Hour Rental Limit",
         "You Pick Up the Trailer",
         "You Fill the Trailer",
         "You Dump the Trailer",
@@ -46,23 +47,24 @@ const tiers: PricingTier[] = [
     price: { fullService: "$100", selfService: "$80" },
     description: "Great for all day projects and multiple uses.",
     features: {
-      fullService: ["24 Hour Rental Limit", "Everything in Half Day Rental"],
-      selfService: ["24 Hour Rental Limit", "Everything in Half Day Rental"],
+      fullService: [
+        "24 Hour Rental Limit",
+        "We Deliver the Trailer",
+        "You Fill the Trailer",
+        "We Pick Up the Trailer",
+        "We Dump the Trailer",
+        "We Clean the Trailer",
+      ],
+      selfService: [
+        "24 Hour Rental Limit",
+        "You Pick Up the Trailer",
+        "You Fill the Trailer",
+        "You Dump the Trailer",
+        "You Return the Trailer",
+        "We Clean the Trailer",
+      ],
     },
     featured: false,
-    cta: "Book a Trailer",
-  },
-  {
-    name: "Multi-Day Rental",
-    id: "tier-custom",
-    href: "#",
-    price: "Custom",
-    description: "Greate for long-term projects and multiple uses.",
-    features: {
-      fullService: ["Custom Rental Limit", "Everything in Full Day Rental"],
-      selfService: ["Custom Rental Limit", "Everything in Full Day Rental"],
-    },
-    featured: true,
     cta: "Book a Trailer",
   },
 ];
@@ -105,7 +107,11 @@ export const TrailerPricingSection = (props: TrailerPricingSectionProps) => {
           </RadioGroup>
         </fieldset>
       </div>
-      <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+      <p className="text-center text-sm text-gray-400 pt-4">
+        * For Full Services, there is a $20 delivery fee that's already
+        calculated.
+      </p>
+      <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-2">
         {tiers.map((tier) => (
           <div
             key={tier.id}

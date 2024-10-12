@@ -2,17 +2,17 @@ export const faqQuestions = [
   {
     title: "What types of trailers do you offer for rent?",
     description:
-      "Right now we only offer dump trailers, but we are looking to expand our offerings in the future.",
+      "Right now we only offer a single 7x14 dump trailer, but we are looking to expand our trailer selection in the future.",
   },
   {
     title: "How do I book a trailer?",
     description:
-      "You can book a trailer by visiting our website and selecting the trailer you want to rent. From there, you can choose your rental period and dates and confirm your booking.",
+      "You can book a trailer by calling us and schedule a rental period.",
   },
   {
     title: "What are you rental rates and options?",
     description:
-      "We offer daily, weekly, and monthly rental options for our trailers. Our rates vary depending on the rental period and whether you choose full-service or self-service.",
+      "We offer two rental options: full service and self service. Our full service option includes delivery, pick up, dumping, and cleaning of the trailer. Our self service option requires you to pick up, fill, dump, and return the trailer yourself. For our full service option, we charge a $20 delivery fee.",
   },
   {
     title: "Do I need a deposit to rent a trailer?",
@@ -27,6 +27,6 @@ export const faqQuestions = [
   {
     title: "What are the requirements for towing a trailer?",
     description:
-      "To tow one of our trailers, you will need a vehicle with a towing capacity of at least 10,000 lbs and a 2 5/6 in. ball hitch. You will also need a valid driver's license.",
+      "To tow one of our trailers, you will need a vehicle with a towing capacity of at least 10,000 lbs and a 2 5/16 in. ball hitch. You will also need a valid driver's license.",
   },
 ];

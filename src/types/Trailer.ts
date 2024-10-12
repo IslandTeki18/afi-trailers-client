@@ -16,8 +16,8 @@ export type Trailer = {
   deliveryFee: number;
   weekendSurcharge?: number;
   maintenanceStatus: "Operational" | "Maintenance" | "Out of Service";
-  lastMaintenanceDate: Date;
-  nextScheduledMaintenance?: Date;
+  lastMaintenanceDate: Date | null;
+  nextScheduledMaintenance?: Date | null;
   bookedDates: TrailerBookedDates[];
   location: {
     address: string;

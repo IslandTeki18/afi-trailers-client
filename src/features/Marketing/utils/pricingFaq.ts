@@ -2,7 +2,7 @@ export const faqQuestions = [
   {
     title: "What are you rental rates and options?",
     description:
-      "We offer daily, weekly, and monthly rental options for our trailers. Our rates vary depending on the rental period and whether you choose full-service or self-service.",
+      "We offer two rental options: full service and self service. Our full service option includes delivery, pick up, dumping, and cleaning of the trailer. Our self service option requires you to pick up, fill, dump, and return the trailer yourself. For our full service option, we charge a $20 delivery fee.",
   },
   {
     title: "Do I need a deposit to rent a trailer?",
@@ -17,6 +17,6 @@ export const faqQuestions = [
   {
     title: "What are the requirements for towing a trailer?",
     description:
-      "To tow one of our trailers, you will need a vehicle with a towing capacity of at least 10,000 lbs and a 2 5/6 in. ball hitch. You will also need a valid driver's license.",
+      "To tow one of our trailers, you will need a vehicle with a towing capacity of at least 10,000 lbs and a 2 5/16 in. ball hitch. You will also need a valid driver's license.",
   },
 ];

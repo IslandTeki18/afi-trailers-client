@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useMemo } from "react";
 import { Outlet } from "react-router-dom";
-import { Footer, Navbar } from "~src/components";
+import { Footer, Navbar, SimpleFooter } from "~src/components";
 import {
   HomeView,
   TrailerListView,
@@ -39,12 +39,7 @@ function NonAuthenticatedRoutes() {
     <div className="flex flex-col h-screen">
       <Navbar navigation={navigation} />
       <Outlet />
-      <Footer
-        variant="primary"
-        companyName="Your Company"
-        logo="path/to/logo.png"
-        description="Your company description"
-      />
+      <SimpleFooter />
     </div>
   );
 }
@@ -69,14 +64,14 @@ export const mainRoutes = [
             path: ":trailerId",
             element: <TrailerDetailsView />,
           },
-          {
-            path: ":trailerId/book",
-            element: <TrailerBookingView />,
-          },
-          {
-            path: ":trailerId/confirmation/:confirmationId",
-            element: <ConfirmationView />,
-          },
+          // {
+          //   path: ":trailerId/book",
+          //   element: <TrailerBookingView />,
+          // },
+          // {
+          //   path: ":trailerId/confirmation/:confirmationId",
+          //   element: <ConfirmationView />,
+          // },
           {
             path: "usage-guidelines",
             element: <TrailerUsageView />,

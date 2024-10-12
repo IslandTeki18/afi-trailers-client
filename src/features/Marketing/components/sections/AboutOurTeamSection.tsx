@@ -1,5 +1,7 @@
 import * as React from "react";
 import { SectionWrapper } from "~src/components";
+// @ts-ignore
+import portfolioImage from "../../assets/portfolio.jpeg";
 
 type AboutOurTeamSectionProps = {};
 
@@ -8,8 +10,8 @@ const people = [
     name: "Landon McKell",
     role: "Owner and Operator",
     imageUrl:
-      "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-    bio: "Quia illum aut in beatae. Possimus dolores aliquid accusantium aut in ut non assumenda. Enim iusto molestias aut deleniti eos aliquid magnam molestiae. At et non possimus ab. Magni labore molestiae nulla qui.",
+      portfolioImage,
+    bio: "Landon started helping friends and family with his dump trailer and decided to share it everyone to get rid of their junk! He is passionate about providing the best customer service and trailer rental experience in Utah County.",
   },
 ];
 
@@ -19,15 +21,15 @@ export const AboutOurTeamSection = (props: AboutOurTeamSectionProps) => {
       <div className="mx-auto max-w-2xl sm:text-center">
         <div>
           <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-yellow-900 uppercase rounded-full bg-yellow-400">
-            About our team
+            About Us
           </p>
         </div>
         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-          Meet our leadership
+          Team of One
         </h2>
         <p className="mt-6 text-lg leading-8 text-gray-600">
-          Our team is made up of passionate individuals who are dedicated to
-          providing the best trailer rental experience in Utah County.
+          Right now it's just Landon, but he's the best! He's passionate about
+          providing the best customer service and trailer rental experience in Utah County.
         </p>
       </div>
       <ul
