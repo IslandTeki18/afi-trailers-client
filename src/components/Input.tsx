@@ -35,6 +35,7 @@ export const Input: React.FC<InputProps> = ({
         <label
           htmlFor={id}
           className="mb-1 font-medium text-gray-700 dark:text-gray-200"
+          aria-label={label}
         >
           {label}
         </label>

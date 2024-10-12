@@ -114,6 +114,7 @@ export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
                     id="name"
                     name="name"
                     type="text"
+                    placeholder="John Doe"
                     autoComplete="given-name"
                     required
                     value={formData.name}
@@ -129,6 +130,7 @@ export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
                     name="email"
                     type="email"
                     autoComplete="email"
+                    placeholder="john.doe@example.com"
                     required
                     value={formData.email}
                     onChange={(e) =>
@@ -143,6 +145,7 @@ export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
                     name="phone"
                     type="tel"
                     autoComplete="tel"
+                    placeholder="(555) 234-5678"
                     value={formData.phone}
                     onChange={(e) =>
                       setFormData({ ...formData, phone: e.target.value })
