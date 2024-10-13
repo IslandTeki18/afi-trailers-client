@@ -26,13 +26,13 @@ export const Textarea: React.FC<TextareaProps> = ({
   name,
 }) => {
   const baseClasses =
-    "block w-full rounded-md border-0 py-1.5 shadow-sm placeholder:text-gray-400 sm:text-sm sm:leading-6";
+    "block w-full rounded-md border py-1.5 shadow-sm placeholder:text-gray-400 sm:text-sm sm:leading-6";
 
   const variantClasses = {
     primary: `${
       darkMode
         ? "bg-gray-700 text-white ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset"
-        : "bg-gray-100 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset"
+        : "bg-gray-50 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset"
     } focus:ring-gray-500`,
     secondary: `${
       darkMode

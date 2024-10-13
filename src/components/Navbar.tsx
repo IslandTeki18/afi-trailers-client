@@ -6,6 +6,8 @@ import {
 } from "@headlessui/react";
 import { Bars3Icon, FireIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { NavLink } from "react-router-dom";
+// @ts-ignore
+import lightCircleLogo from "~src/assets/icons/light-circle-simple.png";
 
 type NavItem = {
   name: string;
@@ -85,7 +87,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       alt="Your Company"
                     />
                   ) : (
-                    <FireIcon className="h-8 w-8 text-white" />
+                    <img src={lightCircleLogo} alt="" className="w-10 h-10" />
                   )}
                 </div>
                 <div className="hidden sm:ml-6 sm:block">

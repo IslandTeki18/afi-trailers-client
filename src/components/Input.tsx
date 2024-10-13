@@ -20,9 +20,9 @@ export const Input: React.FC<InputProps> = ({
 
   const variantClasses = {
     primary:
-      "bg-gray-50 border border-gray-300 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400",
+      "bg-gray-50 border border-gray-300 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 placeholder:text-gray-400",
     secondary:
-      "bg-gray-100 border-transparent focus:bg-white focus:border-gray-300 focus:ring-gray-300 dark:bg-gray-800 dark:focus:bg-gray-700 dark:focus:border-gray-600 dark:focus:ring-gray-600 dark:text-white",
+      "bg-gray-50 border-transparent focus:bg-white focus:border-gray-300 focus:ring-gray-300 dark:bg-gray-800 dark:focus:bg-gray-700 dark:focus:border-gray-600 dark:focus:ring-gray-600 dark:text-white",
     outlined:
       "bg-transparent border border-gray-300 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400",
   };
@@ -34,7 +34,7 @@ export const Input: React.FC<InputProps> = ({
       {label && (
         <label
           htmlFor={id}
-          className="mb-1 font-medium text-gray-700 dark:text-gray-200"
+          className="mb-1 font-medium text-gray-700 dark:text-gray-200 "
           aria-label={label}
         >
           {label}
