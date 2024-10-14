@@ -24,3 +24,36 @@ export const dayRentalOptions = [
   { value: "half", label: "Half Day (5 Hours)" },
   { value: "full", label: "Full Day (24 Hours)" },
 ];
+
+export const bookingSteps = [
+  {
+    id: "1",
+    name: "Select dates",
+    href: "#",
+    status: "current" as "current",
+  },
+  {
+    id: "2",
+    name: "Select Service",
+    href: "#",
+    status: "upcoming" as "upcoming",
+  },
+  {
+    id: "3",
+    name: "Enter Details",
+    href: "#",
+    status: "upcoming" as "upcoming",
+  },
+  {
+    id: "4",
+    name: "Order Preview",
+    href: "#",
+    status: "upcoming" as "upcoming",
+  },
+  {
+    id: "5",
+    name: "Payment",
+    href: "#",
+    status: "upcoming" as "upcoming",
+  },
+];
