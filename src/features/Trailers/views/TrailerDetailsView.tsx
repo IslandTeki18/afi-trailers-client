@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Carousel, Header, Badge, Card } from "~src/components";
 import { Trailer } from "~src/types";
@@ -10,6 +11,10 @@ export const TrailerDetailsView: React.FC = () => {
   const navigate = useNavigate();
   // @ts-ignore
   const trailer: Trailer = dumpTrailer;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (!trailer) {
     return <TrailerNotFound />;

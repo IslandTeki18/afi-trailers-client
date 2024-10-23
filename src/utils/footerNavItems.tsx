@@ -7,7 +7,6 @@ export const footerNavItems = {
     { name: "Trailers", href: "/trailers" },
     { name: "Pricing", href: "/pricing" },
     { name: "Contact", href: "/contact" },
-    // { name: "Blog", href: "#" },
   ],
   social: [
     {
