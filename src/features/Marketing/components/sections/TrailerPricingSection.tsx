@@ -16,7 +16,7 @@ const tiers: PricingTier[] = [
   {
     name: "Half Day Rental",
     id: "tier-half-day",
-    href: "#",
+    href: "/trailers",
     price: { fullService: "$80", selfService: "$60" },
     description: "Great for small projects and one-time use.",
     features: {
@@ -43,7 +43,7 @@ const tiers: PricingTier[] = [
   {
     name: "Full Day Rental",
     id: "tier-full-day",
-    href: "#",
+    href: "/trailers",
     price: { fullService: "$100", selfService: "$80" },
     description: "Great for all day projects and multiple uses.",
     features: {
@@ -87,29 +87,6 @@ export const TrailerPricingSection = (props: TrailerPricingSectionProps) => {
         Our dump trailer rental rates are simple and transparent. Choose a
         rental period that works for you and your project, whether it’s for a
         day, a week, or a month.
-      </p>
-      <div className="mt-16 flex justify-center">
-        <fieldset aria-label="Payment frequency">
-          <RadioGroup
-            value={frequency}
-            onChange={setFrequency}
-            className="grid grid-cols-2 gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200"
-          >
-            {frequencies.map((option) => (
-              <Radio
-                key={option.value}
-                value={option}
-                className="cursor-pointer rounded-full px-2.5 py-1 text-gray-500 data-[checked]:bg-yellow-600 data-[checked]:text-white"
-              >
-                {option.label}
-              </Radio>
-            ))}
-          </RadioGroup>
-        </fieldset>
-      </div>
-      <p className="text-center text-sm text-gray-400 pt-4">
-        * For Full Services, there is a $20 delivery fee that's already
-        calculated.
       </p>
       <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-2">
         {tiers.map((tier) => (

@@ -29,6 +29,13 @@ export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
         form.current,
         "ODsr07SdqIg3ETyWk"
       );
+      alert("Your message has been sent. We will get back to you soon!");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      })
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred. Please try again.");

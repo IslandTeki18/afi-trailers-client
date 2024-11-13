@@ -60,7 +60,7 @@ export const dumpTrailer: Trailer = {
     '2 5/16" ball hitch',
     "7-pin connector",
   ],
-  serviceTypes: ["full", "self"],
+  serviceTypes: ["full"],
   weight: {
     empty: 4100,
     maxLoad: 10000,
