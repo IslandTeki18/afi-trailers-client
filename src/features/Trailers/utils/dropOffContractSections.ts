@@ -1,4 +1,4 @@
-import { ContractSection } from "../types/contract";
+import { ContractSection } from "../types/contract.types";
 
 export const contractFullServiceSections: ContractSection[] = [
   {
