@@ -16,6 +16,7 @@ import {
   PricingView,
 } from "~src/features";
 
+
 function NonAuthenticatedRoutes() {
   const [navigation, setNavigation] = React.useState([
     { name: "Home", href: "/", current: true },
