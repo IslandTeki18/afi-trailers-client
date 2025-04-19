@@ -1,8 +1,8 @@
 # 🚛 Dump Trailer Booking System – TODO.md
 
 ## 🗂️ Project Structure
-- [ ] Create new "Booking" model in backend
-- [ ] Add booking management UI (admin dashboard or CMS integration)
+- [x] Create new "Booking" model in backend
+- [x] Add booking management UI (admin dashboard or CMS integration)
 
 ---
 

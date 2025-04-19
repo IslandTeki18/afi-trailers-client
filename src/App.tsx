@@ -1,11 +1,12 @@
 import * as React from "react";
 import { AppRoutes } from "./routes";
-import { RecoilInitializer } from "~src/stores";
+import { store } from "./stores/redux/store";
+import { Provider} from "react-redux"
 
 export function App() {
   return (
-    <RecoilInitializer>
+    <Provider store={store}>
       <AppRoutes />
-    </RecoilInitializer>
+    </Provider>
   );
 }
