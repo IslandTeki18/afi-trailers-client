@@ -3,7 +3,7 @@ export * from "./Toast";
 export * from "./Avatar";
 export * from "./Navbar";
 export * from "./Footer";
-export * from "./Header";
+export * from "../../app/layout/Header";
 export * from "./Badge";
 export * from "./Card";
 export * from "./Dropdown";
