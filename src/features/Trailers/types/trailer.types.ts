@@ -1,5 +1,6 @@
 export type Trailer = {
   _id: string;
+  id: string;
   name: string;
   capacity: string;
   dimensions: {
@@ -44,8 +45,16 @@ export type Trailer = {
     averageRating: number;
     totalReviews: number;
   };
+  tags?: string[];
+  isFeatured?: boolean;
+  isArchived?: boolean;
+  createdBy?: string;
+  updatedBy?: string;
   createdAt: Date;
   updatedAt: Date;
+
+  formattedPrice?: string;
+  statusBadge?: string;
 };
 
 type TrailerBookedDates = {
