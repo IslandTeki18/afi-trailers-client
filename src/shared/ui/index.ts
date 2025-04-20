@@ -14,3 +14,5 @@ export * from "./SectionWrapper";
 export * from "./Alert";
 export * from "./SimpleFooter";
 export * from "./Stepper";
+export * from "./Table";
+export * from "./Switch";

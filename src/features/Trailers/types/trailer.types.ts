@@ -27,6 +27,11 @@ export type Trailer = {
       longitude: number;
     };
   };
+  rentalRate: {
+    amount: number;
+    currency: string; // e.g., "USD"
+    unit: "hour" | "half_day" | "day" | "week"; // billing unit
+  };
   photos?: string[];
   features: string[];
   usageHistory: TrailerUsageHistory[];
@@ -52,7 +57,7 @@ export type Trailer = {
   updatedBy?: string;
   createdAt: Date;
   updatedAt: Date;
-
+  status: TrailerStatus;
   formattedPrice?: string;
   statusBadge?: string;
 };
@@ -83,3 +88,12 @@ type TrailerUsageHistory = {
     resolved: boolean;
   };
 };
+
+export type TrailerStatus =
+  | 'available'           // Ready to rent
+  | 'in_use'              // Out on a rental
+  | 'out_of_service'      // Temporarily unavailable (not usable)
+  | 'maintenance'         // Actively being serviced
+  | 'reserved'            // Upcoming confirmed booking
+  | 'pending_approval'    // Awaiting admin confirmation
+  | 'archived';           // Soft-deleted or inactive

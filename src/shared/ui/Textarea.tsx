@@ -1,16 +1,19 @@
 import * as React from "react";
 
 interface TextareaProps {
-  value: string;
-  onChange: (value: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  label: string;
+  value: any;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
   rows?: number;
-  variant?: "primary" | "secondary" | "accent" | "success";
+  variant?:
+    | "primary"
+    | "secondary"
+    | "accent"
+    | "success"
+    | "warning"
+    | "info"
+    | "error";
   darkMode?: boolean;
-  isDisabled?: boolean;
-  id?: string;
-  name?: string;
 }
 
 export const Textarea: React.FC<TextareaProps> = ({
@@ -19,58 +22,27 @@ export const Textarea: React.FC<TextareaProps> = ({
   placeholder = "",
   rows = 4,
   variant = "primary",
-  darkMode = false,
-  isDisabled = false,
-  label,
-  id,
-  name,
 }) => {
   const baseClasses =
-    "block w-full rounded-md border py-1.5 shadow-sm placeholder:text-gray-400 sm:text-sm sm:leading-6";
+    "block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6";
 
   const variantClasses = {
-    primary: `${
-      darkMode
-        ? "bg-gray-700 text-white ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset"
-        : "bg-gray-50 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset"
-    } focus:ring-gray-500`,
-    secondary: `${
-      darkMode
-        ? "bg-yellow-600 text-white ring-1 ring-inset ring-yellow-300 focus:ring-2 focus:ring-inset"
-        : "bg-yellow-200 text-yellow-900 ring-1 ring-inset ring-yellow-300 focus:ring-2 focus:ring-inset"
-    } focus:ring-yellow-500`,
-    accent: `${
-      darkMode
-        ? "bg-red-600 text-white ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset"
-        : "bg-red-100 text-red-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset"
-    } focus:ring-red-500`,
-    success: `${
-      darkMode
-        ? "bg-green-700 text-white ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset"
-        : "bg-green-100 text-green-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset"
-    } focus:ring-green-500`,
+    primary: `bg-base-500 text-white ring-1 ring-inset ring-primary-300 focus:ring-2 focus:ring-inset focus:ring-primary-300 placeholder:text-base-200`,
+    secondary: `bg-base-500 text-white ring-1 ring-inset ring-secondary-300 focus:ring-2 focus:ring-inset focus:ring-secondary-400 placeholder:text-base-200`,
+    accent: `bg-base-500 text-white ring-1 ring-inset ring-accent-300 focus:ring-2 focus:ring-inset focus:ring-accent-500 placeholder:text-base-100`,
+    info: `bg-base-500 text-white ring-1 ring-inset ring-info focus:ring-2 focus:ring-inset focus:ring-info placeholder:text-base-200`,
+    warning: `bg-base-500 text-white ring-1 ring-inset ring-warning focus:ring-2 focus:ring-inset focus:ring-warning placeholder:text-base-200`,
+    success: `bg-base-500 text-white ring-1 ring-inset ring-success focus:ring-2 focus:ring-inset focus:ring-success placeholder:text-base-200`,
+    error: `bg-base-500 text-white ring-1 ring-inset ring-error focus:ring-2 focus:ring-inset focus:ring-error placeholder:text-base-200`,
   };
 
   return (
-    <div className="flex flex-col">
-      <label
-        htmlFor={name}
-        className="mb-1 font-medium text-gray-700 dark:text-gray-200"
-      >
-        {label}
-      </label>
-      <textarea
-        id={id}
-        name={name}
-        rows={rows}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        className={`${baseClasses} ${variantClasses[variant]} ${
-          isDisabled ? "cursor-not-allowed opacity-50" : ""
-        }`}
-        disabled={isDisabled}
-      />
-    </div>
+    <textarea
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      rows={rows}
+      className={`${baseClasses} ${variantClasses[variant]}`}
+    />
   );
 };

@@ -1,6 +1,7 @@
+import * as React from "react";
 import { Table } from "~src/shared/ui/Table";
 import { Trailer } from "../types/trailer.types";
-import { formatCurrency } from "@/shared/utils/formatCurrency";
+import { formatCurrency } from "~src/shared/utils/formatCurrency";
 import { formatTrailerStatus } from "../utils/formatTrailerStatus";
 
 type TrailerListProps = {
@@ -20,8 +21,8 @@ export const TrailerList = ({ trailers, onEdit }: TrailerListProps) => {
   const formattedTrailers = trailers.map((trailer) => ({
     ...trailer,
     status: formatTrailerStatus(trailer.status),
-    rentalRate: formatCurrency(trailer.rentalRate),
-    weightLimit: `${trailer.weightLimit.toLocaleString()} lbs`,
+    rentalRate: formatCurrency(trailer.rentalRate.amount),
+    weightLimit: `${trailer.weight.maxLoad} lbs`,
   }));
 
   return (
