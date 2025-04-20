@@ -10,6 +10,9 @@ import { AppLayout } from "../layout/AppLayout";
 import { ProtectedRoute } from "../auth/ProtectedRoute";
 import { GuestRoute } from "../auth/GuestRoute";
 
+import { LoginPage } from "~src/features/auth";
+import { NotFoundPage } from "~src/pages/NotFoundPage";
+
 export const AppRoutes = () => {
   return (
     <Router>
@@ -33,7 +36,7 @@ export const AppRoutes = () => {
           }
         ></Route>
         {/* Fallback */}
-        <Route path="*" element={<>Fall Back</>} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );

@@ -1,6 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
-import { Button } from "~src/components";
+import { Button } from "~src/shared/ui";
 
 type OrderPreviewViewProps = {
   address?: string;
@@ -18,6 +17,7 @@ export const OrderPreviewView = (props: OrderPreviewViewProps) => {
   const totalDays = 2; /* Calculate total days */
   const depositDays = Math.ceil(totalDays / 3);
   const depositAmount = 200; /* Calculate deposit based on depositDays */
+  
   return (
     <div className="flex flex-col space-y-4">
       <h3 className="text-lg font-semibold">Booking Preview</h3>
