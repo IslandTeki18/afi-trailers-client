@@ -1,6 +1,14 @@
 import * as React from "react";
 
-type ButtonVariant = "primary" | "secondary" | "accent" | "success" | "warning";
+type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "accent"
+  | "success"
+  | "warning"
+  | "info"
+  | "error"
+  | "link";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -24,15 +32,19 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantClasses = {
     primary:
-      "bg-gray-800 text-white hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700 disabled:bg-gray-400 disabled:cursor-not-allowed",
+      "bg-primary-500 text-white hover:bg-primary-600 disabled:bg-primary-400 disabled:cursor-not-allowed",
     secondary:
-      "bg-yellow-200 text-yellow-800 hover:bg-yellow-300 dark:bg-yellow-700 dark:text-yellow-200 dark:hover:bg-yellow-600 disabled:bg-yellow-400 disabled:cursor-not-allowed",
+      "bg-secondary-500 text-white hover:bg-secondary-600 disabled:bg-secondary-400 disabled:cursor-not-allowed",
     accent:
-      "bg-red-500 text-white hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 disabled:bg-red-400 disabled:cursor-not-allowed",
+      "bg-accent-500 text-white hover:bg-accent-600 disabled:bg-accent-400 disabled:cursor-not-allowed",
     success:
-      "bg-green-500 text-white hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 disabled:bg-green-400 disabled:cursor-not-allowed",
+      "bg-success text-base-500 hover:bg-success/80 disabled:bg-success-400 disabled:cursor-not-allowed",
     warning:
-      "bg-yellow-500 text-white hover:bg-yellow-600 dark:bg-yellow-600 dark:hover:bg-yellow-700 disabled:bg-yellow-400 disabled:cursor-not-allowed",
+      "bg-warning text-white hover:bg-warning/80 disabled:bg-accent/60 disabled:cursor-not-allowed",
+    info: "bg-info text-white hover:bg-info/80 disabled:bg-info-400 disabled:cursor-not-allowed",
+    error:
+      "bg-error text-white hover:bg-error/80 disabled:bg-error-400 disabled:cursor-not-allowed",
+    link: "text-base-500 hover:text-base-600 disabled:text-base-400 disabled:cursor-not-allowed",
   };
 
   const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${className}`;
