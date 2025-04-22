@@ -1,6 +1,6 @@
 import * as React from "react";
 import { TestimonialCard, TestimonialCardProps } from "../TestimonialCard";
-import { SectionWrapper } from "~src/components";
+import { SectionWrapper } from "~src/shared/ui";
 
 type TestimonialSectionProps = {
   testimonials: TestimonialCardProps[];

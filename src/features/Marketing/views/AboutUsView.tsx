@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Header } from "~src/components";
+import { Header } from "~src/shared/ui";
 import {
   AboutOurMissionSection,
   AboutOurTeamSection,

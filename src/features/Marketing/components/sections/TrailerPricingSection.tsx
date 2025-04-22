@@ -4,7 +4,7 @@ import { Radio, RadioGroup } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { classNames } from "~src/utils";
 import { PricingFrequency, PricingTier } from "../../types";
-import { SectionWrapper } from "~src/components";
+import { SectionWrapper } from "~src/shared/ui";
 
 type TrailerPricingSectionProps = {};
 

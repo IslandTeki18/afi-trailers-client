@@ -49,7 +49,7 @@ export const AppLayout = () => {
 
       {/* Main content area */}
       <div className="flex flex-col flex-1">
-        <Header variant="primary" companyName="Afi Trailer Rentals" logo={} links={links} />
+        <Header variant="primary" companyName="Afi Trailer Rentals" logo={""} links={links} />
         <main className="p-4 flex-1 overflow-y-auto">
           <Outlet />
         </main>

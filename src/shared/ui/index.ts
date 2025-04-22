@@ -16,3 +16,4 @@ export * from "./SimpleFooter";
 export * from "./Stepper";
 export * from "./Table";
 export * from "./Switch";
+export * from "./Drawer";

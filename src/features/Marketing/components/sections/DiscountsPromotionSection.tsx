@@ -1,6 +1,6 @@
 import * as React from "react";
 import { TagIcon } from "@heroicons/react/20/solid";
-import { SectionWrapper } from "~src/components";
+import { SectionWrapper } from "~src/shared/ui";
 
 interface Discount {
   name: string;

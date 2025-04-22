@@ -33,6 +33,7 @@ export const TrailerList = ({ trailers, onEdit }: TrailerListProps) => {
       columns={columns}
       onEdit={onEdit}
       variant="transparent"
+      
     />
   );
 };

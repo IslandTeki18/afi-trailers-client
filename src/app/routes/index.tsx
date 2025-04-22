@@ -12,6 +12,7 @@ import { GuestRoute } from "../auth/GuestRoute";
 
 import { LoginPage } from "~src/features/auth";
 import { NotFoundPage } from "~src/pages/NotFoundPage";
+import { TrailersPage } from "~src/features";
 
 export const AppRoutes = () => {
   return (
@@ -26,6 +27,11 @@ export const AppRoutes = () => {
             </GuestRoute>
           }
         />
+        <Route path="/trailers" element={
+          <GuestRoute>
+            <TrailersPage />
+          </GuestRoute>
+        } />
         {/* Protected Routes */}
         <Route
           path="/"

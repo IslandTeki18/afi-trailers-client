@@ -6,7 +6,7 @@ import {
   ClockIcon,
 } from "@heroicons/react/20/solid";
 import { FeatureCard, FeatureCardProps } from "../FeatureCard";
-import { SectionWrapper } from "~src/components";
+import { SectionWrapper } from "~src/shared/ui";
 
 export const WhyRentWithUsSection: React.FC = () => {
   const features: FeatureCardProps[] = [

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SectionWrapper } from "~src/components";
+import { SectionWrapper } from "~src/shared/ui";
 // @ts-ignore
 import portfolioImage from "../../assets/portfolio.jpeg";
 
@@ -9,8 +9,7 @@ const people = [
   {
     name: "Landon McKell",
     role: "Owner and Operator",
-    imageUrl:
-      portfolioImage,
+    imageUrl: portfolioImage,
     bio: "Landon started helping friends and family with his dump trailer and decided to share it everyone to get rid of their junk! He brings the pacific islander work ethic and passion for customer service to the trailer rental business.",
   },
 ];
@@ -29,7 +28,8 @@ export const AboutOurTeamSection = (props: AboutOurTeamSectionProps) => {
         </h2>
         <p className="mt-6 text-lg leading-8 text-gray-600">
           Right now it's just Landon, but he's the best! He's passionate about
-          providing the best customer service and trailer rental experience in Utah County.
+          providing the best customer service and trailer rental experience in
+          Utah County.
         </p>
       </div>
       <ul

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button } from "~src/components";
+import { Button } from "~src/shared/ui";
 import { useNavigate } from "react-router-dom";
 
 type TrailerCardProps = {

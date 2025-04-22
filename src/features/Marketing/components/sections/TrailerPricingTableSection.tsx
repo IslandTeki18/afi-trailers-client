@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, SectionWrapper } from "~src/components";
+import { Button, SectionWrapper } from "~src/shared/ui";
 
 interface TrailerPrice {
   type: string;

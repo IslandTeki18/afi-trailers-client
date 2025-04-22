@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, SectionWrapper } from "~src/components";
+import { Button, SectionWrapper } from "~src/shared/ui";
 import { useNavigate } from "react-router-dom";
 // @ts-ignore
 import dumpTrailerImage from "../../assets/7x14Dump_Trailer_Front.jpg";

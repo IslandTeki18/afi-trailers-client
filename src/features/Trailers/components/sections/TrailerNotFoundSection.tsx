@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Card, SectionWrapper } from "~src/components";
+import { Card, SectionWrapper } from "~src/shared/ui";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 

@@ -5,7 +5,7 @@ import {
   EnvelopeIcon,
   PhoneIcon,
 } from "@heroicons/react/24/outline";
-import { Button, Input, SectionWrapper, Textarea } from "~src/components";
+import { Button, Input, SectionWrapper, Textarea } from "~src/shared/ui";
 import emailjs from "@emailjs/browser";
 
 type ContactUsFormSectionProps = {};
@@ -35,7 +35,7 @@ export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
         email: "",
         phone: "",
         message: "",
-      })
+      });
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred. Please try again.");

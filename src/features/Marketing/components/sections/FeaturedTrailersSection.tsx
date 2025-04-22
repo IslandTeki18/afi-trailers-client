@@ -1,6 +1,6 @@
 import * as React from "react";
 import { TrailerCard } from "../TrailerCard";
-import { SectionWrapper } from "~src/components";
+import { SectionWrapper } from "~src/shared/ui";
 // @ts-ignore
 import dumpTrailer from "../../assets/7x14Dump_Trailer.jpg";
 

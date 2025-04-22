@@ -13,6 +13,7 @@ type TableProps = {
   data: any[];
   columns: Column[];
   addButtonText?: string;
+  onAdd?: () => void;
   onEdit?: (item: any) => void;
   variant?: "primary" | "secondary" | "accent" | "error" | "transparent";
 };
@@ -22,6 +23,8 @@ export function Table({
   description,
   data,
   columns,
+  addButtonText,
+  onAdd,
   onEdit,
   variant = "primary",
 }: TableProps) {
@@ -55,7 +58,7 @@ export function Table({
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
-      {(title || description) && (
+      {(title || description || addButtonText) && (
         <div className="sm:flex sm:items-center">
           {(title || description) && (
             <div className="sm:flex-auto">
@@ -73,6 +76,16 @@ export function Table({
               )}
             </div>
           )}
+          {addButtonText && onAdd && (
+            <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+              <Button
+                variant="primary"
+                onClick={onAdd}
+              >
+                {addButtonText}
+              </Button>
+            </div>
+          )}
         </div>
       )}
 
@@ -84,15 +97,15 @@ export function Table({
             >
               <thead>
                 <tr>
-                  {columns.map((column) => (
+                  {columns.map((column, index) => (
                     <th
                       key={column.header}
                       scope="col"
-                      className={`py-3.5 pl-4 pr-3 text-left text-sm font-semibold ${
+                      className={`py-3.5 ${
+                        index === 0 ? "pl-4 pr-3 sm:pl-0" : "px-3"
+                      } text-left text-sm font-semibold ${
                         column.isAction ? "relative" : ""
-                      } ${variantClasses[variant].header} ${
-                        column.isAction ? "px-4" : ""
-                      }`}
+                      } ${variantClasses[variant].header}`}
                     >
                       {column.isAction ? (
                         <span className="sr-only">{column.header}</span>
@@ -104,22 +117,30 @@ export function Table({
                 </tr>
               </thead>
               <tbody className={`divide-y ${variantClasses[variant].table}`}>
-                {data.map((item, index) => (
-                  <tr key={item.id || index}>
-                    {columns.map((column) => (
+                {data.map((item, rowIndex) => (
+                  <tr key={item.id || rowIndex}>
+                    {columns.map((column, colIndex) => (
                       <td
                         key={column.accessor}
-                        className={`whitespace-nowrap py-4 px-4 text-sm ${
+                        className={`whitespace-nowrap ${
+                          colIndex === 0
+                            ? "py-4 pl-4 pr-3 font-medium sm:pl-0"
+                            : "px-3 py-4"
+                        } text-sm ${
                           column.isAction
-                            ? "relative pl-3 pr-4 text-right font-medium"
+                            ? "relative pl-3 pr-4 text-right font-medium sm:pr-0"
                             : `${variantClasses[variant].cell}`
                         }`}
                       >
                         {column.isAction && onEdit ? (
-                          <Button onClick={() => onEdit(item)} variant="link">
+                          <Button
+                            onClick={() => onEdit(item)}
+                            variant="link"
+                            className="text-indigo-600 hover:text-indigo-900"
+                          >
                             Edit
                             <span className="sr-only">
-                              , {String(item[columns[index].accessor])}
+                              , {String(item[columns[0].accessor])}
                             </span>
                           </Button>
                         ) : (

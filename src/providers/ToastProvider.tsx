@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createContext, useState, useCallback } from "react";
-import { Toast, ToastProps } from "~src/components";
+import { Toast, ToastProps } from "~src/shared/ui";
 
 interface ToastContextType {
   addToast: (toast: Omit<ToastProps, "id">) => void;

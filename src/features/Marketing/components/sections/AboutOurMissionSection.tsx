@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SectionWrapper } from "~src/components";
+import { SectionWrapper } from "~src/shared/ui";
 
 const stats = [
   { label: "of junk/garbage removed", value: "15+ tonnes" },
