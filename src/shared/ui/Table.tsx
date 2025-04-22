@@ -81,6 +81,7 @@ export function Table({
               <Button
                 variant="primary"
                 onClick={onAdd}
+                size="small"
               >
                 {addButtonText}
               </Button>

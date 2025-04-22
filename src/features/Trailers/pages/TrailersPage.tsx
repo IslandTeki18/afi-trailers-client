@@ -65,11 +65,6 @@ export const TrailersPage = () => {
     actions: "View Details", // This will be replaced by the action column
   }));
 
-  const handleAddTrailer = () => {
-    // Handle add trailer functionality
-    console.log("Adding new trailer");
-  };
-
   const handleEditTrailer = (trailer: any) => {
     // Use the existing handler
     handleTrailerClick(trailer.id);
@@ -91,7 +86,6 @@ export const TrailersPage = () => {
               data={tableData}
               columns={tableColumns}
               addButtonText="Add New Trailer"
-              onAdd={handleAddTrailer}
               onEdit={handleEditTrailer}
               variant="transparent"
             />

@@ -28,8 +28,7 @@ export const TrailerDetailsDrawer: React.FC<TrailerDetailsDrawerProps> = ({
   onClose,
   trailerId,
 }) => {
-  // In a real implementation, you would fetch trailer details based on trailerId
-  // This is just placeholder data
+    // Simulated trailer details data
   const trailerDetails: TrailerDetails | null = trailerId
     ? {
         id: trailerId,
