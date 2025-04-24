@@ -15,6 +15,7 @@ type TableProps = {
   addButtonText?: string;
   onAdd?: () => void;
   onEdit?: (item: any) => void;
+  onEditText?: string;
   variant?: "primary" | "secondary" | "accent" | "error" | "transparent";
 };
 
@@ -27,6 +28,7 @@ export function Table({
   onAdd,
   onEdit,
   variant = "primary",
+  onEditText = "Edit",
 }: TableProps) {
   const variantClasses = {
     primary: {
@@ -78,11 +80,7 @@ export function Table({
           )}
           {addButtonText && onAdd && (
             <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-              <Button
-                variant="primary"
-                onClick={onAdd}
-                size="small"
-              >
+              <Button variant="primary" onClick={onAdd} size="small">
                 {addButtonText}
               </Button>
             </div>
@@ -139,7 +137,7 @@ export function Table({
                             variant="link"
                             className="text-indigo-600 hover:text-indigo-900"
                           >
-                            Edit
+                            {onEditText}
                             <span className="sr-only">
                               , {String(item[columns[0].accessor])}
                             </span>

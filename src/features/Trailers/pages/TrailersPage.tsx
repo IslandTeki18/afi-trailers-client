@@ -86,6 +86,7 @@ export const TrailersPage = () => {
               data={tableData}
               columns={tableColumns}
               addButtonText="Add New Trailer"
+              onEditText="View Details"
               onEdit={handleEditTrailer}
               variant="transparent"
             />
