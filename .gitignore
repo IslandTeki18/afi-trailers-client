@@ -2,6 +2,7 @@
 node_modules/
 .pnp.js
 .parcel-cache
+dist/
 
 # testing
 coverage/
