@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Header } from "~src/components";
-import { FeaturedTrailersSection } from "~src/features/marketing/components";
+import { FeaturedTrailersSection } from "~src/features/Marketing/components";
 
 export const TrailerListView = () => {
   return (
