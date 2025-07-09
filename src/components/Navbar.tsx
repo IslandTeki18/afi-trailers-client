@@ -7,7 +7,7 @@ import {
 import { Bars3Icon, FireIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { NavLink } from "react-router-dom";
 // @ts-ignore
-import lightCircleLogo from "~src/assets/icons/AFI-TRAILER-LOGO.png";
+import lightCircleLogo from "url:~src/assets/icons/AFI-TRAILER-LOGO.png";
 
 type NavItem = {
   name: string;

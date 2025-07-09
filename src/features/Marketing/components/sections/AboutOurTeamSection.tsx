@@ -1,7 +1,7 @@
 import * as React from "react";
 import { SectionWrapper } from "~src/components";
 // @ts-ignore
-import portfolioImage from "../../assets/portfolio.jpeg";
+import portfolioImage from "url:../../assets/portfolio.jpeg";
 
 type AboutOurTeamSectionProps = {};
 

@@ -2,7 +2,7 @@ import * as React from "react";
 import { Button, SectionWrapper } from "~src/components";
 import { useNavigate } from "react-router-dom";
 // @ts-ignore
-import dumpTrailerImage from "../../assets/7x14Dump_Trailer_Front.jpg";
+import dumpTrailerImage from "url:../../assets/7x14Dump_Trailer_Front.jpg";
 
 export const HeroImageSection = () => {
   const navigate = useNavigate();

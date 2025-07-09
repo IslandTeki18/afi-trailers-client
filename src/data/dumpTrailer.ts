@@ -1,6 +1,6 @@
 import { Trailer } from "~src/types";
 // @ts-ignore
-import dumpTrailerImage from "~src/features/Marketing/assets/7x14Dump_Trailer.jpg";
+import dumpTrailerImage from "url:~src/features/marketing/assets/7x14Dump_Trailer.jpg";
 
 export const dumpTrailer: Trailer = {
   _id: "st7x14x4dump001",

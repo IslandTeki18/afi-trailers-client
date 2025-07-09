@@ -1,3 +1,3 @@
-export * from "./Marketing";
-export * from "./Booking";
-export * from "./Trailers";
+export * from "./marketing";
+export * from "./bookings";
+export * from "./trailers";

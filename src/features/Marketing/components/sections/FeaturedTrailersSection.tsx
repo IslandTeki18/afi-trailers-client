@@ -2,7 +2,7 @@ import * as React from "react";
 import { TrailerCard } from "../TrailerCard";
 import { SectionWrapper } from "~src/components";
 // @ts-ignore
-import dumpTrailer from "../../assets/7x14Dump_Trailer.jpg";
+import dumpTrailer from "url:../../assets/7x14Dump_Trailer.jpg";
 
 export const FeaturedTrailersSection = () => {
   return (
