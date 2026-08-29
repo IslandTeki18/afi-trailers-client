@@ -1,64 +1,40 @@
 import * as React from "react";
 import { SectionWrapper } from "~src/components";
 
-type HowItWorksSectionProps = {};
+const steps = [
+  {
+    title: "Pick your trailer",
+    body: "Sizes, specs and rates are on every listing. One 7x14 dump trailer today, more on the way.",
+  },
+  {
+    title: "Request your dates",
+    body: "Send dates and service type. Landon confirms by text or call, usually within the hour.",
+  },
+  {
+    title: "Haul it off",
+    body: "Hitch up in Spanish Fork or meet us at your site. Pay in full at pickup or drop-off.",
+  },
+];
 
-export const HowItWorksSection = (props: HowItWorksSectionProps) => {
-  return (
-    <SectionWrapper>
-      <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
-        <div>
-          <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-yellow-900 uppercase rounded-full bg-yellow-400">
-            How it works
-          </p>
-        </div>
-        <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-5xl md:mx-auto">
-          Hassle-Free Rentals in 3 Simple Steps
-        </h2>
-        <p className="text-base text-gray-700 md:text-lg">
-          Renting a dump trailer has never been easier. With our streamlined
-          process, you can go from selecting your trailer to starting your
-          project in no time. Whether you book online or over the phone, we make
-          sure you're set up and ready to go with minimal effort. Choose, book,
-          and get to work—it's that simple!
-        </p>
-      </div>
-      <div className="grid gap-8 row-gap-8 lg:grid-cols-3">
-        <div className="sm:text-center">
-          <div className="flex items-center justify-center w-24 h-24 mb-4 text-5xl font-extrabold rounded-full text-yellow-500 bg-yellow-50 sm:mx-auto">
-            1
+export const HowItWorksSection = () => (
+  <SectionWrapper className="bg-bone">
+    <div className="grid md:grid-cols-3 border-t-2 border-ink">
+      {steps.map((step, i) => (
+        <div
+          key={step.title}
+          className={`pt-9 pb-4 ${
+            i === 0 ? "md:pr-8" : "md:pl-8 md:border-l md:border-rule"
+          } ${i === 1 ? "md:pr-8" : ""}`}
+        >
+          <div className="font-display font-bold text-[64px] leading-none text-amber">
+            0{i + 1}
           </div>
-          <h6 className="mb-2 font-semibold leading-5">Choose your Trailer</h6>
-          <p className="max-w-md mb-3 text-sm text-gray-900 sm:mx-auto">
-            Browse our selection of dump trailers and pick the one that suits
-            your project. We’ve got sizes for every job, big or small.
-          </p>
+          <h3 className="display text-[26px] leading-[1.05] text-ink mt-2.5 mb-2">
+            {step.title}
+          </h3>
+          <p className="text-[15px] leading-relaxed text-body-2">{step.body}</p>
         </div>
-        <div className="sm:text-center">
-          <div className="flex items-center justify-center w-24 h-24 mb-4 text-5xl font-extrabold rounded-full text-yellow-500 bg-yellow-50 sm:mx-auto">
-            2
-          </div>
-          <h6 className="mb-2 font-semibold leading-5">
-            Book Online or Give us a Call
-          </h6>
-          <p className="max-w-md mb-3 text-sm text-gray-900 sm:mx-auto">
-            Reserve your trailer in just a few clicks. Select your rental
-            period, choose your dates, and confirm your booking. Prefer to talk?
-            Give us a call!
-          </p>
-        </div>
-        <div className="sm:text-center">
-          <div className="flex items-center justify-center w-24 h-24 mb-4 text-5xl font-extrabold rounded-full text-yellow-500 bg-yellow-50 sm:mx-auto">
-            3
-          </div>
-          <h6 className="mb-2 font-semibold leading-5">Pick Up or Delivery</h6>
-          <p className="max-w-md mb-3 text-sm text-gray-900 sm:mx-auto">
-            Pick up your trailer at our location, or let us deliver it right to
-            your site. Either way, you’re ready to start your project without
-            delay!
-          </p>
-        </div>
-      </div>
-    </SectionWrapper>
-  );
-};
+      ))}
+    </div>
+  </SectionWrapper>
+);

@@ -1,28 +1,34 @@
-import * as React from "react";
+import { business } from "~src/data/business";
+import { primaryBookingPath } from "~src/data/trailers";
 
-export const footerNavItems = {
-  main: [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Trailers", href: "/trailers" },
-    { name: "Pricing", href: "/pricing" },
-    { name: "Contact", href: "/contact" },
-  ],
-  social: [
-    {
-      name: "Facebook",
-      href: "https://www.facebook.com/people/Afi-Rental-Trailers/61566905078603/",
-      icon: (props: any) => <i className="fa-brands fa-facebook text-2xl" />,
-    },
-    {
-      name: "Instagram",
-      href: "#",
-      icon: (props: any) => <i className="fa-brands fa-instagram text-2xl" />,
-    },
-    {
-      name: "YouTube",
-      href: "#",
-      icon: (props: any) => <i className="fa-brands fa-youtube text-2xl" />,
-    },
-  ],
+export type FooterColumn = {
+  heading: string;
+  links: { name: string; href: string; external?: boolean }[];
 };
+
+export const footerColumns: FooterColumn[] = [
+  {
+    heading: "Rent",
+    links: [
+      { name: "All trailers", href: "/trailers" },
+      { name: "Pricing", href: "/pricing" },
+      { name: "Request dates", href: primaryBookingPath },
+    ],
+  },
+  {
+    heading: "Know before you tow",
+    links: [
+      { name: "Trailer etiquette", href: "/trailers/usage-guidelines" },
+      { name: "Drop-off contract", href: "/trailers/rental-contract/drop-off" },
+      { name: "Drive-off contract", href: "/trailers/rental-contract/drive-off" },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      { name: "About", href: "/about" },
+      { name: "Contact", href: "/contact" },
+      { name: "Facebook", href: business.facebookUrl, external: true },
+    ],
+  },
+];

@@ -1,33 +1,18 @@
 import * as React from "react";
 import { TestimonialCard, TestimonialCardProps } from "../TestimonialCard";
-import { SectionWrapper } from "~src/components";
+import { SectionWrapper, SectionHeading } from "~src/components";
 
-type TestimonialSectionProps = {
+export const TestimonialSection = ({
+  testimonials,
+}: {
   testimonials: TestimonialCardProps[];
-};
-
-export const TestimonialSection = (props: TestimonialSectionProps) => {
-  return (
-    <SectionWrapper>
-      <div className="max-w-2xl sm:text-left mb-10">
-        <div>
-          <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-yellow-900 uppercase rounded-full bg-yellow-400">
-            testimonials
-          </p>
-        </div>
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-          What our customers say
-        </h2>
-        <p className="mt-6 text-lg leading-8 text-gray-600">
-          Our team is made up of passionate individuals who are dedicated to
-          providing the best trailer rental experience in Utah County.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {props.testimonials.map((testimonial, index) => (
-          <TestimonialCard key={index} {...testimonial} />
-        ))}
-      </div>
-    </SectionWrapper>
-  );
-};
+}) => (
+  <SectionWrapper className="bg-bone-2">
+    <SectionHeading eyebrow="Testimonials" title="What customers say" rule />
+    <div className="grid gap-8 md:grid-cols-3">
+      {testimonials.map((testimonial) => (
+        <TestimonialCard key={testimonial.name} {...testimonial} />
+      ))}
+    </div>
+  </SectionWrapper>
+);

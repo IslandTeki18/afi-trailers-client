@@ -1,46 +1,28 @@
 import * as React from "react";
+import { classNames } from "~src/utils/helperFunctions";
 
-type InputVariant = "primary" | "secondary" | "outlined";
+export const fieldClasses =
+  "w-full border border-rule-2 bg-field px-3.5 py-3 text-base text-ink placeholder:text-mute-3 focus:border-ink focus:ring-0 disabled:bg-bone-4 disabled:text-mute-6 disabled:cursor-not-allowed";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  variant?: InputVariant;
-  label?: string;
-  id?: string;
+  label?: React.ReactNode;
+  hint?: string;
 }
 
 export const Input: React.FC<InputProps> = ({
-  variant = "primary",
   label,
+  hint,
   className = "",
   id,
   ...props
-}) => {
-  const baseClasses =
-    "px-3 py-2 rounded-md focus:outline-none focus:ring-2 transition-colors";
-
-  const variantClasses = {
-    primary:
-      "bg-gray-50 border border-gray-300 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400 placeholder:text-gray-400",
-    secondary:
-      "bg-gray-50 border-transparent focus:bg-white focus:border-gray-300 focus:ring-gray-300 dark:bg-gray-800 dark:focus:bg-gray-700 dark:focus:border-gray-600 dark:focus:ring-gray-600 dark:text-white",
-    outlined:
-      "bg-transparent border border-gray-300 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:text-white dark:focus:border-blue-400 dark:focus:ring-blue-400",
-  };
-
-  const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${className}`;
-
-  return (
-    <div className="flex flex-col">
-      {label && (
-        <label
-          htmlFor={id}
-          className="mb-1 font-medium text-gray-700 dark:text-gray-200 "
-          aria-label={label}
-        >
-          {label}
-        </label>
-      )}
-      <input className={combinedClasses} {...props} />
-    </div>
-  );
-};
+}) => (
+  <div className="flex flex-col gap-2">
+    {label && (
+      <label htmlFor={id} className="label-caps">
+        {label}
+        {hint && <span className="text-mute-5"> ({hint})</span>}
+      </label>
+    )}
+    <input id={id} className={classNames(fieldClasses, className)} {...props} />
+  </div>
+);

@@ -1,6 +1,10 @@
+export type ServiceType = "full" | "self";
+export type RentalType = "half" | "full";
+
 export type Trailer = {
   _id: string;
   name: string;
+  shortName: string;
   capacity: string;
   dimensions: {
     length: number;
@@ -31,7 +35,7 @@ export type Trailer = {
   usageHistory: TrailerUsageHistory[];
   insuranceRequired: boolean;
   towingRequirements: string[];
-  serviceTypes: ("full" | "self")[];
+  serviceTypes: ServiceType[];
   weight: {
     empty: number;
     maxLoad: number;
@@ -54,7 +58,7 @@ type TrailerBookedDates = {
   customerId: string;
   bookingId: string;
   timeStamp: Date;
-  serviceType: "full" | "self";
+  serviceType: ServiceType;
   status: "confirmed" | "pending" | "cancelled";
 };
 
@@ -63,7 +67,7 @@ type TrailerUsageHistory = {
   customerId: string;
   rentalPeriod: { start: Date; end: Date };
   totalPaid: number;
-  serviceType: "full" | "self";
+  serviceType: ServiceType;
   feedback?: {
     rating: number;
     comment?: string;

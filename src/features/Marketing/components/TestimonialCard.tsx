@@ -8,13 +8,15 @@ export type TestimonialCardProps = {
 };
 
 export const TestimonialCard = (props: TestimonialCardProps) => (
-  <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-    <h3 className="font-bold text-lg mb-2">{props.name}</h3>
-    <p className="text-gray-700 mb-4">{props.comment}</p>
-    <div className="flex">
+  <div className="bg-paper border border-rule p-6 flex flex-col gap-4">
+    <div className="flex" aria-label={`${props.rating} out of 5 stars`}>
       {[...Array(props.rating)].map((_, i) => (
-        <StarIcon key={i} className="h-5 w-5 text-yellow-500" />
+        <StarIcon key={i} className="h-5 w-5 text-amber" />
       ))}
     </div>
+    <p className="text-base leading-relaxed text-body">"{props.comment}"</p>
+    <span className="font-display font-bold text-lg uppercase tracking-[0.06em] text-ink">
+      {props.name}
+    </span>
   </div>
 );

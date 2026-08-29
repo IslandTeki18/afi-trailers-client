@@ -2,15 +2,13 @@ import * as React from "react";
 import { Header } from "~src/components";
 import { ContactUsFormSection } from "../components";
 
-export const ContactUsView = () => {
-  return (
-    <div className="flex flex-col">
-      <Header
-        subTitle="Need to get in touch?"
-        title="Contact Us"
-        description="We are here to help you with any questions you may have."
-      />
-      <ContactUsFormSection />
-    </div>
-  );
-};
+export const ContactUsView = () => (
+  <>
+    <Header
+      subTitle="Contact"
+      title="Call, text or send a note"
+      description="Questions about a load, a date or whether your truck can tow it. Landon answers."
+    />
+    <ContactUsFormSection />
+  </>
+);

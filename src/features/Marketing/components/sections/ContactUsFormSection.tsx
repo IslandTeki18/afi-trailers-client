@@ -1,187 +1,125 @@
 import * as React from "react";
-import { useState, useRef } from "react";
-import {
-  BuildingOffice2Icon,
-  EnvelopeIcon,
-  PhoneIcon,
-} from "@heroicons/react/24/outline";
+import { useState } from "react";
 import { Button, Input, SectionWrapper, Textarea } from "~src/components";
-import emailjs from "@emailjs/browser";
+import { business } from "~src/data/business";
+import { sendEmail } from "~src/utils/emailjs";
 
-type ContactUsFormSectionProps = {};
+const emptyForm = { name: "", email: "", phone: "", message: "" };
+type Status = "idle" | "sending" | "sent" | "error";
 
-export const ContactUsFormSection = (props: ContactUsFormSectionProps) => {
-  const form = useRef<HTMLFormElement>(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+export const ContactUsFormSection = () => {
+  const [formData, setFormData] = useState(emptyForm);
+  const [status, setStatus] = useState<Status>("idle");
 
-  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+  const set = (field: keyof typeof emptyForm) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setFormData({ ...formData, [field]: e.target.value });
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setStatus("sending");
     try {
-      if (!form.current) return;
-      await emailjs.sendForm(
-        "service_b6xrxba",
-        "template_44itu0w",
-        form.current,
-        "ODsr07SdqIg3ETyWk"
-      );
-      alert("Your message has been sent. We will get back to you soon!");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        message: "",
-      })
+      await sendEmail(formData);
+      setFormData(emptyForm);
+      setStatus("sent");
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred. Please try again.");
+      setStatus("error");
     }
   };
 
-  function isDisabled() {
-    return !formData.name || !formData.email || !formData.message;
-  }
+  const details = [
+    { label: "Phone", value: business.phoneDisplay, href: business.phoneHref },
+    { label: "Email", value: business.email, href: `mailto:${business.email}` },
+    { label: "Yard", value: business.address },
+  ];
 
   return (
-    <SectionWrapper paddingY="small">
-      <div className="relative isolate bg-white">
-        <div className="mx-auto grid grid-cols-1 lg:grid-cols-2">
-          <div className="relative pb-20 pt-10 sm:pt-24 lg:static">
-            <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900">
-                Get in touch
-              </h2>
-              <p className="mt-6 text-lg leading-8 text-gray-600">
-                If you have any questions or would like to learn more about our
-                services, please don't hesitate to reach out. We're here to
-                help!
-              </p>
-              <dl className="mt-10 space-y-4 text-base leading-7 text-gray-600">
-                <div className="flex gap-x-4">
-                  <dt className="flex-none">
-                    <span className="sr-only">Address</span>
-                    <BuildingOffice2Icon
-                      aria-hidden="true"
-                      className="h-7 w-6 text-gray-400"
-                    />
-                  </dt>
-                  <dd>Spanish Fork, UT 84660</dd>
-                </div>
-                <div className="flex gap-x-4">
-                  <dt className="flex-none">
-                    <span className="sr-only">Telephone</span>
-                    <PhoneIcon
-                      aria-hidden="true"
-                      className="h-7 w-6 text-gray-400"
-                    />
-                  </dt>
-                  <dd>
-                    <a
-                      href="tel:+1 (555) 234-5678"
-                      className="hover:text-gray-900"
-                    >
-                      +1 (801) 609-4144
-                    </a>
-                  </dd>
-                </div>
-                <div className="flex gap-x-4">
-                  <dt className="flex-none">
-                    <span className="sr-only">Email</span>
-                    <EnvelopeIcon
-                      aria-hidden="true"
-                      className="h-7 w-6 text-gray-400"
-                    />
-                  </dt>
-                  <dd>
-                    <a
-                      href="mailto:hello@example.com"
-                      className="hover:text-gray-900"
-                    >
-                      afi.rentaltrailers@gmail.com
-                    </a>
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </div>
-          <form
-            ref={form}
-            className="pb-24 pt-20 sm:pb-32"
-            onSubmit={handleSubmit}
-          >
-            <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
-              <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                <div className="sm:col-span-2">
-                  <Input
-                    label="Full name"
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="John Doe"
-                    autoComplete="given-name"
-                    required
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="sm:col-span-2">
-                  <Input
-                    label="Email address"
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    placeholder="john.doe@example.com"
-                    required
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="sm:col-span-2">
-                  <Input
-                    label="Phone number"
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    autoComplete="tel"
-                    placeholder="(555) 234-5678"
-                    value={formData.phone}
-                    onChange={(e) =>
-                      setFormData({ ...formData, phone: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="sm:col-span-2">
-                  <Textarea
-                    label="Message"
-                    id="message"
-                    name="message"
-                    placeholder="Tell us how we can help you!"
-                    rows={4}
-                    value={formData.message}
-                    onChange={(e) => {
-                      setFormData({ ...formData, message: e.target.value });
-                    }}
-                    variant="primary"
-                  />
-                </div>
+    <SectionWrapper className="bg-bone">
+      <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="flex flex-col gap-5">
+          <span className="eyebrow text-amber-dark">Contact</span>
+          <h2 className="display text-4xl sm:text-[54px] text-ink">Get in touch</h2>
+          <p className="text-[17px] leading-relaxed text-body-2">
+            Questions about a load, a date or whether your truck can tow it —
+            call or text. Fastest answer is always the phone.
+          </p>
+          <dl className="flex flex-col border-t border-rule mt-2">
+            {details.map((d) => (
+              <div key={d.label} className="kv-row py-4">
+                <dt className="text-xs font-medium uppercase tracking-[0.16em] text-mute">
+                  {d.label}
+                </dt>
+                <dd className="font-display font-semibold text-xl leading-none text-ink text-right break-all">
+                  {d.href ? <a href={d.href}>{d.value}</a> : d.value}
+                </dd>
               </div>
-              <div className="mt-8 flex justify-end">
-                <Button type="submit" disabled={isDisabled()}>
-                  Send message
-                </Button>
-              </div>
-            </div>
-          </form>
+            ))}
+          </dl>
         </div>
+
+        <form
+          onSubmit={handleSubmit}
+          className="bg-paper border border-rule p-6 sm:p-9 flex flex-col gap-5"
+        >
+          <Input
+            label="Full name"
+            id="name"
+            name="name"
+            type="text"
+            placeholder="John Doe"
+            autoComplete="name"
+            required
+            value={formData.name}
+            onChange={set("name")}
+          />
+          <div className="grid gap-5 sm:grid-cols-2">
+            <Input
+              label="Email"
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              placeholder="john.doe@example.com"
+              required
+              value={formData.email}
+              onChange={set("email")}
+            />
+            <Input
+              label="Phone"
+              id="phone"
+              name="phone"
+              type="tel"
+              autoComplete="tel"
+              placeholder="(555) 234-5678"
+              value={formData.phone}
+              onChange={set("phone")}
+            />
+          </div>
+          <Textarea
+            label="Message"
+            id="message"
+            name="message"
+            placeholder="Tell us how we can help you!"
+            rows={4}
+            required
+            value={formData.message}
+            onChange={set("message")}
+          />
+          <Button type="submit" disabled={status === "sending"} className="w-full">
+            {status === "sending" ? "Sending…" : "Send message"}
+          </Button>
+          {status === "sent" && (
+            <p className="text-sm text-body" role="status">
+              Your message has been sent. We will get back to you soon.
+            </p>
+          )}
+          {status === "error" && (
+            <p className="text-sm text-rust" role="alert">
+              Something went wrong. Call or text {business.phoneDisplay} instead.
+            </p>
+          )}
+        </form>
       </div>
     </SectionWrapper>
   );
