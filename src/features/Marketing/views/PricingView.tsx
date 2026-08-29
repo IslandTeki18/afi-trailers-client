@@ -1,31 +1,36 @@
 import * as React from "react";
-import { Header } from "~src/components";
+import { Header, SectionWrapper, SectionHeading } from "~src/components";
 import {
-  TrailerPricingSection,
-  TrailerPricingTableSection,
+  ServicesSection,
+  PostedRatesTable,
   AdditionalFeesSection,
-  DiscountsPromotionsSection,
   FrequentlyAskQuestionsSection,
   HowItWorksSection,
 } from "../components";
 import { faqQuestions } from "../utils/pricingFaq";
+import { trailers } from "~src/data/trailers";
 
-export const PricingView = () => {
-  return (
-    <div className="flex flex-col">
-      <Header
-        subTitle="Our Pricing"
-        title="Our Affordable Pricing"
-        description="Find a pricing plan that best fits your project needs."
-      />
-      <TrailerPricingSection />
-      {/* <TrailerPricingTableSection /> */}
-      <HowItWorksSection />
-      <FrequentlyAskQuestionsSection
-        description="If you have any other questions, feel free to reach out to us. We would love to help you out."
-        subHeader="Let's go over some common pricing questions"
-        items={faqQuestions}
-      />
-    </div>
-  );
-};
+export const PricingView = () => (
+  <>
+    <Header
+      subTitle="Our pricing"
+      title="Every rate, on the front page"
+      description="Half day or full day, self service or full service. No security deposit, no cleaning fee, no surprises at the hitch."
+      tone="light"
+      aside={<PostedRatesTable trailer={trailers[0]} />}
+    />
+    <ServicesSection />
+    <SectionWrapper className="bg-bone">
+      <SectionHeading eyebrow="Additional fees" title="If the rules are broken" />
+      <div className="max-w-3xl">
+        <AdditionalFeesSection />
+      </div>
+    </SectionWrapper>
+    <HowItWorksSection />
+    <FrequentlyAskQuestionsSection
+      description="If you have any other questions, feel free to reach out. We would love to help."
+      subHeader="Common pricing questions"
+      items={faqQuestions}
+    />
+  </>
+);

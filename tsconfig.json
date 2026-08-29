@@ -3,12 +3,17 @@
     "baseUrl": ".",
     "rootDir": "src",
     "paths": {
-      "~*": ["./*"]
+      "~*": [
+        "./*"
+      ]
     },
     "outDir": "build/dist",
     "module": "commonjs",
     "target": "ES6",
-    "lib": ["es6", "dom"],
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "sourceMap": true,
     "allowJs": true,
     "moduleResolution": "node",
@@ -20,7 +25,18 @@
     "experimentalDecorators": true,
     "jsx": "react"
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "build", "scripts", "webpack", "jest"],
-  "types": ["typePatches"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts",
+    "webpack",
+    "jest",
+    "src/**/*.check.ts"
+  ],
+  "types": [
+    "typePatches"
+  ]
 }

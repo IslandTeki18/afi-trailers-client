@@ -4,23 +4,43 @@ type HeaderProps = {
   subTitle: string;
   title: string;
   description: string;
+  /** Dark band (ink) or light (bone). */
+  tone?: "dark" | "light";
+  aside?: React.ReactNode;
 };
 
-export const Header = (props: HeaderProps) => {
+/** Page-level header band. */
+export const Header = ({
+  subTitle,
+  title,
+  description,
+  tone = "dark",
+  aside,
+}: HeaderProps) => {
+  const dark = tone === "dark";
   return (
-    <div className="py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-8 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:mx-0">
-          <p className="text-base font-semibold leading-7 text-yellow-600">
-            {props.subTitle}
-          </p>
-          <h2 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-            {props.title}
-          </h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            {props.description}
+    <div className={dark ? "bg-ink" : "bg-bone border-b-2 border-ink"}>
+      <div className="mx-auto max-w-site px-5 sm:px-10 py-14 sm:py-16 grid gap-10 lg:grid-cols-[1fr_380px] lg:items-end">
+        <div className="flex flex-col gap-4">
+          <span className={`eyebrow ${dark ? "text-amber" : "text-amber-dark"}`}>
+            {subTitle}
+          </span>
+          <h1
+            className={`display text-5xl sm:text-7xl ${
+              dark ? "text-bone" : "text-ink"
+            }`}
+          >
+            {title}
+          </h1>
+          <p
+            className={`max-w-2xl text-lg leading-relaxed ${
+              dark ? "text-mute-3" : "text-body-2"
+            }`}
+          >
+            {description}
           </p>
         </div>
+        {aside}
       </div>
     </div>
   );

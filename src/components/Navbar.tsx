@@ -4,137 +4,103 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
-import { Bars3Icon, FireIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { NavLink } from "react-router-dom";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { NavLink, Link } from "react-router-dom";
+import { business } from "~src/data/business";
+import { primaryBookingPath } from "~src/data/trailers";
+import { buttonClasses } from "./Button";
+import { classNames } from "~src/utils/helperFunctions";
 // @ts-ignore
-import lightCircleLogo from "url:~src/assets/icons/AFI-TRAILER-LOGO.png";
+import logo from "url:~src/assets/icons/AFI-TRAILER-LOGO.png";
 
-type NavItem = {
-  name: string;
-  href: string;
-  current: boolean;
-};
+export type NavItem = { name: string; href: string };
 
-type NavbarProps = {
-  navigation: NavItem[];
-  logoSrc?: string;
-  variant?: "primary" | "secondary" | "accent" | "neutral";
-};
+const linkClasses = ({ isActive }: { isActive: boolean }) =>
+  classNames("nav-link", isActive ? "text-amber" : "text-bone hover:text-amber");
 
-const variantClasses = {
-  primary: {
-    base: "bg-gray-900",
-    text: "text-white",
-    hover: "hover:bg-gray-700",
-    active: "bg-gray-800",
-  },
-  secondary: {
-    base: "bg-yellow-800",
-    text: "text-white",
-    hover: "hover:bg-yellow-700",
-    active: "bg-yellow-900",
-  },
-  accent: {
-    base: "bg-red-600",
-    text: "text-white",
-    hover: "hover:bg-red-700",
-    active: "bg-red-800",
-  },
-  neutral: {
-    base: "bg-gray-600",
-    text: "text-white",
-    hover: "hover:bg-gray-700",
-    active: "bg-gray-800",
-  },
-};
+export const Navbar: React.FC<{ navigation: NavItem[] }> = ({ navigation }) => (
+  <div className="bg-ink">
+    {/* utility bar */}
+    <div className="border-b border-ink-rule">
+      <div className="mx-auto max-w-site px-5 sm:px-10 h-9 flex items-center justify-between text-[12px] font-medium uppercase tracking-[0.16em] text-mute-3">
+        <span className="truncate">
+          {business.city}
+          <span className="hidden sm:inline"> · {business.serviceArea}</span>
+        </span>
+        <span className="flex items-center gap-6">
+          <span className="hidden md:inline">{business.hours}</span>
+          <a href={business.phoneHref} className="font-semibold text-amber">
+            {business.phoneDisplay}
+          </a>
+        </span>
+      </div>
+    </div>
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
-export const Navbar: React.FC<NavbarProps> = ({
-  navigation,
-  logoSrc,
-  variant = "primary",
-}) => {
-  const variantStyle = variantClasses[variant];
-
-  return (
-    <Disclosure as="nav" className={`${variantStyle.base} w-full`}>
+    <Disclosure as="header">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-            <div className="relative flex h-16 items-center justify-between">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                <DisclosureButton
-                  className={`group relative inline-flex items-center justify-center rounded-md p-2 ${variantStyle.text} ${variantStyle.hover} focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white`}
-                >
-                  <span className="absolute -inset-0.5" />
-                  <span className="sr-only">Open main menu</span>
-                  {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                  )}
-                </DisclosureButton>
-              </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex flex-shrink-0 items-center">
-                  {logoSrc ? (
-                    <img
-                      className="h-8 w-auto"
-                      src={logoSrc}
-                      alt="Your Company"
-                    />
-                  ) : (
-                    <img src={lightCircleLogo} alt="" className="w-10 h-10" />
-                  )}
-                </div>
-                <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex items-end- space-x-4">
-                    {navigation.map((item) => (
-                      <NavLink
-                        key={item.name}
-                        to={item.href}
-                        className={classNames(
-                          item.current
-                            ? variantStyle.active
-                            : variantStyle.hover,
-                          variantStyle.text,
-                          "rounded-md px-3 py-2 text-sm font-medium"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </NavLink>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="mx-auto max-w-site px-5 sm:px-10 h-[76px] flex items-center justify-between">
+            <Link to="/" className="flex items-center gap-3">
+              <img src={logo} alt="" className="w-[38px] h-[38px]" />
+              <span className="flex flex-col gap-0.5">
+                <span className="font-display font-bold text-[22px] leading-none uppercase tracking-[0.06em] text-bone">
+                  {business.name}
+                </span>
+                <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-mute-4">
+                  {business.tagline}
+                </span>
+              </span>
+            </Link>
+
+            <nav className="hidden lg:flex items-center gap-8">
+              {navigation.map((item) => (
+                <NavLink key={item.href} to={item.href} className={linkClasses}>
+                  {item.name}
+                </NavLink>
+              ))}
+              <Link
+                to={primaryBookingPath}
+                className={buttonClasses("amber", "small")}
+              >
+                Check dates
+              </Link>
+            </nav>
+
+            <DisclosureButton className="lg:hidden p-2 text-bone hover:text-amber focus:outline-none">
+              <span className="sr-only">Toggle menu</span>
+              {open ? (
+                <XMarkIcon className="h-7 w-7" aria-hidden="true" />
+              ) : (
+                <Bars3Icon className="h-7 w-7" aria-hidden="true" />
+              )}
+            </DisclosureButton>
           </div>
 
-          <DisclosurePanel className="sm:hidden">
-            <div className="space-y-1 px-2 pb-3 pt-2">
+          <DisclosurePanel className="lg:hidden border-t border-ink-rule">
+            <div className="mx-auto max-w-site px-5 sm:px-10 py-4 flex flex-col gap-1">
               {navigation.map((item) => (
                 <DisclosureButton
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current ? variantStyle.active : variantStyle.hover,
-                    variantStyle.text,
-                    "block rounded-md px-3 py-2 text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
+                  key={item.href}
+                  as={NavLink}
+                  to={item.href}
+                  className={({ isActive }: { isActive: boolean }) =>
+                    classNames("block py-3", linkClasses({ isActive }))
+                  }
                 >
                   {item.name}
                 </DisclosureButton>
               ))}
+              <DisclosureButton
+                as={Link}
+                to={primaryBookingPath}
+                className={buttonClasses("amber", "medium", "mt-3")}
+              >
+                Check dates
+              </DisclosureButton>
             </div>
           </DisclosurePanel>
         </>
       )}
     </Disclosure>
-  );
-};
+  </div>
+);

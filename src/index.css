@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-bone text-body font-sans antialiased;
+  }
+}
+
+@layer components {
+  /* Small uppercase tracked label used above headings and on form fields. */
+  .eyebrow {
+    @apply font-semibold text-xs uppercase tracking-[0.24em];
+  }
+  .label-caps {
+    @apply font-semibold text-[11px] uppercase tracking-[0.18em] text-mute;
+  }
+  /* Condensed uppercase display type. Size is set by the caller. */
+  .display {
+    @apply font-display font-bold uppercase leading-[0.95];
+  }
+  .nav-link {
+    @apply font-semibold text-[13px] uppercase tracking-[0.14em];
+  }
+  /* Key/value row used in spec lists, summary rails and contact details. */
+  .kv-row {
+    @apply flex items-center justify-between gap-4 py-3 border-b border-rule;
+  }
+}

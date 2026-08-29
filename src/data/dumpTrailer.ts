@@ -1,10 +1,13 @@
 import { Trailer } from "~src/types";
 // @ts-ignore
 import dumpTrailerImage from "url:~src/features/Marketing/assets/7x14Dump_Trailer.jpg";
+// @ts-ignore
+import dumpTrailerFrontImage from "url:~src/features/Marketing/assets/7x14Dump_Trailer_Front.jpg";
 
 export const dumpTrailer: Trailer = {
   _id: "st7x14x4dump001",
   name: "Southland 7x14 Dump Trailer",
+  shortName: "7x14 Dump",
   capacity: "14,100 lbs",
   dimensions: {
     length: 14,
@@ -27,7 +30,7 @@ export const dumpTrailer: Trailer = {
   location: {
     address: "Spanish Fork, UT",
   },
-  photos: [dumpTrailerImage],
+  photos: [dumpTrailerFrontImage, dumpTrailerImage],
   features: [
     "Hydraulic lift",
     "Double rear doors",
@@ -59,15 +62,15 @@ export const dumpTrailer: Trailer = {
     "3/4 ton pickup or larger",
     '2 5/16" ball hitch',
     "7-pin connector",
+    "Valid driver's license",
   ],
-  serviceTypes: ["full"],
+  serviceTypes: ["self", "full"],
   weight: {
     empty: 4100,
     maxLoad: 10000,
   },
   availability: {
     isAvailable: true,
-    nextAvailableDate: new Date("2024-10-23"),
   },
   ratings: {
     averageRating: 0,

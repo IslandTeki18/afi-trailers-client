@@ -1,6 +1,8 @@
 import * as React from "react";
 import { FAQItem } from "../FAQItem";
-import { SectionWrapper } from "~src/components";
+import { SectionWrapper, SectionHeading } from "~src/components";
+
+type Item = { title: string; description: string };
 
 type FrequentlyAskQuestionsSectionProps = {
   items: Item[];
@@ -8,38 +10,24 @@ type FrequentlyAskQuestionsSectionProps = {
   description: string;
 };
 
-type Item = {
-  title: string;
-  description: string;
-};
-
 export const FrequentlyAskQuestionsSection = (
   props: FrequentlyAskQuestionsSectionProps
-) => {
-  return (
-    <SectionWrapper>
-      <div className="flex flex-col mb-16 sm:text-center">
-        <div>
-          <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-yellow-900 uppercase rounded-full bg-yellow-400">
-            Frequently Asked Questions
-          </p>
-        </div>
-        <div className="max-w-xl md:mx-auto sm:text-center lg:max-w-2xl">
-          <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
-            {props.subHeader}
-          </h2>
-          <p className="text-base text-gray-700 md:text-lg">
-            {props.description}
-          </p>
-        </div>
+) => (
+  <SectionWrapper className="bg-bone">
+    <div className="grid gap-10 lg:grid-cols-[1fr_2fr]">
+      <div>
+        <SectionHeading eyebrow="FAQ" title={props.subHeader} />
+        <p className="-mt-4 text-base leading-relaxed text-body-2">
+          {props.description}
+        </p>
       </div>
-      <div className="space-y-4">
-        {props.items.map((item, index) => (
-          <FAQItem key={index} title={item.title}>
+      <div className="border-t-2 border-ink">
+        {props.items.map((item) => (
+          <FAQItem key={item.title} title={item.title}>
             {item.description}
           </FAQItem>
         ))}
       </div>
-    </SectionWrapper>
-  );
-};
+    </div>
+  </SectionWrapper>
+);

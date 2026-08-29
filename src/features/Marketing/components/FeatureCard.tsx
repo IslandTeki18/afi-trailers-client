@@ -7,11 +7,9 @@ export type FeatureCardProps = {
 };
 
 export const FeatureCard = (props: FeatureCardProps) => (
-  <div className="bg-white p-6 rounded-lg shadow-md">
-    <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-yellow-100">
-      {props.icon}
-    </div>
-    <h3 className="text-xl font-semibold mb-2">{props.title}</h3>
-    <p className="text-gray-600">{props.description}</p>
+  <div className="border-t-2 border-ink pt-5 flex flex-col gap-3">
+    <div className="text-amber-dark">{props.icon}</div>
+    <h3 className="display text-[26px] text-ink">{props.title}</h3>
+    <p className="text-[15px] leading-relaxed text-body-2">{props.description}</p>
   </div>
 );

@@ -9,39 +9,24 @@ type FAQItemProps = {
 export const FAQItem = (props: FAQItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="border rounded shadow-sm">
+    <div className="border-b border-rule">
       <button
         type="button"
-        aria-label={props.title}
-        className="flex items-center justify-between w-full p-4 focus:outline-none"
+        aria-expanded={isOpen}
+        className="flex items-center justify-between gap-6 w-full py-5 text-left focus:outline-none focus-visible:text-amber-dark"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <p className="text-base font-medium text-left md:text-lg">
+        <span className="display normal-case text-xl sm:text-2xl text-ink">
           {props.title}
-        </p>
-        <div className="flex items-center justify-center w-8 h-8 border rounded-full">
-          <svg
-            viewBox="0 0 24 24"
-            className={`w-3 text-gray-600 transition-transform duration-200 ${
-              isOpen ? "transform rotate-180" : ""
-            }`}
-          >
-            <polyline
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeMiterlimit="10"
-              points="2,7 12,17 22,7"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
+        </span>
+        <span className="font-display font-bold text-2xl leading-none text-amber-dark">
+          {isOpen ? "–" : "+"}
+        </span>
       </button>
       {isOpen && (
-        <div className="p-4 pt-0">
-          <p className="text-gray-700">{props.children}</p>
-        </div>
+        <p className="pb-6 max-w-3xl text-base leading-relaxed text-body-2">
+          {props.children}
+        </p>
       )}
     </div>
   );
