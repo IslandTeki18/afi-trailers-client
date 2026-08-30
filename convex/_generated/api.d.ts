@@ -12,6 +12,8 @@ import type * as lib_auth from "../lib/auth.js";
 import type * as lib_status from "../lib/status.js";
 import type * as qualification from "../qualification.js";
 import type * as rentalTerms from "../rentalTerms.js";
+import type * as renters from "../renters.js";
+import type * as vehicles from "../vehicles.js";
 
 import type {
   ApiFromModules,
@@ -24,6 +26,8 @@ declare const fullApi: ApiFromModules<{
   "lib/status": typeof lib_status;
   qualification: typeof qualification;
   rentalTerms: typeof rentalTerms;
+  renters: typeof renters;
+  vehicles: typeof vehicles;
 }>;
 
 /**

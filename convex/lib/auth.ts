@@ -27,16 +27,18 @@ export async function requireRenter(ctx: MutationCtx) {
   return (await ctx.db.get(renterId))!;
 }
 
+export function isOperatorEmail(email?: string) {
+  const normalized = email?.trim().toLowerCase();
+  return Boolean(
+    normalized &&
+      (process.env.OPERATOR_EMAILS ?? "")
+        .split(",")
+        .some((value) => value.trim().toLowerCase() === normalized)
+  );
+}
+
 export async function requireOperator(ctx: AuthContext) {
   const identity = await requireIdentity(ctx);
-  const email = identity.email?.trim().toLowerCase();
-  const allowed = (process.env.OPERATOR_EMAILS ?? "")
-    .split(",")
-    .map((value) => value.trim().toLowerCase())
-    .filter(Boolean);
-
-  if (!email || !allowed.includes(email)) {
-    throw new ConvexError("NOT_OPERATOR");
-  }
+  if (!isOperatorEmail(identity.email)) throw new ConvexError("NOT_OPERATOR");
   return identity;
 }
