@@ -10,6 +10,7 @@ export const LATE_FEE_CENTS = 5_000; // TODO(owner): site says $50/day; contract
 export const SELF_SERVICE_HALF_DAY_CENTS = 6_000; // TODO(owner): confirm before launch
 export const SELF_SERVICE_FULL_DAY_CENTS = 8_000; // TODO(owner): confirm before launch
 export const WEEKEND_SURCHARGE_CENTS = 2_500; // TODO(owner): confirm before launch
+export const PICKUP_ADDRESS = "Spanish Fork, UT"; // TODO(owner): replace with exact pickup address before launch
 
 export function cancellationRefundCents({
   start,

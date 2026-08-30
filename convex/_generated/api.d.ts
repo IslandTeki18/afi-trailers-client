@@ -13,6 +13,7 @@ import type * as bookings from "../bookings.js";
 import type * as http from "../http.js";
 import type * as lib_auth from "../lib/auth.js";
 import type * as lib_status from "../lib/status.js";
+import type * as notifications from "../notifications.js";
 import type * as qualification from "../qualification.js";
 import type * as rentalTerms from "../rentalTerms.js";
 import type * as renters from "../renters.js";
@@ -33,6 +34,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   "lib/auth": typeof lib_auth;
   "lib/status": typeof lib_status;
+  notifications: typeof notifications;
   qualification: typeof qualification;
   rentalTerms: typeof rentalTerms;
   renters: typeof renters;

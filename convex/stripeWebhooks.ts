@@ -45,6 +45,7 @@ export const handle = internalMutation({
           ? object.customer
           : object.customer?.id ?? booking.stripe?.customerId;
       if (!customerId) return;
+      const shouldNotify = booking.status !== "confirmed";
       await ctx.db.patch(booking._id, {
         stripe: {
           ...booking.stripe,
@@ -65,6 +66,13 @@ export const handle = internalMutation({
             paymentMethodId,
           });
         }
+      }
+      if (shouldNotify) {
+        await ctx.scheduler.runAfter(
+          0,
+          internal.notifications.sendBookingConfirmation,
+          { bookingId }
+        );
       }
       return;
     }

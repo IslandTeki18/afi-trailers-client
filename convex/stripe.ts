@@ -2,7 +2,7 @@
 
 import Stripe from "stripe";
 import { ConvexError, v } from "convex/values";
-import { action, internalAction } from "./_generated/server";
+import { action, internalAction, type ActionCtx } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { requireIdentity, requireOperator } from "./lib/auth";
 import {
@@ -143,6 +143,7 @@ export const placeDepositHold = action({
 });
 
 async function createInvoiceFallback(
+  ctx: ActionCtx,
   customerId: string,
   bookingId: string,
   amount: number,
@@ -163,10 +164,18 @@ async function createInvoiceFallback(
     { idempotencyKey: `invoice_item_${bookingId}_${amount}` }
   );
   const finalized = await stripe.invoices.finalizeInvoice(invoice.id);
+  if (finalized.hosted_invoice_url) {
+    await ctx.scheduler.runAfter(0, internal.notifications.sendInvoiceLink, {
+      bookingId,
+      url: finalized.hosted_invoice_url,
+      amount,
+      reason,
+    });
+  }
   return finalized.hosted_invoice_url;
 }
 
-async function chargeOffSession({
+async function chargeOffSession(ctx: ActionCtx, {
   bookingId,
   amount,
   customerId,
@@ -198,6 +207,7 @@ async function chargeOffSession({
     return {
       charged: 0,
       invoiceUrl: await createInvoiceFallback(
+        ctx,
         customerId,
         bookingId,
         amount,
@@ -276,7 +286,7 @@ export const settleReturn = action({
 
     const remainder = total - capturedAmount;
     if (remainder > 0) {
-      const charge = await chargeOffSession({
+      const charge = await chargeOffSession(ctx, {
         bookingId: args.bookingId,
         amount: remainder,
         customerId: renter.stripeCustomerId,
@@ -317,6 +327,7 @@ export const sendInvoiceFallback = action({
     });
     if (!renter.stripeCustomerId) throw new ConvexError("CUSTOMER_NOT_FOUND");
     return createInvoiceFallback(
+      ctx,
       renter.stripeCustomerId,
       args.bookingId,
       args.amount,
@@ -342,7 +353,7 @@ export const chargeAdditional = action({
     if (!renter.stripeCustomerId || !renter.defaultPaymentMethodId) {
       throw new ConvexError("PAYMENT_METHOD_NOT_FOUND");
     }
-    return chargeOffSession({
+    return chargeOffSession(ctx, {
       bookingId: args.bookingId,
       amount: args.amount,
       customerId: renter.stripeCustomerId,
