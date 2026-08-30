@@ -8,6 +8,7 @@ import { business } from "~src/data/business";
 import { sendEmail } from "~src/utils/emailjs";
 import { classNames, formatMoney } from "~src/utils";
 import { TrailerNotFound } from "~src/features/Trailers/components";
+import { StepCard } from "../components";
 import { quoteRental } from "../utils/pricing";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -27,32 +28,6 @@ const parseInputDate = (s: string) => {
 };
 const formatDate = (d: Date) =>
   d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-
-const StepCard = ({
-  n,
-  title,
-  right,
-  children,
-}: {
-  n: number;
-  title: string;
-  right?: React.ReactNode;
-  children: React.ReactNode;
-}) => (
-  <Card
-    header={
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <span className="w-6 h-6 bg-ink text-bone font-bold text-[13px] leading-6 text-center">{n}</span>
-          <span className="font-semibold text-[13px] uppercase tracking-[0.18em] text-ink">{title}</span>
-        </div>
-        {right}
-      </div>
-    }
-  >
-    {children}
-  </Card>
-);
 
 const serviceOptions = (t: Trailer): { value: ServiceType; title: string; blurb: string; note: string; price: number; includes: string[] }[] => [
   {
