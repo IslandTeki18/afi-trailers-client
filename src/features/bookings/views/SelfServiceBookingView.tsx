@@ -12,6 +12,7 @@ import {
   DatesStep,
   IdentityStep,
   LoadStep,
+  PaymentStep,
   StepCard,
   VehicleStep,
 } from "../components";
@@ -219,11 +220,10 @@ export const SelfServiceBookingView = () => {
                   go("payment");
                 }}
               />
+            ) : currentStep === "payment" && draft.bookingId ? (
+              <PaymentStep bookingId={draft.bookingId} />
             ) : (
-              <p className="text-body-2">
-                {currentStep === "payment" &&
-                  "Payment collection comes next in this flow."}
-              </p>
+              <p className="text-body-2">Complete the previous step first.</p>
             )}
           </StepCard>
         </div>

@@ -7,6 +7,7 @@ import {
   TrailerListView,
   TrailerBookingView,
   SelfServiceBookingView,
+  BookingConfirmationView,
   TrailerDetailsView,
   TrailerUsageView,
   AboutUsView,
@@ -81,6 +82,14 @@ export const mainRoutes = [
       { path: "about", element: <AboutUsView /> },
       { path: "contact", element: <ContactUsView /> },
       { path: "pricing", element: <PricingView /> },
+      {
+        path: "bookings/:bookingId/confirmation",
+        element: (
+          <RequireSignIn>
+            <BookingConfirmationView />
+          </RequireSignIn>
+        ),
+      },
     ],
   },
 ];
