@@ -10,6 +10,7 @@
 
 import type * as agreement from "../agreement.js";
 import type * as bookings from "../bookings.js";
+import type * as handoff from "../handoff.js";
 import type * as http from "../http.js";
 import type * as lib_auth from "../lib/auth.js";
 import type * as lib_status from "../lib/status.js";
@@ -32,6 +33,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   agreement: typeof agreement;
   bookings: typeof bookings;
+  handoff: typeof handoff;
   http: typeof http;
   "lib/auth": typeof lib_auth;
   "lib/status": typeof lib_status;

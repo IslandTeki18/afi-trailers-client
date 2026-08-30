@@ -16,6 +16,7 @@ import {
   ContactUsView,
   PricingView,
   OperatorGuard,
+  HandoffView,
   OperatorRentalsView,
 } from "~src/features";
 
@@ -98,6 +99,16 @@ export const mainRoutes = [
           <RequireSignIn>
             <OperatorGuard>
               <OperatorRentalsView />
+            </OperatorGuard>
+          </RequireSignIn>
+        ),
+      },
+      {
+        path: "operator/rentals/:bookingId/handoff",
+        element: (
+          <RequireSignIn>
+            <OperatorGuard>
+              <HandoffView />
             </OperatorGuard>
           </RequireSignIn>
         ),

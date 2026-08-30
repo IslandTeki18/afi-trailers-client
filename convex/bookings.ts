@@ -290,6 +290,29 @@ export const listForOperator = query({
   },
 });
 
+export const getForOperator = query({
+  args: { bookingId: v.id("bookings") },
+  handler: async (ctx, { bookingId }) => {
+    await requireOperator(ctx);
+    const booking = await ctx.db.get(bookingId);
+    if (!booking) throw new ConvexError("BOOKING_NOT_FOUND");
+    const renter = await ctx.db.get(booking.renterId);
+    const vehicle = booking.vehicleId ? await ctx.db.get(booking.vehicleId) : null;
+    return {
+      ...booking,
+      renter: renter
+        ? {
+            ...renter,
+            licenseUrl: renter.licenseStorageId
+              ? await ctx.storage.getUrl(renter.licenseStorageId)
+              : null,
+          }
+        : null,
+      vehicle,
+    };
+  },
+});
+
 export const setStatus = internalMutation({
   args: {
     bookingId: v.id("bookings"),
