@@ -10,6 +10,7 @@
 
 import type * as lib_auth from "../lib/auth.js";
 import type * as lib_status from "../lib/status.js";
+import type * as qualification from "../qualification.js";
 import type * as rentalTerms from "../rentalTerms.js";
 
 import type {
@@ -21,6 +22,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   "lib/auth": typeof lib_auth;
   "lib/status": typeof lib_status;
+  qualification: typeof qualification;
   rentalTerms: typeof rentalTerms;
 }>;
 
