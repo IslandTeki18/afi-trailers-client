@@ -18,6 +18,7 @@ import {
   OperatorGuard,
   HandoffView,
   OperatorRentalsView,
+  ReturnView,
 } from "~src/features";
 
 const navigation: NavItem[] = [
@@ -109,6 +110,16 @@ export const mainRoutes = [
           <RequireSignIn>
             <OperatorGuard>
               <HandoffView />
+            </OperatorGuard>
+          </RequireSignIn>
+        ),
+      },
+      {
+        path: "operator/rentals/:bookingId/return",
+        element: (
+          <RequireSignIn>
+            <OperatorGuard>
+              <ReturnView />
             </OperatorGuard>
           </RequireSignIn>
         ),
