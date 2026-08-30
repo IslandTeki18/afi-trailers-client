@@ -85,10 +85,12 @@ export const completeReturn = internalMutation({
     damageAmount: v.optional(v.number()),
     overageLbs: v.optional(v.number()),
     notes: v.optional(v.string()),
-    depositStatus: v.union(
-      v.literal("released"),
-      v.literal("captured"),
-      v.literal("expired")
+    depositStatus: v.optional(
+      v.union(
+        v.literal("released"),
+        v.literal("captured"),
+        v.literal("expired")
+      )
     ),
     capturedAmount: v.optional(v.number()),
   },
@@ -103,7 +105,7 @@ export const completeReturn = internalMutation({
     await ctx.db.patch(booking._id, {
       stripe: {
         ...booking.stripe,
-        depositStatus: args.depositStatus,
+        depositStatus: args.depositStatus ?? booking.stripe.depositStatus,
         capturedAmount: args.capturedAmount,
       },
       return: {

@@ -257,25 +257,33 @@ export const settleReturn = action({
 
     const total = args.damageAmount + args.overageLbs * OVERAGE_PER_LB_CENTS;
     const deposit = booking.stripe;
-    if (!deposit || !renter.stripeCustomerId || !renter.defaultPaymentMethodId) {
+    if (!deposit) throw new ConvexError("BOOKING_NOT_PAID");
+    // A clean return with nothing to charge needs no saved payment method.
+    if (total > 0 && (!renter.stripeCustomerId || !renter.defaultPaymentMethodId)) {
       throw new ConvexError("PAYMENT_METHOD_NOT_FOUND");
     }
     const description = `Damage/overage; photos: ${args.photoIds.join(",")}`;
-    let depositStatus: "released" | "captured" | "expired" = "expired";
+    // undefined = no hold to settle (never placed, failed, or already released):
+    // keep the recorded status as-is instead of inventing "expired".
+    let depositStatus: "released" | "captured" | "expired" | undefined;
     let capturedAmount = 0;
     let chargedAmount = 0;
     let invoiceUrl: string | null = null;
-    const holdActive =
-      deposit.depositStatus === "held" &&
-      deposit.depositIntentId &&
-      deposit.depositCaptureBefore &&
-      Date.now() < deposit.depositCaptureBefore;
 
-    if (holdActive && deposit.depositIntentId) {
+    if (deposit.depositStatus === "held" && deposit.depositIntentId) {
+      const withinWindow =
+        deposit.depositCaptureBefore != null &&
+        Date.now() < deposit.depositCaptureBefore;
       if (total === 0) {
-        await stripeClient().paymentIntents.cancel(deposit.depositIntentId);
-        depositStatus = "released";
-      } else {
+        // Release on clean even past the capture window; if Stripe already
+        // auto-expired the hold, the cancel fails and we record that.
+        try {
+          await stripeClient().paymentIntents.cancel(deposit.depositIntentId);
+          depositStatus = "released";
+        } catch {
+          depositStatus = "expired";
+        }
+      } else if (withinWindow) {
         capturedAmount = Math.min(total, DEPOSIT_AMOUNT_CENTS);
         await stripeClient().paymentIntents.update(deposit.depositIntentId, {
           description,
@@ -284,11 +292,16 @@ export const settleReturn = action({
           amount_to_capture: capturedAmount,
         });
         depositStatus = "captured";
+      } else {
+        depositStatus = "expired";
       }
     }
 
     const remainder = total - capturedAmount;
     if (remainder > 0) {
+      if (!renter.stripeCustomerId || !renter.defaultPaymentMethodId) {
+        throw new ConvexError("PAYMENT_METHOD_NOT_FOUND");
+      }
       const charge = await chargeOffSession(ctx, {
         bookingId: args.bookingId,
         amount: remainder,
@@ -310,7 +323,12 @@ export const settleReturn = action({
       depositStatus,
       capturedAmount: capturedAmount || undefined,
     });
-    return { depositStatus, capturedAmount, chargedAmount, invoiceUrl };
+    return {
+      depositStatus: depositStatus ?? deposit.depositStatus ?? "not_held",
+      capturedAmount,
+      chargedAmount,
+      invoiceUrl,
+    };
   },
 });
 
