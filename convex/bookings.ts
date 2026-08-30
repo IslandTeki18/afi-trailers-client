@@ -7,6 +7,7 @@ import {
   type QueryCtx,
 } from "./_generated/server";
 import type { Id } from "./_generated/dataModel";
+import { internal } from "./_generated/api";
 import { requireIdentity, requireOperator, requireRenter } from "./lib/auth";
 import { assertTransition, type BookingStatus } from "./lib/status";
 import {
@@ -321,21 +322,23 @@ export const cancel = mutation({
     if (!booking || booking.renterId !== renter._id) {
       throw new ConvexError("BOOKING_NOT_FOUND");
     }
-    if (booking.status === "confirmed") {
-      throw new ConvexError("REFUND_NOT_READY");
-    }
     assertTransition(booking.status, "cancelled");
+    const refundAmount = cancellationRefundCents({
+      start: booking.start,
+      days: booking.quote.days,
+      total: booking.quote.total,
+      dayRate: booking.quote.dayRate,
+    });
     await ctx.db.patch(bookingId, {
       status: "cancelled",
       updatedAt: Date.now(),
     });
-    return {
-      refundAmount: cancellationRefundCents({
-        start: booking.start,
-        days: booking.quote.days,
-        total: booking.quote.total,
-        dayRate: booking.quote.dayRate,
-      }),
-    };
+    if (booking.status === "confirmed") {
+      await ctx.scheduler.runAfter(0, internal.stripe.refundCancellation, {
+        bookingId,
+        amount: refundAmount,
+      });
+    }
+    return { refundAmount };
   },
 });

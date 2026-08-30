@@ -26,7 +26,9 @@ export function cancellationRefundCents({
 }) {
   const hoursBeforeStart = (start - now) / (60 * 60 * 1000);
   if (hoursBeforeStart <= 0) return 0;
-  if (days === 1) return hoursBeforeStart >= 24 ? total : Math.floor(total / 2);
+  if (days === 1) {
+    return hoursBeforeStart >= 24 ? total : total - Math.ceil(dayRate / 2);
+  }
   return hoursBeforeStart >= 48 ? total : Math.max(0, total - dayRate);
 }
 

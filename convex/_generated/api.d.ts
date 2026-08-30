@@ -16,6 +16,8 @@ import type * as lib_status from "../lib/status.js";
 import type * as qualification from "../qualification.js";
 import type * as rentalTerms from "../rentalTerms.js";
 import type * as renters from "../renters.js";
+import type * as stripe from "../stripe.js";
+import type * as stripeData from "../stripeData.js";
 import type * as vehicles from "../vehicles.js";
 
 import type {
@@ -33,6 +35,8 @@ declare const fullApi: ApiFromModules<{
   qualification: typeof qualification;
   rentalTerms: typeof rentalTerms;
   renters: typeof renters;
+  stripe: typeof stripe;
+  stripeData: typeof stripeData;
   vehicles: typeof vehicles;
 }>;
 
