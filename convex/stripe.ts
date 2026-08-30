@@ -11,9 +11,12 @@ import {
   REQUIRED_PICKUP_PHOTOS,
 } from "./rentalTerms";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2026-08-26.dahlia",
-});
+function stripeClient() {
+  if (!process.env.STRIPE_SECRET_KEY) throw new Error("STRIPE_SECRET_KEY missing");
+  return new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: "2026-08-26.dahlia",
+  });
+}
 
 const captureBefore = (intent: Stripe.PaymentIntent) => {
   const charge =
@@ -37,7 +40,7 @@ export const createCheckout = action({
 
     let customerId = renter.stripeCustomerId;
     if (!customerId) {
-      const customer = await stripe.customers.create(
+      const customer = await stripeClient().customers.create(
         {
           email: renter.email || undefined,
           name: renter.name || undefined,
@@ -54,7 +57,7 @@ export const createCheckout = action({
     }
 
     if (booking.stripe?.paymentIntentId) {
-      const existing = await stripe.paymentIntents.retrieve(
+      const existing = await stripeClient().paymentIntents.retrieve(
         booking.stripe.paymentIntentId
       );
       if (existing.status !== "succeeded" && existing.client_secret) {
@@ -65,7 +68,7 @@ export const createCheckout = action({
       }
     }
 
-    const intent = await stripe.paymentIntents.create(
+    const intent = await stripeClient().paymentIntents.create(
       {
         amount: booking.quote.total,
         currency: "usd",
@@ -107,7 +110,7 @@ export const placeDepositHold = action({
     }
 
     try {
-      const intent = await stripe.paymentIntents.create(
+      const intent = await stripeClient().paymentIntents.create(
         {
           amount: DEPOSIT_AMOUNT_CENTS,
           currency: "usd",
@@ -149,11 +152,11 @@ async function createInvoiceFallback(
   amount: number,
   reason: string
 ) {
-  const invoice = await stripe.invoices.create(
+  const invoice = await stripeClient().invoices.create(
     { customer: customerId, metadata: { bookingId, reason } },
     { idempotencyKey: `invoice_${bookingId}_${amount}` }
   );
-  await stripe.invoiceItems.create(
+  await stripeClient().invoiceItems.create(
     {
       customer: customerId,
       invoice: invoice.id,
@@ -163,7 +166,7 @@ async function createInvoiceFallback(
     },
     { idempotencyKey: `invoice_item_${bookingId}_${amount}` }
   );
-  const finalized = await stripe.invoices.finalizeInvoice(invoice.id);
+  const finalized = await stripeClient().invoices.finalizeInvoice(invoice.id);
   if (finalized.hosted_invoice_url) {
     await ctx.scheduler.runAfter(0, internal.notifications.sendInvoiceLink, {
       bookingId,
@@ -189,7 +192,7 @@ async function chargeOffSession(ctx: ActionCtx, {
   description: string;
 }) {
   try {
-    const intent = await stripe.paymentIntents.create(
+    const intent = await stripeClient().paymentIntents.create(
       {
         amount,
         currency: "usd",
@@ -270,14 +273,14 @@ export const settleReturn = action({
 
     if (holdActive && deposit.depositIntentId) {
       if (total === 0) {
-        await stripe.paymentIntents.cancel(deposit.depositIntentId);
+        await stripeClient().paymentIntents.cancel(deposit.depositIntentId);
         depositStatus = "released";
       } else {
         capturedAmount = Math.min(total, DEPOSIT_AMOUNT_CENTS);
-        await stripe.paymentIntents.update(deposit.depositIntentId, {
+        await stripeClient().paymentIntents.update(deposit.depositIntentId, {
           description,
         });
-        await stripe.paymentIntents.capture(deposit.depositIntentId, {
+        await stripeClient().paymentIntents.capture(deposit.depositIntentId, {
           amount_to_capture: capturedAmount,
         });
         depositStatus = "captured";
@@ -373,7 +376,7 @@ export const refundCancellation = internalAction({
     if (!booking.stripe?.paymentIntentId) {
       throw new ConvexError("PAYMENT_INTENT_NOT_FOUND");
     }
-    await stripe.refunds.create(
+    await stripeClient().refunds.create(
       { payment_intent: booking.stripe.paymentIntentId, amount },
       { idempotencyKey: `cancel_${bookingId}_${amount}` }
     );
@@ -383,7 +386,7 @@ export const refundCancellation = internalAction({
 export const setCustomerDefault = internalAction({
   args: { customerId: v.string(), paymentMethodId: v.string() },
   handler: async (_, { customerId, paymentMethodId }) => {
-    await stripe.customers.update(customerId, {
+    await stripeClient().customers.update(customerId, {
       invoice_settings: { default_payment_method: paymentMethodId },
     });
   },

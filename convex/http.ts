@@ -5,9 +5,12 @@ import { internal } from "./_generated/api";
 
 const http = httpRouter();
 const siteOrigin = process.env.SITE_URL;
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2026-08-26.dahlia",
-});
+function stripeClient() {
+  if (!process.env.STRIPE_SECRET_KEY) throw new Error("STRIPE_SECRET_KEY missing");
+  return new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: "2026-08-26.dahlia",
+  });
+}
 
 function corsHeaders(origin: string | null) {
   return {
@@ -25,7 +28,7 @@ http.route({
     const signature = request.headers.get("stripe-signature");
     if (!signature) return new Response("Missing signature", { status: 400 });
     try {
-      const event = await stripe.webhooks.constructEventAsync(
+      const event = await stripeClient().webhooks.constructEventAsync(
         await request.text(),
         signature,
         process.env.STRIPE_WEBHOOK_SECRET!,
