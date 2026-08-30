@@ -112,6 +112,38 @@ Single-day rentals: full refund if cancelled 24+ hours before start, otherwise 5
 **Additional Fees**:
 The published list of non-base charges: Security Deposit, Late Return Fee, Insurance Coverage, Cleaning Fee.
 
+### Self Service booking
+
+**Tow Vehicle**:
+The Renter's truck; saved to the account as a Vehicle Profile.
+
+**Qualification**:
+The pre-payment check of a Tow Vehicle against Towing Requirements. Outcomes: Qualified, Qualified with a Fix, Not Qualified.
+
+**Fix**:
+A remedy for a Qualification gap: an Adjustable Hitch add-on or a part the Renter buys.
+
+**Verify at Handoff**:
+A Qualification answer of "not sure" that the Operator confirms in person.
+
+**Handoff**:
+The on-site pickup step where the Operator verifies the Renter, records the Condition Report, and places the Deposit Hold.
+
+**Condition Report**:
+The timestamped, geotagged photo set and Renter signature taken at Handoff and again at Return.
+
+**Deposit Hold**:
+The Security Deposit as an uncaptured Stripe authorization placed at Handoff; released on clean Return or partially captured for damage.
+
+**Return**:
+The on-site step closing a Rental Period; settles the Deposit Hold.
+
+**Operator**:
+The Owner's on-site staff running Handoff and Return (today, the Owner).
+
+**Vehicle Profile**:
+A saved Tow Vehicle and its Qualification, letting a returning Renter skip Qualification.
+
 ## Open Questions
 
 Places where the code or copy disagrees with itself. Resolve these before building the booking backend.
@@ -125,3 +157,6 @@ Places where the code or copy disagrees with itself. Resolve these before buildi
 | Weight capacity | Trailer data says 10,000 lb max load; contracts say 3 tonnes / 6,000 lb. |
 | Service Type codes | Code uses "full"/"self", "FULL"/"SELF", and "fullService"/"selfService" interchangeably. |
 | Cleaning Fee | Additional Fees lists a $50 cleaning fee; pricing tiers say "We Clean the Trailer" as an included feature. |
+| Brake-controller rule | Self Service currently blocks "no" and allows "not sure" for Handoff verification; confirm with insurance/operator policy. |
+| Hold window / extended auth | Stripe card holds can expire before longer rentals return; confirm whether to reauthorize or invoice. |
+| Minimum Renter age | `MIN_RENTER_AGE` is temporarily 0 until the carrier confirms the required age. |

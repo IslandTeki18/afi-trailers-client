@@ -1,63 +1,44 @@
 # Afi Trailers Client
 
-A brief description of what this project does and who it's for.
+Public site and self-service booking flow for AFI Trailers.
 
-## Prerequisites
-
-- Node.js
-- npm or yarn
-
-## Installation
-
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/your-username/your-repo.git
-   ```
-2. Navigate to the project directory:
-   ```sh
-   cd your-repo
-   ```
-3. Install dependencies:
-   ```sh
-   npm install
-   ```
-   or
-   ```sh
-   yarn install
-   ```
-
-## Running the Project
-
-To start the development server, run:
+## Setup
 
 ```sh
+npm install
+npx convex dev
 npm start
 ```
 
-or
+Run Stripe webhooks locally with:
 
 ```sh
-yarn start
+stripe listen --forward-to <CONVEX_SITE_URL>/stripe/webhook
 ```
 
-This will start the Parcel development server and open the project in your default web browser.
+## Environment
 
-## Build the Project
+| Name | Location | Used for |
+|---|---|---|
+| `CLERK_PUBLISHABLE_KEY` | app env | Clerk UI |
+| `CONVEX_URL` | app env | Convex client |
+| `CONVEX_SITE_URL` | app env | agreement HTTP action |
+| `SITE_URL` | app + Convex env | redirects and CORS |
+| `STRIPE_PUBLISHABLE_KEY` | app env | Stripe Elements |
+| `CLERK_ISSUER_URL` | Convex env | auth config |
+| `OPERATOR_EMAILS` | Convex env | operator guard |
+| `RESEND_API_KEY`, `RESEND_FROM` | Convex env | email notifications |
+| `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Convex env | payments and webhooks |
+| `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_FROM` | Convex env | SMS notifications |
 
-To create a production build, run:
+## Checks
 
 ```sh
+npm run typecheck
 npm run build
+npx convex dev --once
 ```
-
-or
-
-```sh
-yarn build
-```
-
-The build artifacts will be stored in the `build` directory
 
 ## License
 
-This project is licensed under the ISC License
+ISC
