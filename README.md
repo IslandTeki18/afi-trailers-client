@@ -25,7 +25,7 @@ stripe listen --forward-to <CONVEX_SITE_URL>/stripe/webhook
 | `CONVEX_SITE_URL` | app env | agreement HTTP action |
 | `SITE_URL` | app + Convex env | redirects and CORS |
 | `STRIPE_PUBLISHABLE_KEY` | app env | Stripe Elements |
-| `CLERK_ISSUER_URL` | Convex env | auth config |
+| `CLERK_JWT_ISSUER_DOMAIN` | Convex env | auth config |
 | `OPERATOR_EMAILS` | Convex env | operator guard |
 | `RESEND_API_KEY`, `RESEND_FROM` | Convex env | email notifications |
 | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | Convex env | payments and webhooks |
