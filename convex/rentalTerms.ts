@@ -7,6 +7,28 @@ export const MAX_LOAD_LBS_BY_TRAILER: Record<string, number> = {
   st7x14x4dump001: 10_000,
 }; // TODO(owner): contracts say 6,000
 export const LATE_FEE_CENTS = 5_000; // TODO(owner): site says $50/day; contract says $100/hour
+export const SELF_SERVICE_HALF_DAY_CENTS = 6_000; // TODO(owner): confirm before launch
+export const SELF_SERVICE_FULL_DAY_CENTS = 8_000; // TODO(owner): confirm before launch
+export const WEEKEND_SURCHARGE_CENTS = 2_500; // TODO(owner): confirm before launch
+
+export function cancellationRefundCents({
+  start,
+  days,
+  total,
+  dayRate,
+  now = Date.now(),
+}: {
+  start: number;
+  days: number;
+  total: number;
+  dayRate: number;
+  now?: number;
+}) {
+  const hoursBeforeStart = (start - now) / (60 * 60 * 1000);
+  if (hoursBeforeStart <= 0) return 0;
+  if (days === 1) return hoursBeforeStart >= 24 ? total : Math.floor(total / 2);
+  return hoursBeforeStart >= 48 ? total : Math.max(0, total - dayRate);
+}
 
 export const AGREEMENT_INITIALS = [
   {

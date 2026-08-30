@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as bookings from "../bookings.js";
 import type * as lib_auth from "../lib/auth.js";
 import type * as lib_status from "../lib/status.js";
 import type * as qualification from "../qualification.js";
@@ -22,6 +23,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  bookings: typeof bookings;
   "lib/auth": typeof lib_auth;
   "lib/status": typeof lib_status;
   qualification: typeof qualification;
