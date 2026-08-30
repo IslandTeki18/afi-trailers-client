@@ -15,6 +15,8 @@ import {
   DriveOffRentalContractView,
   ContactUsView,
   PricingView,
+  OperatorGuard,
+  OperatorRentalsView,
 } from "~src/features";
 
 const navigation: NavItem[] = [
@@ -87,6 +89,16 @@ export const mainRoutes = [
         element: (
           <RequireSignIn>
             <BookingConfirmationView />
+          </RequireSignIn>
+        ),
+      },
+      {
+        path: "operator",
+        element: (
+          <RequireSignIn>
+            <OperatorGuard>
+              <OperatorRentalsView />
+            </OperatorGuard>
           </RequireSignIn>
         ),
       },
