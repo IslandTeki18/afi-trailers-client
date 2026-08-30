@@ -7,7 +7,14 @@ import { Badge, Button, Card } from "~src/components";
 import { findTrailer } from "~src/data/trailers";
 import { TrailerNotFound } from "~src/features/Trailers/components";
 import { classNames } from "~src/utils";
-import { DatesStep, IdentityStep, LoadStep, StepCard, VehicleStep } from "../components";
+import {
+  AgreementStep,
+  DatesStep,
+  IdentityStep,
+  LoadStep,
+  StepCard,
+  VehicleStep,
+} from "../components";
 import {
   type BookingDraft,
   defaultDraft,
@@ -58,6 +65,7 @@ export const SelfServiceBookingView = () => {
   const [returnPrompt, setReturnPrompt] = useState(true);
   const [loadSaved, setLoadSaved] = useState(false);
   const [profileSaved, setProfileSaved] = useState(false);
+  const [agreementSigned, setAgreementSigned] = useState(false);
   const renter = useQuery(meQuery, {});
   const vehicles = useQuery(vehiclesQuery, {});
   const booking = useBooking(draft.bookingId);
@@ -88,7 +96,7 @@ export const SelfServiceBookingView = () => {
         (returning || profileSaved || profileComplete(renter))
       );
     }
-    return booking.status === "signed";
+    return booking.status === "signed" || agreementSigned;
   };
 
   const currentStep = canReach(requestedStep) ? requestedStep : "vehicle";
@@ -201,10 +209,18 @@ export const SelfServiceBookingView = () => {
                   go("agreement");
                 }}
               />
+            ) : currentStep === "agreement" && draft.bookingId ? (
+              <AgreementStep
+                bookingId={draft.bookingId}
+                renterName={renter?.name ?? ""}
+                returning={returning}
+                onContinue={() => {
+                  setAgreementSigned(true);
+                  go("payment");
+                }}
+              />
             ) : (
               <p className="text-body-2">
-                {currentStep === "agreement" &&
-                  "Agreement review and signature come next in this flow."}
                 {currentStep === "payment" &&
                   "Payment collection comes next in this flow."}
               </p>
