@@ -7,7 +7,7 @@ import { Badge, Button, Card } from "~src/components";
 import { findTrailer } from "~src/data/trailers";
 import { TrailerNotFound } from "~src/features/Trailers/components";
 import { classNames } from "~src/utils";
-import { StepCard } from "../components";
+import { StepCard, VehicleStep } from "../components";
 import {
   type BookingDraft,
   defaultDraft,
@@ -160,20 +160,29 @@ export const SelfServiceBookingView = () => {
           )}
 
           <StepCard n={visibleSteps.indexOf(currentStep) + 1} title={currentStep}>
-            <p className="text-body-2">
-              {currentStep === "vehicle" &&
-                "Vehicle qualification comes next in this flow."}
-              {currentStep === "dates" &&
-                "Date selection and draft booking persistence come next in this flow."}
-              {currentStep === "load" &&
-                "Load details come next in this flow."}
-              {currentStep === "identity" &&
-                "Renter identity and license upload come next in this flow."}
-              {currentStep === "agreement" &&
-                "Agreement review and signature come next in this flow."}
-              {currentStep === "payment" &&
-                "Payment collection comes next in this flow."}
-            </p>
+            {currentStep === "vehicle" ? (
+              <VehicleStep
+                trailerId={trailer._id}
+                adjustableHitch={draft.adjustableHitch}
+                onVehicleSaved={(vehicleId, adjustableHitch) =>
+                  updateDraft({ ...draft, vehicleId, adjustableHitch })
+                }
+                onContinue={() => go("dates")}
+              />
+            ) : (
+              <p className="text-body-2">
+                {currentStep === "dates" &&
+                  "Date selection and draft booking persistence come next in this flow."}
+                {currentStep === "load" &&
+                  "Load details come next in this flow."}
+                {currentStep === "identity" &&
+                  "Renter identity and license upload come next in this flow."}
+                {currentStep === "agreement" &&
+                  "Agreement review and signature come next in this flow."}
+                {currentStep === "payment" &&
+                  "Payment collection comes next in this flow."}
+              </p>
+            )}
           </StepCard>
         </div>
       </div>
