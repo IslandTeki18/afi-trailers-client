@@ -11,11 +11,9 @@ import { internal } from "./_generated/api";
 import { requireIdentity, requireOperator, requireRenter } from "./lib/auth";
 import { assertTransition, type BookingStatus } from "./lib/status";
 import {
-  ADJUSTABLE_HITCH_DAY_RATE_CENTS,
-  SELF_SERVICE_FULL_DAY_CENTS,
-  SELF_SERVICE_HALF_DAY_CENTS,
-  WEEKEND_SURCHARGE_CENTS,
+  HALF_DAY_RENTAL_MS,
   cancellationRefundCents,
+  quoteSelfServiceRental as quoteRental,
 } from "./rentalTerms";
 
 const ACTIVE_STATUSES: BookingStatus[] = [
@@ -23,40 +21,6 @@ const ACTIVE_STATUSES: BookingStatus[] = [
   "checked_out",
   "returned",
 ];
-const MS_PER_DAY = 24 * 60 * 60 * 1000;
-
-function quoteRental(
-  rentalType: "half" | "full",
-  start: number,
-  end: number,
-  adjustableHitch: boolean
-) {
-  const days =
-    rentalType === "half" ? 1 : Math.max(1, Math.ceil((end - start) / MS_PER_DAY));
-  const dayRate =
-    rentalType === "half"
-      ? SELF_SERVICE_HALF_DAY_CENTS
-      : SELF_SERVICE_FULL_DAY_CENTS;
-  let weekendDays = 0;
-  for (let day = 0; day < days; day++) {
-    const weekday = new Date(start + day * MS_PER_DAY).getUTCDay();
-    if (weekday === 0 || weekday === 6) weekendDays++;
-  }
-  const base = days * dayRate;
-  const weekendSurcharge = weekendDays * WEEKEND_SURCHARGE_CENTS;
-  const addOns = adjustableHitch
-    ? days * ADJUSTABLE_HITCH_DAY_RATE_CENTS
-    : 0;
-  return {
-    days,
-    dayRate,
-    base,
-    weekendSurcharge,
-    addOns,
-    total: base + weekendSurcharge + addOns,
-  };
-}
-
 async function findOverlap(
   ctx: QueryCtx | MutationCtx,
   trailerId: string,
@@ -124,6 +88,10 @@ export const createDraft = mutation({
       args.start >= args.end
     ) {
       throw new ConvexError("INVALID_RENTAL_PERIOD");
+    }
+    // Half-day duration is a business rule; never trust the client-supplied end.
+    if (args.rentalType === "half") {
+      args.end = args.start + HALF_DAY_RENTAL_MS;
     }
     const renter = await requireRenter(ctx);
     const vehicle = await ctx.db.get(args.vehicleId);
@@ -360,6 +328,13 @@ export const cancel = mutation({
       await ctx.scheduler.runAfter(0, internal.stripe.refundCancellation, {
         bookingId,
         amount: refundAmount,
+      });
+    } else if (booking.stripe?.paymentIntentId) {
+      // Cancel from signed/pending_payment/payment_failed: void the intent so a
+      // later confirmation can't charge a cancelled booking. If the intent already
+      // succeeded, the webhook sees status "cancelled" and refunds in full.
+      await ctx.scheduler.runAfter(0, internal.stripe.voidPaymentIntent, {
+        paymentIntentId: booking.stripe.paymentIntentId,
       });
     }
     return { refundAmount };

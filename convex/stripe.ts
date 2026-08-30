@@ -8,7 +8,7 @@ import { requireIdentity, requireOperator } from "./lib/auth";
 import {
   DEPOSIT_AMOUNT_CENTS,
   OVERAGE_PER_LB_CENTS,
-  REQUIRED_PICKUP_PHOTOS,
+  REQUIRED_RETURN_PHOTOS,
 } from "./rentalTerms";
 
 function stripeClient() {
@@ -235,7 +235,7 @@ export const settleReturn = action({
       internal.stripeData.bookingContext,
       { bookingId: args.bookingId }
     );
-    if (booking.status !== "checked_out" || photos.length < REQUIRED_PICKUP_PHOTOS) {
+    if (booking.status !== "checked_out" || photos.length < REQUIRED_RETURN_PHOTOS) {
       throw new ConvexError("RETURN_INCOMPLETE");
     }
     if (
@@ -380,6 +380,17 @@ export const refundCancellation = internalAction({
       { payment_intent: booking.stripe.paymentIntentId, amount },
       { idempotencyKey: `cancel_${bookingId}_${amount}` }
     );
+  },
+});
+
+export const voidPaymentIntent = internalAction({
+  args: { paymentIntentId: v.string() },
+  handler: async (_, { paymentIntentId }) => {
+    try {
+      await stripeClient().paymentIntents.cancel(paymentIntentId);
+    } catch {
+      // Not cancelable (already succeeded): the webhook refunds cancelled bookings.
+    }
   },
 });
 

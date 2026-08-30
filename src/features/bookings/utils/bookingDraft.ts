@@ -11,12 +11,21 @@ export type BookingDraft = {
 
 const key = "afi.booking.draft";
 
+// Local calendar date; toISOString shifts the day for west-of-UTC evenings.
+export function toInputDate(date: Date) {
+  return [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, "0"),
+    String(date.getDate()).padStart(2, "0"),
+  ].join("-");
+}
+
 export function defaultDraft(): BookingDraft {
   const todayDate = new Date();
-  const today = todayDate.toISOString().slice(0, 10);
-  const tomorrow = new Date(todayDate.getTime() + 24 * 60 * 60 * 1000)
-    .toISOString()
-    .slice(0, 10);
+  const today = toInputDate(todayDate);
+  const tomorrow = toInputDate(
+    new Date(todayDate.getTime() + 24 * 60 * 60 * 1000)
+  );
   return {
     rentalType: "full",
     start: today,

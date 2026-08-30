@@ -28,6 +28,14 @@ export const handle = internalMutation({
     const kind = object.metadata?.kind;
 
     if (type === "payment_intent.succeeded" && kind === "rental_fee") {
+      if (booking.status === "cancelled") {
+        // Renter cancelled while payment was in flight: refund in full.
+        await ctx.scheduler.runAfter(0, internal.stripe.refundCancellation, {
+          bookingId,
+          amount: object.amount_received ?? object.amount,
+        });
+        return;
+      }
       if (booking.status === "signed") {
         assertTransition("signed", "pending_payment");
         assertTransition("pending_payment", "confirmed");
@@ -107,9 +115,12 @@ export const handle = internalMutation({
       kind === "deposit_hold" &&
       booking.stripe
     ) {
+      // Webhook payloads don't expand latest_charge, so this is usually undefined
+      // and we keep the value saved by placeDepositHold (which does expand it).
       const captureBefore =
-        object.capture_before ??
-        object.latest_charge?.payment_method_details?.card?.capture_before;
+        typeof object.latest_charge === "object"
+          ? object.latest_charge?.payment_method_details?.card?.capture_before
+          : undefined;
       await ctx.db.patch(booking._id, {
         stripe: {
           ...booking.stripe,

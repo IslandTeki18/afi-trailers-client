@@ -1,5 +1,13 @@
 import { ConvexError, v } from "convex/values";
-import { internalMutation, internalQuery } from "./_generated/server";
+import {
+  internalMutation,
+  internalQuery,
+  query,
+  type MutationCtx,
+  type QueryCtx,
+} from "./_generated/server";
+import type { Doc } from "./_generated/dataModel";
+import { requireRenter } from "./lib/auth";
 import { assertTransition } from "./lib/status";
 import {
   AGREEMENT_INITIALS,
@@ -14,6 +22,33 @@ export const renterIdForClerk = internalQuery({
       .query("renters")
       .withIndex("by_clerk", (q) => q.eq("clerkUserId", clerkUserId))
       .unique(),
+});
+
+// Single source of truth for "returning renter": a prior booking on the same
+// vehicle signed under the current agreement version.
+async function isReturning(ctx: QueryCtx | MutationCtx, booking: Doc<"bookings">) {
+  const priorBookings = await ctx.db
+    .query("bookings")
+    .withIndex("by_renter", (q) => q.eq("renterId", booking.renterId))
+    .collect();
+  return priorBookings.some(
+    (prior) =>
+      prior._id !== booking._id &&
+      prior.vehicleId === booking.vehicleId &&
+      prior.agreement?.version === AGREEMENT_VERSION
+  );
+}
+
+export const returningStatus = query({
+  args: { bookingId: v.id("bookings") },
+  handler: async (ctx, { bookingId }) => {
+    const renter = await requireRenter(ctx);
+    const booking = await ctx.db.get(bookingId);
+    if (!booking || booking.renterId !== renter._id) {
+      throw new ConvexError("BOOKING_NOT_FOUND");
+    }
+    return isReturning(ctx, booking);
+  },
 });
 
 export const sign = internalMutation({
@@ -56,16 +91,7 @@ export const sign = internalMutation({
       throw new ConvexError("SIGNATURE_NAME_MISMATCH");
     }
 
-    const priorBookings = await ctx.db
-      .query("bookings")
-      .withIndex("by_renter", (q) => q.eq("renterId", renter._id))
-      .collect();
-    const returning = priorBookings.some(
-      (prior) =>
-        prior._id !== booking._id &&
-        prior.vehicleId === booking.vehicleId &&
-        prior.agreement?.version === AGREEMENT_VERSION
-    );
+    const returning = await isReturning(ctx, booking);
     const requiredKeys = returning
       ? LOAD_SPECIFIC_INITIAL_KEYS
       : AGREEMENT_INITIALS.map(({ key }) => key);

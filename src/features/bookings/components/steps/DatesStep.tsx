@@ -6,10 +6,10 @@ import { Button, Card, Input } from "~src/components";
 import type { Trailer } from "~src/types";
 import { classNames, formatLbs, formatMoney } from "~src/utils";
 import {
-  ADJUSTABLE_HITCH_DAY_RATE_CENTS,
   OVERAGE_PER_LB_CENTS,
+  quoteSelfServiceRental,
 } from "~convex/rentalTerms";
-import type { BookingDraft } from "../../utils/bookingDraft";
+import { toInputDate, type BookingDraft } from "../../utils/bookingDraft";
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
@@ -35,10 +35,6 @@ function toDate(value: string) {
   return new Date(year, month - 1, day);
 }
 
-function toInputDate(date: Date) {
-  return date.toISOString().slice(0, 10);
-}
-
 function range(draft: BookingDraft) {
   const start = toDate(draft.start).getTime();
   const end =
@@ -48,26 +44,22 @@ function range(draft: BookingDraft) {
   return { start, end };
 }
 
-function quote(trailer: Trailer, draft: BookingDraft) {
-  const days =
-    draft.rentalType === "half"
-      ? 1
-      : Math.max(1, Math.ceil((range(draft).end - range(draft).start) / MS_PER_DAY));
-  const dayRate =
-    draft.rentalType === "half"
-      ? trailer.rentalPrices.halfDay ?? trailer.rentalPrices.fullDay
-      : trailer.rentalPrices.fullDay;
-  let weekendDays = 0;
-  for (let day = 0; day < days; day++) {
-    const weekday = new Date(range(draft).start + day * MS_PER_DAY).getDay();
-    if (weekday === 0 || weekday === 6) weekendDays++;
-  }
-  const base = days * dayRate;
-  const weekendSurcharge = weekendDays * (trailer.weekendSurcharge ?? 0);
-  const addOns = draft.adjustableHitch
-    ? days * (ADJUSTABLE_HITCH_DAY_RATE_CENTS / 100)
-    : 0;
-  return { days, dayRate, base, weekendSurcharge, addOns, total: base + weekendSurcharge + addOns };
+// Same function the backend charges with; convert cents to dollars for display.
+function quote(draft: BookingDraft) {
+  const { start, end } = range(draft);
+  const cents = quoteSelfServiceRental(
+    draft.rentalType,
+    start,
+    end,
+    draft.adjustableHitch
+  );
+  return {
+    days: cents.days,
+    base: cents.base / 100,
+    weekendSurcharge: cents.weekendSurcharge / 100,
+    addOns: cents.addOns / 100,
+    total: cents.total / 100,
+  };
 }
 
 export function DatesStep({
@@ -95,7 +87,7 @@ export function DatesStep({
   const unavailable = Boolean(
     booked?.some(([start, end]) => selected.start < end && selected.end > start)
   );
-  const pricing = quote(trailer, draft);
+  const pricing = quote(draft);
 
   const update = (next: Partial<BookingDraft>) => {
     const merged = { ...draft, ...next };

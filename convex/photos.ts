@@ -22,6 +22,9 @@ export const attach = mutation({
   },
   handler: async (ctx, args) => {
     await requireOperator(ctx);
+    if (!(await ctx.db.get(args.bookingId))) {
+      throw new ConvexError("BOOKING_NOT_FOUND");
+    }
     await ctx.db.insert("photos", {
       bookingId: args.bookingId,
       phase: args.phase,

@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useMemo, useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
+import { useQuery } from "convex/react";
+import { makeFunctionReference } from "convex/server";
 import { Button, Input } from "~src/components";
 import { ContractView } from "~src/features/Trailers/components/ContractView";
 import { contractSelfServiceSections } from "~src/features/Trailers/utils/driveOffContractSections";
@@ -9,18 +11,24 @@ import {
   LOAD_SPECIFIC_INITIAL_KEYS,
 } from "~convex/rentalTerms";
 
+const returningStatusQuery = makeFunctionReference<
+  "query",
+  { bookingId: string },
+  boolean
+>("agreement:returningStatus");
+
 export function AgreementStep({
   bookingId,
   renterName,
-  returning,
   onContinue,
 }: {
   bookingId: string;
   renterName: string;
-  returning: boolean;
   onContinue: () => void;
 }) {
   const { getToken } = useAuth();
+  // Server decides who signs the short form; until it answers, show the full form.
+  const returning = useQuery(returningStatusQuery, { bookingId }) === true;
   const [initials, setInitials] = useState<Record<string, string>>({});
   const [signatureName, setSignatureName] = useState("");
   const [agreed, setAgreed] = useState(false);

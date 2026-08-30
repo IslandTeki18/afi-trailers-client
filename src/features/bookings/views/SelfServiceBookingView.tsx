@@ -214,7 +214,6 @@ export const SelfServiceBookingView = () => {
               <AgreementStep
                 bookingId={draft.bookingId}
                 renterName={renter?.name ?? ""}
-                returning={returning}
                 onContinue={() => {
                   setAgreementSigned(true);
                   go("payment");
