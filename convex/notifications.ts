@@ -6,7 +6,10 @@ import { internal } from "./_generated/api";
 import { PICKUP_ADDRESS } from "./rentalTerms";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY ?? "");
+function resendClient() {
+  if (!process.env.RESEND_API_KEY) throw new Error("RESEND_API_KEY missing");
+  return new Resend(process.env.RESEND_API_KEY);
+}
 
 function money(cents: number) {
   return `$${(cents / 100).toFixed(2)}`;
@@ -29,7 +32,7 @@ function confirmationUrl(bookingId: string) {
 
 async function sendEmail(to: string, subject: string, html: string) {
   try {
-    await resend.emails.send({
+    await resendClient().emails.send({
       from: process.env.RESEND_FROM!,
       to,
       subject,
