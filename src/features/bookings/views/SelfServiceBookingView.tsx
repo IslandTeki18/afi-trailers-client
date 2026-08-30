@@ -7,7 +7,7 @@ import { Badge, Button, Card } from "~src/components";
 import { findTrailer } from "~src/data/trailers";
 import { TrailerNotFound } from "~src/features/Trailers/components";
 import { classNames } from "~src/utils";
-import { DatesStep, LoadStep, StepCard, VehicleStep } from "../components";
+import { DatesStep, IdentityStep, LoadStep, StepCard, VehicleStep } from "../components";
 import {
   type BookingDraft,
   defaultDraft,
@@ -57,6 +57,7 @@ export const SelfServiceBookingView = () => {
   const [returning, setReturning] = useState(false);
   const [returnPrompt, setReturnPrompt] = useState(true);
   const [loadSaved, setLoadSaved] = useState(false);
+  const [profileSaved, setProfileSaved] = useState(false);
   const renter = useQuery(meQuery, {});
   const vehicles = useQuery(vehiclesQuery, {});
   const booking = useBooking(draft.bookingId);
@@ -84,7 +85,7 @@ export const SelfServiceBookingView = () => {
     if (step === "agreement") {
       return (
         (Boolean(booking.load) || loadSaved) &&
-        (returning || profileComplete(renter))
+        (returning || profileSaved || profileComplete(renter))
       );
     }
     return booking.status === "signed";
@@ -192,10 +193,16 @@ export const SelfServiceBookingView = () => {
                   go(returning ? "agreement" : "identity");
                 }}
               />
+            ) : currentStep === "identity" ? (
+              <IdentityStep
+                renter={renter}
+                onContinue={() => {
+                  setProfileSaved(true);
+                  go("agreement");
+                }}
+              />
             ) : (
               <p className="text-body-2">
-                {currentStep === "identity" &&
-                  "Renter identity and license upload come next in this flow."}
                 {currentStep === "agreement" &&
                   "Agreement review and signature come next in this flow."}
                 {currentStep === "payment" &&
