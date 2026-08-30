@@ -1,10 +1,12 @@
 import * as React from "react";
 import { Outlet, ScrollRestoration } from "react-router-dom";
+import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/clerk-react";
 import { Navbar, NavItem, SimpleFooter } from "~src/components";
 import {
   HomeView,
   TrailerListView,
   TrailerBookingView,
+  SelfServiceBookingView,
   TrailerDetailsView,
   TrailerUsageView,
   AboutUsView,
@@ -35,6 +37,17 @@ function Layout() {
   );
 }
 
+function RequireSignIn({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <SignedIn>{children}</SignedIn>
+      <SignedOut>
+        <RedirectToSignIn />
+      </SignedOut>
+    </>
+  );
+}
+
 export const mainRoutes = [
   {
     path: "/",
@@ -47,6 +60,14 @@ export const mainRoutes = [
           { element: <TrailerListView />, index: true },
           { path: ":trailerId", element: <TrailerDetailsView /> },
           { path: ":trailerId/book", element: <TrailerBookingView /> },
+          {
+            path: ":trailerId/book/self",
+            element: (
+              <RequireSignIn>
+                <SelfServiceBookingView />
+              </RequireSignIn>
+            ),
+          },
           { path: "usage-guidelines", element: <TrailerUsageView /> },
           {
             path: "rental-contract",

@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useMemo, useState } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Button, ButtonLink, Card, Input, Textarea } from "~src/components";
 import { RentalType, ServiceType, Trailer } from "~src/types";
-import { findTrailer, trailerPath } from "~src/data/trailers";
+import { bookingPath, findTrailer, trailerPath } from "~src/data/trailers";
 import { business } from "~src/data/business";
 import { sendEmail } from "~src/utils/emailjs";
 import { classNames, formatMoney } from "~src/utils";
@@ -54,13 +54,14 @@ const StepCard = ({
   </Card>
 );
 
-const serviceOptions = (t: Trailer): { value: ServiceType; title: string; blurb: string; note: string; price: number }[] => [
+const serviceOptions = (t: Trailer): { value: ServiceType; title: string; blurb: string; note: string; price: number; includes: string[] }[] => [
   {
     value: "self",
     title: "Self service",
     price: t.rentalPrices.fullDay,
     blurb: "You tow it, fill it, dump it, bring it back. We clean it.",
     note: 'Needs 3/4 ton + 2 5/16" ball',
+    includes: ["You pick up", "You dump", "We clean"],
   },
   {
     value: "full",
@@ -68,17 +69,19 @@ const serviceOptions = (t: Trailer): { value: ServiceType; title: string; blurb:
     price: t.rentalPrices.fullDay + t.deliveryFee,
     blurb: `We deliver, pick up, dump and clean. ${formatMoney(t.deliveryFee)} delivery fee.`,
     note: "No truck needed",
+    includes: ["Delivery", "Pickup", "Dumping"],
   },
 ];
 
 export const TrailerBookingView = () => {
   const { trailerId } = useParams();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const trailer = findTrailer(trailerId);
 
   const today = useMemo(() => new Date(), []);
-  const [service, setService] = useState<ServiceType>(
-    searchParams.get("service") === "full" ? "full" : "self"
+  const [service, setService] = useState<ServiceType | null>(
+    searchParams.get("service") === "full" ? "full" : null
   );
   const [rentalType, setRentalType] = useState<RentalType>("full");
   const [startDate, setStartDate] = useState(toInputDate(today));
@@ -91,7 +94,7 @@ export const TrailerBookingView = () => {
 
   const start = parseInputDate(startDate);
   const end = rentalType === "half" ? start : parseInputDate(endDate);
-  const quote = quoteRental(trailer, start, end, rentalType, service);
+  const quote = quoteRental(trailer, start, end, rentalType, "full");
   const hasHalfDay = Boolean(trailer.rentalPrices.halfDay);
 
   const set = (field: keyof typeof emptyDetails) =>
@@ -100,11 +103,12 @@ export const TrailerBookingView = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (service !== "full") return;
     setStatus("sending");
     const lines = [
       "BOOKING REQUEST",
       `Trailer: ${trailer.name}`,
-      `Service: ${service === "full" ? "Full service" : "Self service"}`,
+      "Service: Full service",
       `Rental: ${rentalType === "half" ? "Half day (5 hr)" : `Full day x ${quote.days}`}`,
       `Dates: ${formatDate(start)} -> ${formatDate(end)}`,
       service === "full" ? `Delivery address: ${details.address}` : "",
@@ -131,7 +135,7 @@ export const TrailerBookingView = () => {
         <span className="eyebrow text-amber-dark">Request sent</span>
         <h1 className="display text-5xl sm:text-7xl text-ink">We've got your dates</h1>
         <p className="max-w-xl text-lg leading-relaxed text-body-2">
-          {formatDate(start)} → {formatDate(end)}, {service === "full" ? "full" : "self"} service.
+          {formatDate(start)} → {formatDate(end)}, full service.
           Landon will confirm by text at {details.phone}, usually within the hour.
           Nothing is charged until pickup or drop-off.
         </p>
@@ -142,7 +146,7 @@ export const TrailerBookingView = () => {
 
   const summaryRows: [string, string][] = [
     ["Trailer", trailer.shortName],
-    ["Service", service === "full" ? "Full service" : "Self service"],
+    ["Service", "Full service"],
     [
       `${formatDate(start)} → ${formatDate(end)}`,
       rentalType === "half" ? "Half day" : `${quote.days} full day${quote.days > 1 ? "s" : ""}`,
@@ -158,7 +162,9 @@ export const TrailerBookingView = () => {
     <form onSubmit={handleSubmit} className="mx-auto max-w-site w-full px-5 sm:px-10 pt-11 pb-24">
       <div className="flex flex-col gap-3 mb-9">
         <span className="eyebrow text-amber-dark">No payment today</span>
-        <h1 className="display text-5xl sm:text-[66px] leading-[0.94] text-ink">Request your dates</h1>
+        <h1 className="display text-5xl sm:text-[66px] leading-[0.94] text-ink">
+          {service === "full" ? "Request your dates" : "Choose your rental service"}
+        </h1>
         <p className="max-w-[620px] text-lg leading-relaxed text-body-3">
           Send the dates and what you're hauling. Landon confirms by text or call
           — usually within the hour — and you pay in full at pickup or drop-off.
@@ -193,7 +199,11 @@ export const TrailerBookingView = () => {
                   <button
                     key={opt.value}
                     type="button"
-                    onClick={() => setService(opt.value)}
+                    onClick={() =>
+                      opt.value === "self"
+                        ? navigate(`${bookingPath(trailer._id)}/self`)
+                        : setService("full")
+                    }
                     className={classNames(
                       "p-5 flex flex-col gap-2.5 text-left focus:outline-none",
                       active ? "border-2 border-ink bg-cream" : "border border-rule-2"
@@ -209,147 +219,157 @@ export const TrailerBookingView = () => {
                     <span className={classNames("text-[11px] font-medium uppercase tracking-[0.16em]", active ? "text-amber-dark" : "text-mute-5")}>
                       {opt.note}
                     </span>
+                    <ul className="mt-1 flex flex-col gap-1 text-[13px] text-body-3">
+                      {opt.includes.map((item) => (
+                        <li key={item}>+ {item}</li>
+                      ))}
+                    </ul>
                   </button>
                 );
               })}
             </div>
           </StepCard>
 
-          <StepCard
-            n={3}
-            title="Dates"
-            right={
-              hasHalfDay && (
-                <div className="flex gap-1">
-                  {(["full", "half"] as RentalType[]).map((rt) => (
-                    <button
-                      key={rt}
-                      type="button"
-                      onClick={() => setRentalType(rt)}
-                      className={classNames(
-                        "px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em]",
-                        rt === rentalType ? "bg-ink text-bone" : "text-mute hover:text-ink"
-                      )}
-                    >
-                      {rt === "full" ? "Full day" : "Half day"}
-                    </button>
-                  ))}
+          {service === "full" && (
+            <>
+              <StepCard
+                n={3}
+                title="Dates"
+                right={
+                  hasHalfDay && (
+                    <div className="flex gap-1">
+                      {(["full", "half"] as RentalType[]).map((rt) => (
+                        <button
+                          key={rt}
+                          type="button"
+                          onClick={() => setRentalType(rt)}
+                          className={classNames(
+                            "px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em]",
+                            rt === rentalType ? "bg-ink text-bone" : "text-mute hover:text-ink"
+                          )}
+                        >
+                          {rt === "full" ? "Full day" : "Half day"}
+                        </button>
+                      ))}
+                    </div>
+                  )
+                }
+              >
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Input
+                    label={rentalType === "half" ? "Date" : "Start"}
+                    id="start"
+                    type="date"
+                    required
+                    min={toInputDate(today)}
+                    value={startDate}
+                    onChange={(e) => {
+                      setStartDate(e.target.value);
+                      if (e.target.value > endDate) setEndDate(e.target.value);
+                    }}
+                  />
+                  {rentalType === "full" ? (
+                    <Input
+                      label="Return"
+                      id="end"
+                      type="date"
+                      required
+                      min={startDate}
+                      value={endDate}
+                      onChange={(e) => setEndDate(e.target.value)}
+                    />
+                  ) : (
+                    <div className="flex flex-col gap-2">
+                      <span className="label-caps">Length</span>
+                      <div className="border border-rule-2 bg-bone-4 px-3.5 py-3 text-base text-mute">5 hours from pickup</div>
+                    </div>
+                  )}
                 </div>
-              )
-            }
-          >
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Input
-                label={rentalType === "half" ? "Date" : "Start"}
-                id="start"
-                type="date"
-                required
-                min={toInputDate(today)}
-                value={startDate}
-                onChange={(e) => {
-                  setStartDate(e.target.value);
-                  if (e.target.value > endDate) setEndDate(e.target.value);
-                }}
-              />
-              {rentalType === "full" ? (
-                <Input
-                  label="Return"
-                  id="end"
-                  type="date"
-                  required
-                  min={startDate}
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                />
-              ) : (
-                <div className="flex flex-col gap-2">
-                  <span className="label-caps">Length</span>
-                  <div className="border border-rule-2 bg-bone-4 px-3.5 py-3 text-base text-mute">5 hours from pickup</div>
-                </div>
-              )}
-            </div>
-            {trailer.weekendSurcharge && (
-              <p className="mt-4 text-[13px] text-mute">
-                Weekend surcharge of {formatMoney(trailer.weekendSurcharge)} per day applies to Saturdays and Sundays.
-              </p>
-            )}
-          </StepCard>
+                {trailer.weekendSurcharge && (
+                  <p className="mt-4 text-[13px] text-mute">
+                    Weekend surcharge of {formatMoney(trailer.weekendSurcharge)} per day applies to Saturdays and Sundays.
+                  </p>
+                )}
+              </StepCard>
 
-          <StepCard n={4} title="Your details">
-            <div className="flex flex-col gap-5">
-              <div className="grid gap-5 sm:grid-cols-2">
-                <Input label="Full name" id="name" autoComplete="name" required placeholder="John Doe" value={details.name} onChange={set("name")} />
-                <Input label="Mobile" hint="we text you" id="phone" type="tel" autoComplete="tel" required placeholder="(555) 234-5678" value={details.phone} onChange={set("phone")} />
-              </div>
-              <div className="grid gap-5 sm:grid-cols-2">
-                <Input label="Email" id="email" type="email" autoComplete="email" required placeholder="john.doe@example.com" value={details.email} onChange={set("email")} />
-                <Input
-                  label="Delivery address"
-                  hint="full service only"
-                  id="address"
-                  autoComplete="street-address"
-                  required={service === "full"}
-                  disabled={service !== "full"}
-                  placeholder={service === "full" ? "123 Main St, Spanish Fork" : "Not needed for self service"}
-                  value={service === "full" ? details.address : ""}
-                  onChange={set("address")}
-                />
-              </div>
-              <Textarea
-                label="What are you hauling?"
-                id="hauling"
-                rows={3}
-                required
-                placeholder="Roughly what's going in the trailer — helps us flag anything prohibited before you load."
-                value={details.hauling}
-                onChange={set("hauling")}
-              />
-              <label className="flex gap-3 items-start border-t border-bone-3 pt-4 text-[15px] leading-snug text-body cursor-pointer">
-                <input
-                  type="checkbox"
-                  required
-                  checked={agreed}
-                  onChange={(e) => setAgreed(e.target.checked)}
-                  className="mt-0.5 h-[18px] w-[18px] rounded-none border-2 border-ink text-ink focus:ring-amber"
-                />
-                <span>
-                  I've read the{" "}
-                  <Link to="/trailers/usage-guidelines" className="text-amber-dark underline">trailer etiquette</Link>{" "}
-                  and confirm my load contains no prohibited items.
-                </span>
-              </label>
-            </div>
-          </StepCard>
+              <StepCard n={4} title="Your details">
+                <div className="flex flex-col gap-5">
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <Input label="Full name" id="name" autoComplete="name" required placeholder="John Doe" value={details.name} onChange={set("name")} />
+                    <Input label="Mobile" hint="we text you" id="phone" type="tel" autoComplete="tel" required placeholder="(555) 234-5678" value={details.phone} onChange={set("phone")} />
+                  </div>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <Input label="Email" id="email" type="email" autoComplete="email" required placeholder="john.doe@example.com" value={details.email} onChange={set("email")} />
+                    <Input
+                      label="Delivery address"
+                      hint="full service only"
+                      id="address"
+                      autoComplete="street-address"
+                      required
+                      placeholder="123 Main St, Spanish Fork"
+                      value={details.address}
+                      onChange={set("address")}
+                    />
+                  </div>
+                  <Textarea
+                    label="What are you hauling?"
+                    id="hauling"
+                    rows={3}
+                    required
+                    placeholder="Roughly what's going in the trailer — helps us flag anything prohibited before you load."
+                    value={details.hauling}
+                    onChange={set("hauling")}
+                  />
+                  <label className="flex gap-3 items-start border-t border-bone-3 pt-4 text-[15px] leading-snug text-body cursor-pointer">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={agreed}
+                      onChange={(e) => setAgreed(e.target.checked)}
+                      className="mt-0.5 h-[18px] w-[18px] rounded-none border-2 border-ink text-ink focus:ring-amber"
+                    />
+                    <span>
+                      I've read the{" "}
+                      <Link to="/trailers/usage-guidelines" className="text-amber-dark underline">trailer etiquette</Link>{" "}
+                      and confirm my load contains no prohibited items.
+                    </span>
+                  </label>
+                </div>
+              </StepCard>
+            </>
+          )}
         </div>
 
-        <Card variant="ink" header="Request summary" className="lg:sticky lg:top-6">
-          <dl>
-            {summaryRows.map(([label, value]) => (
-              <div key={label} className="flex justify-between gap-4 py-3 border-b border-bone-3">
-                <dt className="text-[15px] text-body-2">{label}</dt>
-                <dd className="font-semibold text-[15px] text-ink text-right">{value}</dd>
+        {service === "full" && (
+          <Card variant="ink" header="Request summary" className="lg:sticky lg:top-6">
+            <dl>
+              {summaryRows.map(([label, value]) => (
+                <div key={label} className="flex justify-between gap-4 py-3 border-b border-bone-3">
+                  <dt className="text-[15px] text-body-2">{label}</dt>
+                  <dd className="font-semibold text-[15px] text-ink text-right">{value}</dd>
+                </div>
+              ))}
+              <div className="flex justify-between items-baseline pt-4 pb-5 border-b-2 border-ink">
+                <dt className="font-semibold text-[13px] uppercase tracking-[0.16em] text-ink">
+                  Due at drop-off
+                </dt>
+                <dd className="font-display font-bold text-[40px] leading-none text-ink">{formatMoney(quote.total)}</dd>
               </div>
-            ))}
-            <div className="flex justify-between items-baseline pt-4 pb-5 border-b-2 border-ink">
-              <dt className="font-semibold text-[13px] uppercase tracking-[0.16em] text-ink">
-                Due at {service === "full" ? "drop-off" : "pickup"}
-              </dt>
-              <dd className="font-display font-bold text-[40px] leading-none text-ink">{formatMoney(quote.total)}</dd>
-            </div>
-          </dl>
-          <Button type="submit" variant="amber" className="w-full mt-5" disabled={status === "sending"}>
-            {status === "sending" ? "Sending…" : "Send request"}
-          </Button>
-          {status === "error" && (
-            <p className="mt-3 text-sm text-rust" role="alert">
-              Something went wrong. Call or text {business.phoneDisplay} instead.
+            </dl>
+            <Button type="submit" variant="amber" className="w-full mt-5" disabled={status === "sending"}>
+              {status === "sending" ? "Sending…" : "Send request"}
+            </Button>
+            {status === "error" && (
+              <p className="mt-3 text-sm text-rust" role="alert">
+                Something went wrong. Call or text {business.phoneDisplay} instead.
+              </p>
+            )}
+            <p className="mt-3.5 text-[13px] leading-relaxed text-mute">
+              Nothing is charged now. We confirm by text. Free cancellation up to
+              24 hours before pickup.
             </p>
-          )}
-          <p className="mt-3.5 text-[13px] leading-relaxed text-mute">
-            Nothing is charged now. We confirm by text. Free cancellation up to
-            24 hours before pickup.
-          </p>
-        </Card>
+          </Card>
+        )}
       </div>
     </form>
   );

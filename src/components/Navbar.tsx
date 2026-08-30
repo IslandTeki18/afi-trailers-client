@@ -4,6 +4,7 @@ import {
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { NavLink, Link } from "react-router-dom";
 import { business } from "~src/data/business";
@@ -64,6 +65,16 @@ export const Navbar: React.FC<{ navigation: NavItem[] }> = ({ navigation }) => (
               >
                 Check dates
               </Link>
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button type="button" className={buttonClasses("outline-light", "small")}>
+                    Sign in
+                  </button>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
             </nav>
 
             <DisclosureButton className="lg:hidden p-2 text-bone hover:text-amber focus:outline-none">
@@ -97,6 +108,18 @@ export const Navbar: React.FC<{ navigation: NavItem[] }> = ({ navigation }) => (
               >
                 Check dates
               </DisclosureButton>
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button type="button" className={buttonClasses("outline-light", "medium", "mt-2")}>
+                    Sign in
+                  </button>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <div className="mt-3">
+                  <UserButton />
+                </div>
+              </SignedIn>
             </div>
           </DisclosurePanel>
         </>
