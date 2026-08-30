@@ -368,3 +368,12 @@ export const refundCancellation = internalAction({
     );
   },
 });
+
+export const setCustomerDefault = internalAction({
+  args: { customerId: v.string(), paymentMethodId: v.string() },
+  handler: async (_, { customerId, paymentMethodId }) => {
+    await stripe.customers.update(customerId, {
+      invoice_settings: { default_payment_method: paymentMethodId },
+    });
+  },
+});

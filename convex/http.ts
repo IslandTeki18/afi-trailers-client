@@ -1,9 +1,13 @@
 import { httpRouter } from "convex/server";
+import Stripe from "stripe";
 import { httpAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 
 const http = httpRouter();
 const siteOrigin = process.env.SITE_URL;
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: "2026-08-26.dahlia",
+});
 
 function corsHeaders(origin: string | null) {
   return {
@@ -13,6 +17,33 @@ function corsHeaders(origin: string | null) {
     Vary: "Origin",
   };
 }
+
+http.route({
+  path: "/stripe/webhook",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    const signature = request.headers.get("stripe-signature");
+    if (!signature) return new Response("Missing signature", { status: 400 });
+    try {
+      const event = await stripe.webhooks.constructEventAsync(
+        await request.text(),
+        signature,
+        process.env.STRIPE_WEBHOOK_SECRET!,
+        undefined,
+        Stripe.createSubtleCryptoProvider()
+      );
+      await ctx.runMutation(internal.stripeWebhooks.handle, {
+        eventId: event.id,
+        type: event.type,
+        object: event.data.object,
+      });
+      return new Response("ok", { status: 200 });
+    } catch (error) {
+      console.error("Stripe webhook rejected", error);
+      return new Response("Invalid signature", { status: 400 });
+    }
+  }),
+});
 
 http.route({
   path: "/agreement/sign",

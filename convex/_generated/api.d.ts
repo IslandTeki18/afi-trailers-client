@@ -18,6 +18,7 @@ import type * as rentalTerms from "../rentalTerms.js";
 import type * as renters from "../renters.js";
 import type * as stripe from "../stripe.js";
 import type * as stripeData from "../stripeData.js";
+import type * as stripeWebhooks from "../stripeWebhooks.js";
 import type * as vehicles from "../vehicles.js";
 
 import type {
@@ -37,6 +38,7 @@ declare const fullApi: ApiFromModules<{
   renters: typeof renters;
   stripe: typeof stripe;
   stripeData: typeof stripeData;
+  stripeWebhooks: typeof stripeWebhooks;
   vehicles: typeof vehicles;
 }>;
 
