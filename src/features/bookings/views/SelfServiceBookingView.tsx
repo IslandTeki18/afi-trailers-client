@@ -7,7 +7,7 @@ import { Badge, Button, Card } from "~src/components";
 import { findTrailer } from "~src/data/trailers";
 import { TrailerNotFound } from "~src/features/Trailers/components";
 import { classNames } from "~src/utils";
-import { StepCard, VehicleStep } from "../components";
+import { DatesStep, StepCard, VehicleStep } from "../components";
 import {
   type BookingDraft,
   defaultDraft,
@@ -169,10 +169,15 @@ export const SelfServiceBookingView = () => {
                 }
                 onContinue={() => go("dates")}
               />
+            ) : currentStep === "dates" ? (
+              <DatesStep
+                trailer={trailer}
+                draft={draft}
+                onDraft={updateDraft}
+                onContinue={() => go("load")}
+              />
             ) : (
               <p className="text-body-2">
-                {currentStep === "dates" &&
-                  "Date selection and draft booking persistence come next in this flow."}
                 {currentStep === "load" &&
                   "Load details come next in this flow."}
                 {currentStep === "identity" &&

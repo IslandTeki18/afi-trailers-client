@@ -12,11 +12,15 @@ export type BookingDraft = {
 const key = "afi.booking.draft";
 
 export function defaultDraft(): BookingDraft {
-  const today = new Date().toISOString().slice(0, 10);
+  const todayDate = new Date();
+  const today = todayDate.toISOString().slice(0, 10);
+  const tomorrow = new Date(todayDate.getTime() + 24 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10);
   return {
     rentalType: "full",
     start: today,
-    end: today,
+    end: tomorrow,
     adjustableHitch: false,
   };
 }
