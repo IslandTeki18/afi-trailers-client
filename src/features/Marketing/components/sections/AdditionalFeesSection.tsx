@@ -8,7 +8,7 @@ export type Fee = {
   description: string;
 };
 
-export const additionalFees: Fee[] = [
+const additionalFees: Fee[] = [
   {
     name: "Late return",
     amount: 50,

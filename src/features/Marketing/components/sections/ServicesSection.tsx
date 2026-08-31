@@ -3,7 +3,7 @@ import { SectionWrapper, SectionHeading } from "~src/components";
 import { trailers } from "~src/data/trailers";
 import { formatMoney } from "~src/utils";
 
-export const selfServiceSteps = [
+const selfServiceSteps = [
   "You pick up the trailer",
   "You fill the trailer",
   "You dump the trailer",
@@ -11,7 +11,7 @@ export const selfServiceSteps = [
   "We clean the trailer",
 ];
 
-export const fullServiceSteps = [
+const fullServiceSteps = [
   "We deliver the trailer",
   "You fill the trailer",
   "We pick up the trailer",

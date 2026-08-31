@@ -2,7 +2,7 @@ import * as React from "react";
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "convex/react";
 import { makeFunctionReference } from "convex/server";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Badge, Button, Card } from "~src/components";
 import { findTrailer } from "~src/data/trailers";
 import { TrailerNotFound } from "~src/features/Trailers/components";
@@ -18,6 +18,7 @@ import {
 } from "../components";
 import {
   type BookingDraft,
+  clearDraft,
   defaultDraft,
   loadDraft,
   saveDraft,
@@ -71,8 +72,29 @@ export const SelfServiceBookingView = () => {
   const vehicles = useQuery(vehiclesQuery, {});
   const booking = useBooking(draft.bookingId);
   const firstVehicle = Array.isArray(vehicles) ? vehicles[0] : null;
+  const navigate = useNavigate();
   const stepParam = searchParams.get("step");
   const requestedStep: Step = isStep(stepParam) ? stepParam : "vehicle";
+  // Signed or paying: the booking can no longer be edited, only paid.
+  // Terminal statuses are handled by the effect below, not routed to payment.
+  const bookingLocked = Boolean(
+    booking &&
+      ["signed", "pending_payment", "payment_failed"].includes(booking.status)
+  );
+
+  useEffect(() => {
+    if (!booking) return;
+    if (booking.status === "confirmed") {
+      clearDraft();
+      navigate(`/bookings/${booking._id}/confirmation`, { replace: true });
+    } else if (
+      ["cancelled", "closed", "checked_out", "returned"].includes(booking.status)
+    ) {
+      // Stale draft pointing at a finished booking: start the wizard fresh.
+      clearDraft();
+      setDraft(defaultDraft());
+    }
+  }, [booking?.status]);
 
   if (!trailer) return <TrailerNotFound />;
 
@@ -84,6 +106,7 @@ export const SelfServiceBookingView = () => {
   const go = (step: Step) => setSearchParams({ step });
 
   const canReach = (step: Step) => {
+    if (bookingLocked) return step === "payment";
     if (step === "vehicle") return true;
     if (!draft.vehicleId) return false;
     if (step === "dates") return true;
@@ -100,7 +123,11 @@ export const SelfServiceBookingView = () => {
     return booking.status === "signed" || agreementSigned;
   };
 
-  const currentStep = canReach(requestedStep) ? requestedStep : "vehicle";
+  const currentStep = canReach(requestedStep)
+    ? requestedStep
+    : bookingLocked
+      ? "payment"
+      : "vehicle";
 
   useEffect(() => {
     if (requestedStep !== currentStep) go(currentStep);

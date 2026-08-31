@@ -15,7 +15,7 @@ interface AvatarProps {
   size?: "sm" | "md" | "lg";
 }
 
-export const Avatar: React.FC<AvatarProps> = ({
+const Avatar: React.FC<AvatarProps> = ({
   src,
   alt,
   variant = "primary",

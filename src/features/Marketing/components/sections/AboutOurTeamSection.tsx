@@ -4,13 +4,13 @@ import { business } from "~src/data/business";
 // @ts-ignore
 import portfolioImage from "url:../../assets/portfolio.jpeg";
 
-export const companyStats = [
+const companyStats = [
   { value: "15+ tonnes", label: "of junk removed" },
   { value: "10+", label: "customers served" },
   { value: "3 acres", label: "sod & material delivered" },
 ];
 
-export const ownerBio =
+const ownerBio =
   "Landon started helping friends and family with his dump trailer and decided to share it everyone to get rid of their junk! He brings the pacific islander work ethic and passion for customer service to the trailer rental business.";
 
 export const AboutOurTeamSection = () => (

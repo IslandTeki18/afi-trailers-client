@@ -15,7 +15,7 @@ const MS_PER_DAY = 24 * 60 * 60 * 1000;
 const isWeekend = (date: Date) => date.getDay() === 0 || date.getDay() === 6;
 
 /** Number of rental days between two dates, minimum 1. Half-day rentals are always 1. */
-export function rentalDays(start: Date, end: Date, rentalType: RentalType): number {
+function rentalDays(start: Date, end: Date, rentalType: RentalType): number {
   if (rentalType === "half") return 1;
   const diff = Math.ceil((end.getTime() - start.getTime()) / MS_PER_DAY);
   return Math.max(1, diff);
